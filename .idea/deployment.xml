@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="frios (f01bc23d-aff3-419e-828d-5c73ec441c2d)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/tmp.uYx5U5imCb" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>
