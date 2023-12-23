@@ -37,9 +37,9 @@ void pole_destroy(POLE* pole) {
 void pole_vypis_sa(POLE* pole) {
     printf("  ");
     for (int i = 0; i < pole->pocetStlpcov; ++i) {
-        printf("------");
+        printf("+-----");
     }
-    printf("-");
+    printf("+");
 
     printf("\n");
     for (int r = 0; r < pole->pocetRiadkov; r++) {
@@ -50,9 +50,9 @@ void pole_vypis_sa(POLE* pole) {
         printf("  |\n");
         printf("  ");
         for (int i = 0; i < pole->pocetStlpcov; ++i) {
-            printf("------");
+            printf("+-----");
         }
-        printf("-");
+        printf("+");
         printf(" \n");
     }
 }
