@@ -2,8 +2,8 @@
 
 
 typedef enum {
-    LES,
     LUKA,
+    LES,
     SKALA,
     VODA,
     POZIAR,
@@ -11,7 +11,7 @@ typedef enum {
     TYPY_BUNKY_COUNT // Pomocná hodnota na určenie počtu typov
 } TYPBUNKY;
 
-static const char TYPY_BUNKY_ZNAKY[TYPY_BUNKY_COUNT] = {'L', 'U', 'S', 'V', 'P', 'Z'};
+static const char TYPY_BUNKY_ZNAKY[TYPY_BUNKY_COUNT] = {'U', 'L', 'S', 'V', 'P', 'Z'};
 
 
 typedef struct bunka {
