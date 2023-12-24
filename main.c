@@ -3,7 +3,6 @@
 #include "pole.c"
 #include "simulacia.c"
 
-void simulacia_vytvor_nahodnu_mapu(SIMULACIA *sim);
 
 int main() {
     srand(time(NULL));
