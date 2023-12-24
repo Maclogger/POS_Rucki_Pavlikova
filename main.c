@@ -1,14 +1,15 @@
 #include <stdio.h>
 #include "bunka.c"
 #include "pole.c"
+#include "simulacia.c"
 
 int main() {
-    POLE pole;
-    pole_init(&pole, 5, 4);
-    pole_vypis_sa(&pole);
-    //pole_zmen_policko(&pole, 0, 0);
+    SIMULACIA sim;
+    simulacia_init_default(&sim);
 
+    simulacia_vypis_sa(&sim);
 
-    pole_destroy(&pole);
+    simulacia_destroy(&sim);
+
     return 0;
 }

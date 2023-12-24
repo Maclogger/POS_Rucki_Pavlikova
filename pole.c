@@ -16,7 +16,7 @@ void pole_init(POLE* pole, int pocetRiadkov, int pocetStlpcov) {
         // Alokácia stĺpcov v každom riadku
         pole->bunky[r] = (BUNKA*) calloc(pocetStlpcov, sizeof(BUNKA));
         for (int s = 0; s < pocetStlpcov; s++) {
-            bunka_init(&pole->bunky[r][s], 'L', r, s); // Inicializácia každej bunky
+            bunka_init(&pole->bunky[r][s], LES, r, s); // Inicializácia každej bunky
         }
     }
 }
@@ -48,7 +48,7 @@ void pole_vypis_sa(POLE* pole) {
 
     printf("\n");
     for (int r = 0; r < pole->pocetRiadkov; r++) {
-        printf("%d ", r); // TODO zmeniť na + 1
+        printf("%d ", r);
         for (int s = 0; s < pole->pocetStlpcov; s++) {
             printf("|  ");
             bunka_vypis_sa(&pole->bunky[r][s]);
