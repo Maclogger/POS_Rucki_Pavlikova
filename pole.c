@@ -19,7 +19,6 @@ void pole_init(POLE* pole, int pocetRiadkov, int pocetStlpcov) {
             bunka_init(&pole->bunky[r][s], 'L', r, s); // Inicializácia každej bunky
         }
     }
-
 }
 
 
@@ -37,17 +36,25 @@ void pole_destroy(POLE* pole) {
 void pole_vypis_sa(POLE* pole) {
     printf("  ");
     for (int i = 0; i < pole->pocetStlpcov; ++i) {
+        printf("   %d  ", i);
+    }
+    printf("\n");
+
+    printf("  ");
+    for (int i = 0; i < pole->pocetStlpcov; ++i) {
         printf("+-----");
     }
     printf("+");
 
     printf("\n");
     for (int r = 0; r < pole->pocetRiadkov; r++) {
+        printf("%d ", r); // TODO zmeniť na + 1
         for (int s = 0; s < pole->pocetStlpcov; s++) {
-            printf("  |  ");
+            printf("|  ");
             bunka_vypis_sa(&pole->bunky[r][s]);
+            printf("  ");
         }
-        printf("  |\n");
+        printf("|\n");
         printf("  ");
         for (int i = 0; i < pole->pocetStlpcov; ++i) {
             printf("+-----");
