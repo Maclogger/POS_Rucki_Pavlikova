@@ -12,8 +12,8 @@ using namespace  std;
 
 class ZistovacOdpovedi {
 public:
-    int vypisMenu(string otazka, vector<string> moznosti  );
-    int vypytajCislo(string otazka, int rozsahOd, int rozsahDo);
+    int vypisMenu(const string& otazka, vector<string>& moznosti);
+    int vypytajCislo(const string& otazka, int rozsahOd, int rozsahDo);
 };
 
 

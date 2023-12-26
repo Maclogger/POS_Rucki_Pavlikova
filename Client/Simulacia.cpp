@@ -54,4 +54,38 @@ void Simulacia::vypisSa() {
     }
 }
 
+void Simulacia::nastavPravdepodobnosti(int lukaPrav, int lesPrav, int skalaPrav, int vodaPrav) {
+    this->pravdepodobnostiPolicok.nastavPravdepodobnosti(lukaPrav, lesPrav, skalaPrav, vodaPrav);
+}
+
+void Simulacia::vygenerujSaNahodne() {
+
+    for (int r = 0; r < this->pocetRiadkov; r++) {
+        for (int s = 0; s < this->pocetStlpcov; s++) {
+            // Generuje číslo od 0.0 do 100.0
+            double nahodneCislo = static_cast<double>(rand()) / (static_cast<double>(RAND_MAX) / 100);
+
+            char typ;
+            if (nahodneCislo < this->pravdepodobnostiPolicok.getLesPrav()) {
+                typ = 'L';
+            } else if (nahodneCislo < this->pravdepodobnostiPolicok.getLesPrav() + this->pravdepodobnostiPolicok.getLukaPrav()) {
+                typ = 'U';
+            } else if (nahodneCislo < this->pravdepodobnostiPolicok.getLesPrav() + this->pravdepodobnostiPolicok.getLukaPrav() + this->pravdepodobnostiPolicok.getSkalaPrav()) {
+                typ = 'S';
+            } else {
+                typ = 'V';
+            }
+            this->pole[r][s] = typ;
+        }
+    }
+}
+
+void Simulacia::nastavPolicko(int r, int s, char znak) {
+    if (znak != 'L' && znak != 'U' && znak != 'S' && znak != 'V' && znak != 'P' && znak != 'Z') {
+        cout << "Takyto typ policka (" << znak << ") neexistuje!" << endl;
+        return;
+    }
+    this->pole[r][s] = znak;
+}
+
 

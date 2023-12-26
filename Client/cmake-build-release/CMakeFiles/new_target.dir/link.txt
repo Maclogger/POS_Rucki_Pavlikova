@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG CMakeFiles/new_target.dir/main.cpp.o CMakeFiles/new_target.dir/ZistovacOdpovedi.cpp.o -o new_target 

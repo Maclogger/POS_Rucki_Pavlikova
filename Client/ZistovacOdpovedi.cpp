@@ -5,7 +5,7 @@
 #include "ZistovacOdpovedi.h"
 
 
-int ZistovacOdpovedi::vypisMenu(string otazka, vector<string> moznosti) {
+int ZistovacOdpovedi::vypisMenu(const string& otazka, vector<string>& moznosti) {
     cout << otazka << ":" << endl;
     for (int i = 0; i < moznosti.size(); i++) {
         cout << moznosti[i] << " - zadajte [" << i << "]" << endl;
@@ -32,7 +32,7 @@ int ZistovacOdpovedi::vypisMenu(string otazka, vector<string> moznosti) {
     }
 }
 
-int ZistovacOdpovedi::vypytajCislo(string otazka, int rozsahOd, int rozsahDo) {
+int ZistovacOdpovedi::vypytajCislo(const string& otazka, int rozsahOd, int rozsahDo) {
 
     cout << otazka << " od " << to_string(rozsahOd) << " do " << to_string(rozsahDo)<< endl;
 

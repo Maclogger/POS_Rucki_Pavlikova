@@ -67,10 +67,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /tmp/tmp.LnPpkEdqRw
+CMAKE_SOURCE_DIR = /tmp/tmp.DHxyl0sxhL
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /tmp/tmp.LnPpkEdqRw/cmake-build-release
+CMAKE_BINARY_DIR = /tmp/tmp.DHxyl0sxhL/cmake-build-release
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -99,9 +99,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /tmp/tmp.LnPpkEdqRw/cmake-build-release/CMakeFiles /tmp/tmp.LnPpkEdqRw/cmake-build-release//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /tmp/tmp.DHxyl0sxhL/cmake-build-release/CMakeFiles /tmp/tmp.DHxyl0sxhL/cmake-build-release//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /tmp/tmp.LnPpkEdqRw/cmake-build-release/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /tmp/tmp.DHxyl0sxhL/cmake-build-release/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -141,6 +141,33 @@ Client: cmake_check_build_system
 Client/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/build
 .PHONY : Client/fast
+
+Simulacia.o: Simulacia.cpp.o
+
+.PHONY : Simulacia.o
+
+# target to build an object file
+Simulacia.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/Simulacia.cpp.o
+.PHONY : Simulacia.cpp.o
+
+Simulacia.i: Simulacia.cpp.i
+
+.PHONY : Simulacia.i
+
+# target to preprocess a source file
+Simulacia.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/Simulacia.cpp.i
+.PHONY : Simulacia.cpp.i
+
+Simulacia.s: Simulacia.cpp.s
+
+.PHONY : Simulacia.s
+
+# target to generate assembly for a file
+Simulacia.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/Simulacia.cpp.s
+.PHONY : Simulacia.cpp.s
 
 ZistovacOdpovedi.o: ZistovacOdpovedi.cpp.o
 
@@ -205,6 +232,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Client"
+	@echo "... Simulacia.o"
+	@echo "... Simulacia.i"
+	@echo "... Simulacia.s"
 	@echo "... ZistovacOdpovedi.o"
 	@echo "... ZistovacOdpovedi.i"
 	@echo "... ZistovacOdpovedi.s"
