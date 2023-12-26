@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/tmp/tmp.DHxyl0sxhL/ZistovacOdpovedi.cpp
+ZistovacOdpovedi.h
+/tmp/tmp.DHxyl0sxhL/ZistovacOdpovedi.h
+
+/tmp/tmp.DHxyl0sxhL/ZistovacOdpovedi.h
+string
+-
+vector
+-
+iostream
+-
+limits
+-
+

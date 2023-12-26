@@ -4,6 +4,7 @@
 
 #include "ZistovacOdpovedi.h"
 
+
 int ZistovacOdpovedi::vypisMenu(string otazka, vector<string> moznosti) {
     cout << otazka << ":" << endl;
     for (int i = 0; i < moznosti.size(); i++) {
