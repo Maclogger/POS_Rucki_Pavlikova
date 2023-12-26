@@ -1,4 +1,1 @@
-/usr/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" -S /tmp/tmp.uYx5U5imCb -B /tmp/tmp.uYx5U5imCb/cmake-build-debug
--- Configuring done
--- Generating done
--- Build files have been written to: /tmp/tmp.uYx5U5imCb/cmake-build-debug
+CMakeLists.txt not found in C:\Users\rucki\Desktop\FRI\5. semester\POS\Semestralka\Projekt Select CMakeLists.txt

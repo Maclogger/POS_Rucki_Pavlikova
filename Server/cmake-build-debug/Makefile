@@ -67,10 +67,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /tmp/tmp.uYx5U5imCb
+CMAKE_SOURCE_DIR = /tmp/tmp.uYx5U5imCb/Server
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /tmp/tmp.uYx5U5imCb/cmake-build-debug
+CMAKE_BINARY_DIR = /tmp/tmp.uYx5U5imCb/Server/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -99,9 +99,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /tmp/tmp.uYx5U5imCb/cmake-build-debug/CMakeFiles /tmp/tmp.uYx5U5imCb/cmake-build-debug//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /tmp/tmp.uYx5U5imCb/Server/cmake-build-debug/CMakeFiles /tmp/tmp.uYx5U5imCb/Server/cmake-build-debug//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /tmp/tmp.uYx5U5imCb/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /tmp/tmp.uYx5U5imCb/Server/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -130,17 +130,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named Projekt
+# Target rules for targets named Server
 
 # Build rule for target.
-Projekt: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Projekt
-.PHONY : Projekt
+Server: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Server
+.PHONY : Server
 
 # fast build rule for target.
-Projekt/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Projekt.dir/build.make CMakeFiles/Projekt.dir/build
-.PHONY : Projekt/fast
+Server/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/build
+.PHONY : Server/fast
 
 main.o: main.c.o
 
@@ -148,7 +148,7 @@ main.o: main.c.o
 
 # target to build an object file
 main.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Projekt.dir/build.make CMakeFiles/Projekt.dir/main.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/main.c.o
 .PHONY : main.c.o
 
 main.i: main.c.i
@@ -157,7 +157,7 @@ main.i: main.c.i
 
 # target to preprocess a source file
 main.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Projekt.dir/build.make CMakeFiles/Projekt.dir/main.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/main.c.i
 .PHONY : main.c.i
 
 main.s: main.c.s
@@ -166,7 +166,7 @@ main.s: main.c.s
 
 # target to generate assembly for a file
 main.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Projekt.dir/build.make CMakeFiles/Projekt.dir/main.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/main.c.s
 .PHONY : main.c.s
 
 # Help Target
@@ -177,7 +177,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... Projekt"
+	@echo "... Server"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

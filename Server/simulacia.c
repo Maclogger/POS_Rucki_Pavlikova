@@ -41,7 +41,6 @@ void simulacia_vytvor_nahodnu_mapu(SIMULACIA *sim) {
     for (int r = 0; r < sim->pole->pocetRiadkov; r++) {
         for (int s = 0; s < sim->pole->pocetStlpcov; s++) {
             int nahodneCislo = rand() % 100; // Generuje číslo od 0 do 99
-
             TYPBUNKY typ;
             if (nahodneCislo < sim->p.lesPrav) {
                 typ = LES;
@@ -74,3 +73,10 @@ _Bool simulacia_pridaj_ohen(SIMULACIA* sim, int r, int s) {
     bunka_init(&sim->pole->bunky[r][s], POZIAR, r, s);
     return 1;
 }
+
+/*
+ *
+ *     5;5;PSSUL...SUSLS;
+ *
+ */
+
