@@ -13,6 +13,7 @@ using namespace  std;
 class ZistovacOdpovedi {
 public:
     int vypisMenu(string otazka, vector<string> moznosti  );
+    int vypytajCislo(string otazka, int rozsahOd, int rozsahDo);
 };
 
 
