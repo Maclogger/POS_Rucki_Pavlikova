@@ -15,7 +15,7 @@ int main() {
     simulacia_vypis_sa(&sim);
 
     simulacia_pridaj_ohen(&sim, 0, 0);
-    simulacia_pridaj_ohen(&sim, 4, 4);
+    simulacia_pridaj_ohen(&sim, 3, 3);
 
     simulacia_vypis_sa(&sim);
 

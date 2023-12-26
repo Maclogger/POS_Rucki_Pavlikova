@@ -1,0 +1,3 @@
+/tmp/tmp.IYg82QNYa0/cmake-build-frios/CMakeFiles/rebuild_cache.dir
+/tmp/tmp.IYg82QNYa0/cmake-build-frios/CMakeFiles/edit_cache.dir
+/tmp/tmp.IYg82QNYa0/cmake-build-frios/CMakeFiles/Server.dir
