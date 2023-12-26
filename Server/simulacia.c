@@ -74,9 +74,4 @@ _Bool simulacia_pridaj_ohen(SIMULACIA* sim, int r, int s) {
     return 1;
 }
 
-/*
- *
- *     5;5;PSSUL...SUSLS;
- *
- */
 
