@@ -6,14 +6,11 @@
 #include "ZistovacOdpovedi.h"
 #include <string>
 #include "Simulacia.h"
-#include "conio.h"
 using  namespace std;
 
 void pokracovatVUlozenejMape() {
     cout << "Vasa predosla hra:\n";
 }
-
-
 
 void clearScreen() {
     for (int i = 0; i < 2; i++) {

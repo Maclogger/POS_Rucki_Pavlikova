@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG CMakeFiles/Client.dir/main.cpp.o CMakeFiles/Client.dir/ZistovacOdpovedi.cpp.o CMakeFiles/Client.dir/Simulacia.cpp.o CMakeFiles/Client.dir/PravdepodobnostiPolicok.cpp.o -o Client 

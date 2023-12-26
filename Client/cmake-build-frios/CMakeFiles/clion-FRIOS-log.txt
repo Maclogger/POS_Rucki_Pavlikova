@@ -1,0 +1,10 @@
+/usr/bin/cmake -DCMAKE_BUILD_TYPE=Release -G "CodeBlocks - Unix Makefiles" -S /tmp/tmp.iQDQVki2dr -B /tmp/tmp.iQDQVki2dr/cmake-build-frios
+-- The CXX compiler identification is GNU 10.2.1
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /tmp/tmp.iQDQVki2dr/cmake-build-frios

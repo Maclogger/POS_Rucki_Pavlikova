@@ -5,11 +5,11 @@
       <paths name="frios (f01bc23d-aff3-419e-828d-5c73ec441c2d)">
         <serverdata>
           <mappings>
-            <mapping deploy="/tmp/tmp.7rpwRfxfw7" local="$PROJECT_DIR$/Client" />
+            <mapping deploy="/tmp/tmp.iQDQVki2dr" local="$PROJECT_DIR$" />
           </mappings>
           <excludedPaths>
-            <excludedPath local="true" path="$PROJECT_DIR$/Client/cmake-build-windows" />
-            <excludedPath local="true" path="$PROJECT_DIR$/Client/cmake-build-release" />
+            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-windows" />
+            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-frios" />
           </excludedPaths>
         </serverdata>
       </paths>
