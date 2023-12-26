@@ -1,0 +1,3 @@
+C:/Principy_operacnych_systemov/Projekt/Client/cmake-build-windows/CMakeFiles/Client.dir
+C:/Principy_operacnych_systemov/Projekt/Client/cmake-build-windows/CMakeFiles/edit_cache.dir
+C:/Principy_operacnych_systemov/Projekt/Client/cmake-build-windows/CMakeFiles/rebuild_cache.dir

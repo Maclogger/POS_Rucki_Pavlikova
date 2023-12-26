@@ -1,0 +1,12 @@
+# ninja log v5
+2	415	7253207406650307	CMakeFiles/Client.dir/ZistovacOdpovedi.cpp.obj	ddf2aaed8aa44eb
+3	524	7253207753753987	CMakeFiles/Client.dir/main.cpp.obj	1a707831d4e52193
+524	603	7253207754524613	Client.exe	e9bc35c75d4bdb4e
+10	605	7253234890618348	CMakeFiles/Client.dir/Simulacia.cpp.obj	253a805ca54257ce
+6	683	7253234891406386	CMakeFiles/Client.dir/ZistovacOdpovedi.cpp.obj	ddf2aaed8aa44eb
+3	784	7253234892407119	CMakeFiles/Client.dir/main.cpp.obj	1a707831d4e52193
+784	881	7253234893339732	Client.exe	40ba657db89e767a
+2	531	7253235039674378	CMakeFiles/Client.dir/main.cpp.obj	1a707831d4e52193
+531	614	7253235040440678	Client.exe	40ba657db89e767a
+3	384	7253236007120841	CMakeFiles/Client.dir/Simulacia.cpp.obj	253a805ca54257ce
+385	465	7253236007900286	Client.exe	40ba657db89e767a
