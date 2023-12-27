@@ -3,9 +3,10 @@
 #include "Logika/bunka.c"
 #include "Logika/simulacia.c"
 
-#include "pos_sockets/passive_socket.h"
-#include "pos_sockets/active_socket.h"
-#include "pos_sockets/char_buffer.h"
+#include "PosSockets/active_socket.h"
+#include "PosSockets/passive_socket.h"
+#include "PosSockets/char_buffer.h"
+
 
 int main() {
     srand(time(NULL));
@@ -14,13 +15,15 @@ int main() {
     PASSIVE_SOCKET serverSocket;
     passive_socket_init(&serverSocket);
 
+    short port = 8081;
+
     // Spustenie počúvania na porte 8080
-    if (!passive_socket_start_listening(&serverSocket, 8080)) {
-        fprintf(stderr, "Nepodarilo sa zacat pocuvat na porte 8080\n");
+    if (!passive_socket_start_listening(&serverSocket, port)) {
+        fprintf(stderr, "Nepodarilo sa zacat pocuvat na porte %d\n", port);
         return 1;
     }
 
-    printf("Server pocuva na porte 8080\n");
+    printf("Server pocuva na porte %d\n", port);
 
 
     // Čakanie na klienta

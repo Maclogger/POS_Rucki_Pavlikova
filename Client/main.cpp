@@ -1,11 +1,16 @@
 //
 // Created by agata on 26. 12. 2023.
 //
+#include <winsock2.h>
+#include <ws2tcpip.h>
+
 #include <iostream>
 #include <vector>
-#include "ZistovacOdpovedi.h"
+#include "Logika/ZistovacOdpovedi.h"
 #include <string>
-#include "Simulacia.h"
+#include "Logika/Simulacia.h"
+
+#include "PosSockets/my_socket.h"
 
 
 using  namespace std;
@@ -72,7 +77,21 @@ void vytvorenieNovejSimulacie() {
 }
 
 int main() {
-    cout << "\n      Simulacia POZIAR\n";
+
+
+    try {
+        MySocket* clientSocket = MySocket::createConnection("frios2.fri.uniza.sk", 1302);
+        if (clientSocket) {
+            clientSocket->sendData("Ahooooooooooj!!!");
+            clientSocket->sendEndMessage();
+            delete clientSocket;
+        }
+    } catch (const std::runtime_error& e) {
+        std::cerr << "Nastala vynimka:  " << e.what() << std::endl;
+    }
+    return 0;
+
+   /* cout << "\n      Simulacia POZIAR\n";
     cout << "          Vytvoril:\n";
     cout << "Agata Pavlikova & Marek Rucki\n\n";
 
@@ -91,7 +110,7 @@ int main() {
         return 0;
     }
 
-    return 0;
+    return 0;*/
 }
 
 
