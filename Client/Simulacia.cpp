@@ -96,6 +96,7 @@ void Simulacia::vygenerujSaNahodne() {
             } else {
                 typ = 'V';
             }
+
             this->pole[r][s] = typ;
         }
     }
