@@ -14,7 +14,6 @@ class ZistovacOdpovedi {
 public:
     int vypisMenu(const string& otazka, vector<string>& moznosti);
     int vypytajCislo(const string& otazka, int rozsahOd, int rozsahDo);
-
     char getZnakPolickaOdUzivatela();
 };
 

@@ -7,6 +7,7 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <windows.h>
 #include "PravdepodobnostiPolicok.h"
 using namespace std;
 

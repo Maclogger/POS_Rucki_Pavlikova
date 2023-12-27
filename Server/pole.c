@@ -38,15 +38,13 @@ void pole_vypis_sa(POLE* pole) {
     for (int i = 0; i < pole->pocetStlpcov; ++i) {
         printf("   %d  ", i);
     }
-    printf("\n");
 
-    printf("  ");
+    printf("\n  ");
     for (int i = 0; i < pole->pocetStlpcov; ++i) {
         printf("+-----");
     }
-    printf("+");
+    printf("+\n");
 
-    printf("\n");
     for (int r = 0; r < pole->pocetRiadkov; r++) {
         printf("%d ", r);
         for (int s = 0; s < pole->pocetStlpcov; s++) {
@@ -54,13 +52,11 @@ void pole_vypis_sa(POLE* pole) {
             bunka_vypis_sa(&pole->bunky[r][s]);
             printf("  ");
         }
-        printf("|\n");
-        printf("  ");
+        printf("|\n  ");
         for (int i = 0; i < pole->pocetStlpcov; ++i) {
             printf("+-----");
         }
-        printf("+");
-        printf(" \n");
+        printf("+ \n");
     }
 }
 

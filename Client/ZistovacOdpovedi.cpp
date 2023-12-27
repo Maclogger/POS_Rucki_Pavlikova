@@ -11,47 +11,36 @@ int ZistovacOdpovedi::vypisMenu(const string& otazka, vector<string>& moznosti) 
         cout << moznosti[i] << " - zadajte [" << i << "]" << endl;
     }
 
-    cout << "Zadajte moznost:";
-
     while(true) {
+        cout << "Zadajte moznost:";
         int odpoved;
         cin >> odpoved;
 
-        if(cin.fail()) {
+        if(cin.fail() || odpoved < 0 || odpoved >= moznosti.size()) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); // preskočí neplatný vstup
             cout << "Neplatny vstup, prosim, zadajte znovu. Dakujem." << endl;
             continue;
         }
-
-        if (odpoved >= 0 && odpoved < moznosti.size()) {
-            return odpoved;
-        } else {
-            cout << "Neplatne zadane cislo.";
-        }
+        cout << odpoved << endl;
+        return odpoved;
     }
 }
 
 int ZistovacOdpovedi::vypytajCislo(const string& otazka, int rozsahOd, int rozsahDo) {
-
-    cout << otazka << " od " << to_string(rozsahOd) << " do " << to_string(rozsahDo)<< endl;
-
     while(true) {
+        cout << otazka << " <" << to_string(rozsahOd) << "; " << to_string(rozsahDo) << ">:";
         int odpoved;
         cin >> odpoved;
 
-        if(cin.fail()) {
+        if(cin.fail() || odpoved < rozsahOd || odpoved > rozsahDo) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); // preskočí neplatný vstup
             cout << "Neplatny vstup, prosim, zadajte znovu. Dakujem." << endl;
             continue;
         }
-
-        if (odpoved >= rozsahOd && odpoved <= rozsahDo) {
-            return odpoved;
-        } else {
-            cout << "Neplatne zadane cislo.";
-        }
+        cout << odpoved << endl;
+        return odpoved;
     }
 }
 

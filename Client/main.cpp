@@ -28,6 +28,16 @@ void vygenerujMapuPodlaPravdepodobnostiOdUzivatela(Simulacia &simulacia) {
     cout << "Les - " << to_string(lesPrav) << "%" << endl;
     cout << "Skala - " << to_string(skalaPrav) << "%" << endl;
     cout << "Voda - " << to_string(vodaPrav) << "%" << endl;
+
+    simulacia.nastavPolicko(0, 0, 'P');
+    simulacia.nastavPolicko(1, 0, 'P');
+    simulacia.nastavPolicko(0, 1, 'P');
+
+    simulacia.nastavPolicko(9, 9, 'Z');
+    simulacia.nastavPolicko(8, 9, 'Z');
+    simulacia.nastavPolicko(8, 8, 'Z');
+
+
 }
 
 void vytvorenieNovejSimulacie() {
@@ -46,6 +56,7 @@ void vytvorenieNovejSimulacie() {
         moznosti.emplace_back("Potvrdit aktualnu mapu");
         odpoved = ZistovacOdpovedi().vypisMenu("Vytvaranie mapy", moznosti);
 
+        cout << endl;
         if (odpoved == 0) {
             vygenerujMapuPodlaPravdepodobnostiOdUzivatela(simulacia);
         } else if (odpoved == 1) {
@@ -60,8 +71,24 @@ void vytvorenieNovejSimulacie() {
 
 }
 
-
 int main() {
+
+    /*// Získanie handlu na konzolu
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    // Nastavenie farby textu na červenú
+    SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+
+    std::cout << "Red text" << std::endl;
+
+    // Resetovanie na pôvodné farby
+    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+
+    return 0;*/
+
+
+
+
     cout << "\n      Simulacia POZIAR\n";
     cout << "          Vytvoril:\n";
     cout << "Agata Pavlikova & Marek Rucki\n\n";

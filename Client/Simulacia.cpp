@@ -31,27 +31,48 @@ Simulacia::~Simulacia() {
 }
 
 void Simulacia::vypisSa() {
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
     cout << "  ";
-    for (int i = 0; i < this->pocetStlpcov; ++i) {
+    for (int i = 0; i < this->pocetStlpcov; i++) {
         cout << "   " << i << "  ";
     }
-    cout << "\n  ";
-    for (int i = 0; i < this->pocetStlpcov; ++i) {
+    cout << endl << "  ";
+    for (int i = 0; i < this->pocetStlpcov; i++) {
         cout << "+-----";
     }
     cout << "+\n";
+
     for (int r = 0; r < this->pocetRiadkov; r++) {
         cout << r << " ";
         for (int s = 0; s < this->pocetStlpcov; s++) {
-            cout << "|  " << this->pole[r][s] << "  ";
+            char znak = this->pole[r][s];
+
+            cout << "|  ";
+
+            // Nastavenie farby podľa hodnoty znaku
+            switch (znak) {
+                case 'U': SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN | FOREGROUND_INTENSITY); break; // Slabo zelená
+                case 'L': SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN); break; // Tmavo zelená
+                case 'S': SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY); break; // Bledo žltá
+                case 'V': SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_INTENSITY); break; // Tmavo modrá
+                case 'P': SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY); break; // Červená
+                case 'Z': SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE); break; // Biela
+                default:  SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE); break; // Predvolená farba
+            }
+
+            cout << znak << "  ";
+            SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE); // Reset na predvolenú farbu
         }
         cout << "|\n  ";
-        for (int i = 0; i < this->pocetStlpcov; ++i) {
+        for (int i = 0; i < this->pocetStlpcov; i++) {
             cout << "+-----";
         }
         cout << "+ \n";
     }
+
+    // Reset farby na konci funkcie
+    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 }
 
 void Simulacia::nastavPravdepodobnosti(int lukaPrav, int lesPrav, int skalaPrav, int vodaPrav) {
