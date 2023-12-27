@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/tmp/tmp.IYg82QNYa0/Logika/bunka.c
+stdio.h
+-
+
+/tmp/tmp.IYg82QNYa0/Logika/pole.c
+stdlib.h
+-
+
+/tmp/tmp.IYg82QNYa0/Logika/simulacia.c
+time.h
+-
+vietor.c
+/tmp/tmp.IYg82QNYa0/Logika/vietor.c
+
+/tmp/tmp.IYg82QNYa0/Logika/vietor.c
+
+/tmp/tmp.IYg82QNYa0/main.c
+stdio.h
+-
+Logika/bunka.c
+/tmp/tmp.IYg82QNYa0/Logika/bunka.c
+Logika/pole.c
+/tmp/tmp.IYg82QNYa0/Logika/pole.c
+Logika/simulacia.c
+/tmp/tmp.IYg82QNYa0/Logika/simulacia.c
+

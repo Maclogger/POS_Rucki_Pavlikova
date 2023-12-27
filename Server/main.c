@@ -3,10 +3,56 @@
 #include "Logika/bunka.c"
 #include "Logika/simulacia.c"
 
+#include "pos_sockets/passive_socket.h"
+#include "pos_sockets/active_socket.h"
+#include "pos_sockets/char_buffer.h"
+
 int main() {
     srand(time(NULL));
 
-    SIMULACIA sim;
+    // Inicializácia pasívneho soketu
+    PASSIVE_SOCKET serverSocket;
+    passive_socket_init(&serverSocket);
+
+    // Spustenie počúvania na porte 8080
+    if (!passive_socket_start_listening(&serverSocket, 8080)) {
+        fprintf(stderr, "Nepodarilo sa zacat pocuvat na porte 8080\n");
+        return 1;
+    }
+
+    printf("Server pocuva na porte 8080\n");
+
+
+    // Čakanie na klienta
+    while (1) {
+        ACTIVE_SOCKET clientSocket;
+        if (passive_socket_wait_for_client(&serverSocket, &clientSocket)) {
+            printf("Klient pripojeny\n");
+
+            // Začatie čítania dát
+            active_socket_start_reading(&clientSocket);
+
+            // Skúste získať prijaté dáta
+            struct char_buffer readBuffer;
+            if (active_socket_try_get_read_data(&clientSocket, &readBuffer)) {
+                // Vypíšte prijaté dáta
+                printf("Prijata sprava: %s\n", readBuffer.data);
+            }
+
+            // Ukončenie čítania a spojenia s klientom
+            active_socket_stop_reading(&clientSocket);
+            active_socket_destroy(&clientSocket);
+
+            break; // Prerušenie po prijatí jednej správy (pre ukončenie slučky)
+        }
+    }
+
+    // Zastavenie počúvania a uvoľnenie zdrojov
+    passive_socket_stop_listening(&serverSocket);
+    passive_socket_destroy(&serverSocket);
+
+
+    /*SIMULACIA sim;
     simulacia_init_default(&sim);
 
     simulacia_vypis_sa(&sim);
@@ -16,7 +62,7 @@ int main() {
 
     simulacia_vypis_sa(&sim);
 
-    simulacia_destroy(&sim);
+    simulacia_destroy(&sim);*/
     return 0;
 }
 

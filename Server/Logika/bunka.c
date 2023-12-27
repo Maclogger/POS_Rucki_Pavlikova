@@ -1,6 +1,5 @@
 #include <stdio.h>
 
-
 typedef enum {
     LUKA,
     LES,
