@@ -54,3 +54,20 @@ int ZistovacOdpovedi::vypytajCislo(const string& otazka, int rozsahOd, int rozsa
         }
     }
 }
+
+char ZistovacOdpovedi::getZnakPolickaOdUzivatela() {
+    vector<string> moznosti;
+    moznosti.emplace_back("Luka");
+    moznosti.emplace_back("Les");
+    moznosti.emplace_back("Skala");
+    moznosti.emplace_back("Voda");
+
+    int odpoved = this->vypisMenu("Zvolte typ policka: ", moznosti);
+
+    switch (odpoved) {
+        case 0: return 'U';
+        case 1: return 'L';
+        case 2: return 'S';
+    }
+    return 'V';
+}

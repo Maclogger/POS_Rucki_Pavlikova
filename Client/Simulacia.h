@@ -18,12 +18,10 @@ private:
     PravdepodobnostiPolicok pravdepodobnostiPolicok = PravdepodobnostiPolicok(25, 25, 25, 25);
 public:
     Simulacia(int pocetRiadkov, int pocetStlpcov);
+    ~Simulacia();
     void vypisSa();
     void nastavPravdepodobnosti(int lukaPrav, int lesPrav, int skalaPrav, int vodaPrav);
-    ~Simulacia();
-
     void vygenerujSaNahodne();
-
     void nastavPolicko(int r, int s, char znak);
 };
 
