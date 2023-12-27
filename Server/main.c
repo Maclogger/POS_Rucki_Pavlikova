@@ -1,16 +1,13 @@
 #include <stdio.h>
-#include "bunka.c"
-#include "pole.c"
-#include "simulacia.c"
-
+#include <time.h>
+#include "Logika/bunka.c"
+#include "Logika/simulacia.c"
 
 int main() {
     srand(time(NULL));
 
     SIMULACIA sim;
     simulacia_init_default(&sim);
-
-    simulacia_vytvor_nahodnu_mapu(&sim);
 
     simulacia_vypis_sa(&sim);
 

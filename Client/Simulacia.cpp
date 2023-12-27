@@ -16,6 +16,7 @@ Simulacia::Simulacia(int pocetRiadkov, int pocetStlpcov) {
             this->pole[r][s]= 'U'; // Inicializácia každej bunky
         }
     }
+    this->vygenerujSaNahodne();
 }
 
 
