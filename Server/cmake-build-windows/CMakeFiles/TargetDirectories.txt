@@ -1,0 +1,3 @@
+C:/Users/rucki/Desktop/FRI/5. semester/POS/Semestralka/Projekt/Server/cmake-build-windows/CMakeFiles/Server.dir
+C:/Users/rucki/Desktop/FRI/5. semester/POS/Semestralka/Projekt/Server/cmake-build-windows/CMakeFiles/edit_cache.dir
+C:/Users/rucki/Desktop/FRI/5. semester/POS/Semestralka/Projekt/Server/cmake-build-windows/CMakeFiles/rebuild_cache.dir
