@@ -12,7 +12,7 @@
 
 # =============================================================================
 # Project: Server
-# Configurations: Release
+# Configurations: Debug
 # =============================================================================
 
 #############################################
@@ -24,7 +24,7 @@ ninja_required_version = 1.5
 #############################################
 # Set configuration variable for custom commands.
 
-CONFIGURATION = Release
+CONFIGURATION = Debug
 # =============================================================================
 # Include auxiliary files.
 
@@ -49,27 +49,27 @@ cmake_ninja_workdir = C$:/Users/rucki/Desktop/FRI/5.$ semester/POS/Semestralka/P
 
 build cmake_object_order_depends_target_Server: phony || CMakeFiles/Server.dir
 
-build CMakeFiles/Server.dir/main.c.obj: C_COMPILER__Server_unscanned_Release C$:/Users/rucki/Desktop/FRI/5.$ semester/POS/Semestralka/Projekt/Server/main.c || cmake_object_order_depends_target_Server
+build CMakeFiles/Server.dir/main.c.obj: C_COMPILER__Server_unscanned_Debug C$:/Users/rucki/Desktop/FRI/5.$ semester/POS/Semestralka/Projekt/Server/main.c || cmake_object_order_depends_target_Server
   DEP_FILE = CMakeFiles\Server.dir\main.c.obj.d
-  FLAGS = -O3 -DNDEBUG -std=gnu11 -fdiagnostics-color=always
+  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Server.dir
   OBJECT_FILE_DIR = CMakeFiles\Server.dir
 
-build CMakeFiles/Server.dir/PosSockets/passive_socket.c.obj: C_COMPILER__Server_unscanned_Release C$:/Users/rucki/Desktop/FRI/5.$ semester/POS/Semestralka/Projekt/Server/PosSockets/passive_socket.c || cmake_object_order_depends_target_Server
+build CMakeFiles/Server.dir/PosSockets/passive_socket.c.obj: C_COMPILER__Server_unscanned_Debug C$:/Users/rucki/Desktop/FRI/5.$ semester/POS/Semestralka/Projekt/Server/PosSockets/passive_socket.c || cmake_object_order_depends_target_Server
   DEP_FILE = CMakeFiles\Server.dir\PosSockets\passive_socket.c.obj.d
-  FLAGS = -O3 -DNDEBUG -std=gnu11 -fdiagnostics-color=always
+  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Server.dir
   OBJECT_FILE_DIR = CMakeFiles\Server.dir\PosSockets
 
-build CMakeFiles/Server.dir/PosSockets/active_socket.c.obj: C_COMPILER__Server_unscanned_Release C$:/Users/rucki/Desktop/FRI/5.$ semester/POS/Semestralka/Projekt/Server/PosSockets/active_socket.c || cmake_object_order_depends_target_Server
+build CMakeFiles/Server.dir/PosSockets/active_socket.c.obj: C_COMPILER__Server_unscanned_Debug C$:/Users/rucki/Desktop/FRI/5.$ semester/POS/Semestralka/Projekt/Server/PosSockets/active_socket.c || cmake_object_order_depends_target_Server
   DEP_FILE = CMakeFiles\Server.dir\PosSockets\active_socket.c.obj.d
-  FLAGS = -O3 -DNDEBUG -std=gnu11 -fdiagnostics-color=always
+  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Server.dir
   OBJECT_FILE_DIR = CMakeFiles\Server.dir\PosSockets
 
-build CMakeFiles/Server.dir/PosSockets/char_buffer.c.obj: C_COMPILER__Server_unscanned_Release C$:/Users/rucki/Desktop/FRI/5.$ semester/POS/Semestralka/Projekt/Server/PosSockets/char_buffer.c || cmake_object_order_depends_target_Server
+build CMakeFiles/Server.dir/PosSockets/char_buffer.c.obj: C_COMPILER__Server_unscanned_Debug C$:/Users/rucki/Desktop/FRI/5.$ semester/POS/Semestralka/Projekt/Server/PosSockets/char_buffer.c || cmake_object_order_depends_target_Server
   DEP_FILE = CMakeFiles\Server.dir\PosSockets\char_buffer.c.obj.d
-  FLAGS = -O3 -DNDEBUG -std=gnu11 -fdiagnostics-color=always
+  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Server.dir
   OBJECT_FILE_DIR = CMakeFiles\Server.dir\PosSockets
 
@@ -81,8 +81,8 @@ build CMakeFiles/Server.dir/PosSockets/char_buffer.c.obj: C_COMPILER__Server_uns
 #############################################
 # Link the executable Server.exe
 
-build Server.exe: C_EXECUTABLE_LINKER__Server_Release CMakeFiles/Server.dir/main.c.obj CMakeFiles/Server.dir/PosSockets/passive_socket.c.obj CMakeFiles/Server.dir/PosSockets/active_socket.c.obj CMakeFiles/Server.dir/PosSockets/char_buffer.c.obj
-  FLAGS = -O3 -DNDEBUG
+build Server.exe: C_EXECUTABLE_LINKER__Server_Debug CMakeFiles/Server.dir/main.c.obj CMakeFiles/Server.dir/PosSockets/passive_socket.c.obj CMakeFiles/Server.dir/PosSockets/active_socket.c.obj CMakeFiles/Server.dir/PosSockets/char_buffer.c.obj
+  FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Server.dir
   POST_BUILD = cd .

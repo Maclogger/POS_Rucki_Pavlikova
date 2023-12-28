@@ -2,6 +2,8 @@
 #include <stdexcept>
 #include <ws2tcpip.h>
 #include <winsock2.h>
+#include <iostream>
+#include <string>
 
 #define SOCKET_TERMINATE_CHAR '\0'
 
@@ -88,23 +90,28 @@ void MySocket::sendEndMessage() {
 }
 
 std::string MySocket::receiveData() {
-    const size_t bufferSize = 1024;
-    char buffer[bufferSize];
-    std::string receivedData;
-    int bytesRead;
+    const int bufferSize = 1024;  // Veľkosť bufferu pre prijímané dáta
+    char buffer[bufferSize];      // Buffer na ukladanie prijatých dát
 
-    do {
-        bytesRead = recv(connectSocket, buffer, bufferSize - 1, 0);
-        if (bytesRead > 0) {
-            buffer[bytesRead] = '\0';
-            receivedData += buffer;
-        } else if (bytesRead < 0) {
-            int errCode = WSAGetLastError();
-            throw std::runtime_error("recv failed with error: " + std::to_string(errCode) + "\n");
+    while (true) {  // Neustále čítanie zo socketu
+        memset(buffer, 0, bufferSize); // Vynulovanie bufferu
+
+        // Prijímanie dát
+        int bytesReceived = recv(connectSocket, buffer, bufferSize, 0);
+        if (bytesReceived == SOCKET_ERROR) {
+            std::cerr << "Chyba pri prijimani dat: " << WSAGetLastError() << std::endl;
+            break;  // V prípade chyby ukončiť slučku
         }
-    } while (bytesRead > 0 && buffer[bytesRead - 1] != SOCKET_TERMINATE_CHAR);
+        if (bytesReceived == 0) {
+            std::cout << "Spojenie bolo ukoncene" << std::endl;
+            break;  // Ukončenie, ak je spojenie zatvorené
+        }
 
-    return receivedData;
+        // Spracovanie prijatých dát
+        std::string receivedMessage(buffer, bytesReceived);
+        return receivedMessage;
+    }
 }
+
 
 #undef SOCKET_TERMINATE_CHAR

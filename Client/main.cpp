@@ -76,29 +76,19 @@ void vytvorenieNovejSimulacie() {
 
 }
 
+
+
+
+
 int main() {
     try {
-
-        printf("ahoj\n");
-        MySocket* clientSocket = MySocket::createConnection("frios2.fri.uniza.sk", 13029);
+        cout << "Prebieha pokus o pripojenie..." << endl;
+        MySocket* clientSocket = MySocket::createConnection("frios2.fri.uniza.sk", 13028);
         if (clientSocket) {
-            clientSocket->sendData("Ahooooooooooj!!!");
-
-            printf("ahoj2\n");
+            clientSocket->sendData("Zdravim vas."); // Najprv odoslať správu
 
             string pokracovat;
-            while(1){
-                cout << clientSocket->receiveData() << endl;
-                cout << "Zadaj: ";
-                cin >> pokracovat;
-                if (pokracovat == "q") {
-                    break;
-                }
-                cout << endl;
-            }
-
-
-
+            cout << clientSocket->receiveData() << endl; // Potom prijímať dáta
 
             clientSocket->sendEndMessage();
             delete clientSocket;

@@ -12,7 +12,7 @@
 
 # =============================================================================
 # Project: Client
-# Configurations: Release
+# Configurations: Debug
 # =============================================================================
 
 #############################################
@@ -24,7 +24,7 @@ ninja_required_version = 1.5
 #############################################
 # Set configuration variable for custom commands.
 
-CONFIGURATION = Release
+CONFIGURATION = Debug
 # =============================================================================
 # Include auxiliary files.
 
@@ -49,36 +49,36 @@ cmake_ninja_workdir = C$:\Users\rucki\Desktop\FRI\5.$ semester\POS\Semestralka\P
 
 build cmake_object_order_depends_target_Client: phony || CMakeFiles\Client.dir
 
-build CMakeFiles\Client.dir\main.cpp.obj: CXX_COMPILER__Client_unscanned_Release C$:\Users\rucki\Desktop\FRI\5.$ semester\POS\Semestralka\Projekt\Client\main.cpp || cmake_object_order_depends_target_Client
-  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /O2 /Ob2 /DNDEBUG -MD
+build CMakeFiles\Client.dir\main.cpp.obj: CXX_COMPILER__Client_unscanned_Debug C$:\Users\rucki\Desktop\FRI\5.$ semester\POS\Semestralka\Projekt\Client\main.cpp || cmake_object_order_depends_target_Client
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -MDd
   OBJECT_DIR = CMakeFiles\Client.dir
   OBJECT_FILE_DIR = CMakeFiles\Client.dir
   TARGET_COMPILE_PDB = CMakeFiles\Client.dir\
   TARGET_PDB = Client.pdb
 
-build CMakeFiles\Client.dir\Logika\ZistovacOdpovedi.cpp.obj: CXX_COMPILER__Client_unscanned_Release C$:\Users\rucki\Desktop\FRI\5.$ semester\POS\Semestralka\Projekt\Client\Logika\ZistovacOdpovedi.cpp || cmake_object_order_depends_target_Client
-  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /O2 /Ob2 /DNDEBUG -MD
+build CMakeFiles\Client.dir\Logika\ZistovacOdpovedi.cpp.obj: CXX_COMPILER__Client_unscanned_Debug C$:\Users\rucki\Desktop\FRI\5.$ semester\POS\Semestralka\Projekt\Client\Logika\ZistovacOdpovedi.cpp || cmake_object_order_depends_target_Client
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -MDd
   OBJECT_DIR = CMakeFiles\Client.dir
   OBJECT_FILE_DIR = CMakeFiles\Client.dir\Logika
   TARGET_COMPILE_PDB = CMakeFiles\Client.dir\
   TARGET_PDB = Client.pdb
 
-build CMakeFiles\Client.dir\Logika\Simulacia.cpp.obj: CXX_COMPILER__Client_unscanned_Release C$:\Users\rucki\Desktop\FRI\5.$ semester\POS\Semestralka\Projekt\Client\Logika\Simulacia.cpp || cmake_object_order_depends_target_Client
-  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /O2 /Ob2 /DNDEBUG -MD
+build CMakeFiles\Client.dir\Logika\Simulacia.cpp.obj: CXX_COMPILER__Client_unscanned_Debug C$:\Users\rucki\Desktop\FRI\5.$ semester\POS\Semestralka\Projekt\Client\Logika\Simulacia.cpp || cmake_object_order_depends_target_Client
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -MDd
   OBJECT_DIR = CMakeFiles\Client.dir
   OBJECT_FILE_DIR = CMakeFiles\Client.dir\Logika
   TARGET_COMPILE_PDB = CMakeFiles\Client.dir\
   TARGET_PDB = Client.pdb
 
-build CMakeFiles\Client.dir\Logika\PravdepodobnostiPolicok.cpp.obj: CXX_COMPILER__Client_unscanned_Release C$:\Users\rucki\Desktop\FRI\5.$ semester\POS\Semestralka\Projekt\Client\Logika\PravdepodobnostiPolicok.cpp || cmake_object_order_depends_target_Client
-  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /O2 /Ob2 /DNDEBUG -MD
+build CMakeFiles\Client.dir\Logika\PravdepodobnostiPolicok.cpp.obj: CXX_COMPILER__Client_unscanned_Debug C$:\Users\rucki\Desktop\FRI\5.$ semester\POS\Semestralka\Projekt\Client\Logika\PravdepodobnostiPolicok.cpp || cmake_object_order_depends_target_Client
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -MDd
   OBJECT_DIR = CMakeFiles\Client.dir
   OBJECT_FILE_DIR = CMakeFiles\Client.dir\Logika
   TARGET_COMPILE_PDB = CMakeFiles\Client.dir\
   TARGET_PDB = Client.pdb
 
-build CMakeFiles\Client.dir\PosSockets\my_socket.cpp.obj: CXX_COMPILER__Client_unscanned_Release C$:\Users\rucki\Desktop\FRI\5.$ semester\POS\Semestralka\Projekt\Client\PosSockets\my_socket.cpp || cmake_object_order_depends_target_Client
-  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /O2 /Ob2 /DNDEBUG -MD
+build CMakeFiles\Client.dir\PosSockets\my_socket.cpp.obj: CXX_COMPILER__Client_unscanned_Debug C$:\Users\rucki\Desktop\FRI\5.$ semester\POS\Semestralka\Projekt\Client\PosSockets\my_socket.cpp || cmake_object_order_depends_target_Client
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -MDd
   OBJECT_DIR = CMakeFiles\Client.dir
   OBJECT_FILE_DIR = CMakeFiles\Client.dir\PosSockets
   TARGET_COMPILE_PDB = CMakeFiles\Client.dir\
@@ -92,9 +92,9 @@ build CMakeFiles\Client.dir\PosSockets\my_socket.cpp.obj: CXX_COMPILER__Client_u
 #############################################
 # Link the executable Client.exe
 
-build Client.exe: CXX_EXECUTABLE_LINKER__Client_Release CMakeFiles\Client.dir\main.cpp.obj CMakeFiles\Client.dir\Logika\ZistovacOdpovedi.cpp.obj CMakeFiles\Client.dir\Logika\Simulacia.cpp.obj CMakeFiles\Client.dir\Logika\PravdepodobnostiPolicok.cpp.obj CMakeFiles\Client.dir\PosSockets\my_socket.cpp.obj
-  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /O2 /Ob2 /DNDEBUG -MD
-  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+build Client.exe: CXX_EXECUTABLE_LINKER__Client_Debug CMakeFiles\Client.dir\main.cpp.obj CMakeFiles\Client.dir\Logika\ZistovacOdpovedi.cpp.obj CMakeFiles\Client.dir\Logika\Simulacia.cpp.obj CMakeFiles\Client.dir\Logika\PravdepodobnostiPolicok.cpp.obj CMakeFiles\Client.dir\PosSockets\my_socket.cpp.obj
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -MDd
+  LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
   LINK_LIBRARIES = wsock32.lib  ws2_32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\Client.dir
   POST_BUILD = cd .
