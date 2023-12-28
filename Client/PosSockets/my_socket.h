@@ -11,6 +11,8 @@ public:
     ~MySocket();
     void sendData(const std::string& data);
     void sendEndMessage();
+    std::string receiveData();
+
 protected:
     MySocket(SOCKET socket);
 private:

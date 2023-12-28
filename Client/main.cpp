@@ -77,17 +77,34 @@ void vytvorenieNovejSimulacie() {
 }
 
 int main() {
-
-
     try {
-        MySocket* clientSocket = MySocket::createConnection("frios2.fri.uniza.sk", 1302);
+
+        printf("ahoj\n");
+        MySocket* clientSocket = MySocket::createConnection("frios2.fri.uniza.sk", 13029);
         if (clientSocket) {
             clientSocket->sendData("Ahooooooooooj!!!");
+
+            printf("ahoj2\n");
+
+            string pokracovat;
+            while(1){
+                cout << clientSocket->receiveData() << endl;
+                cout << "Zadaj: ";
+                cin >> pokracovat;
+                if (pokracovat == "q") {
+                    break;
+                }
+                cout << endl;
+            }
+
+
+
+
             clientSocket->sendEndMessage();
             delete clientSocket;
         }
     } catch (const std::runtime_error& e) {
-        std::cerr << "Nastala vynimka:  " << e.what() << std::endl;
+        cerr << "Nastala vynimka:  " << e.what() << endl;
     }
     return 0;
 

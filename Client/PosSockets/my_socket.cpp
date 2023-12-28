@@ -87,4 +87,24 @@ void MySocket::sendEndMessage() {
     this->sendData(this->endMessage);
 }
 
+std::string MySocket::receiveData() {
+    const size_t bufferSize = 1024;
+    char buffer[bufferSize];
+    std::string receivedData;
+    int bytesRead;
+
+    do {
+        bytesRead = recv(connectSocket, buffer, bufferSize - 1, 0);
+        if (bytesRead > 0) {
+            buffer[bytesRead] = '\0';
+            receivedData += buffer;
+        } else if (bytesRead < 0) {
+            int errCode = WSAGetLastError();
+            throw std::runtime_error("recv failed with error: " + std::to_string(errCode) + "\n");
+        }
+    } while (bytesRead > 0 && buffer[bytesRead - 1] != SOCKET_TERMINATE_CHAR);
+
+    return receivedData;
+}
+
 #undef SOCKET_TERMINATE_CHAR

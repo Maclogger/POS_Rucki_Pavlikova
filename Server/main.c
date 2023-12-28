@@ -8,51 +8,60 @@
 #include "PosSockets/char_buffer.h"
 
 
+
+void skus_ziskat_spravu(struct active_socket* my_socket) {
+    CHAR_BUFFER buf;
+    if (active_socket_try_get_read_data(my_socket, &buf)) {
+        printf("%s\n", buf.data);
+
+        CHAR_BUFFER odpoved;
+        char_buffer_init(&odpoved);
+        char_buffer_append(&odpoved, "Odpoved", 7);
+
+        active_socket_write_data(my_socket, &odpoved);
+        if (active_socket_is_end_message(my_socket, &buf)) {
+            active_socket_stop_reading(my_socket);
+        }
+        char_buffer_destroy(&odpoved);
+    }
+}
+
+
+
+void process_client_data(ACTIVE_SOCKET* my_socket, short port) {
+
+    PASSIVE_SOCKET sock_passive;
+    passive_socket_init(&sock_passive);
+    passive_socket_start_listening(&sock_passive, port);
+    // Spustenie počúvania
+    printf("Server pocuva na porte %d\n", port);
+    passive_socket_wait_for_client(&sock_passive, my_socket);
+    passive_socket_stop_listening(&sock_passive);
+    passive_socket_destroy(&sock_passive);
+
+    active_socket_start_reading(my_socket);
+}
+
+
+
 int main() {
     srand(time(NULL));
 
-    // Inicializácia pasívneho soketu
-    PASSIVE_SOCKET serverSocket;
-    passive_socket_init(&serverSocket);
+    short port = 13029;
 
-    short port = 8081;
+    struct active_socket my_socket;
+    active_socket_init(&my_socket);
 
-    // Spustenie počúvania na porte 8080
-    if (!passive_socket_start_listening(&serverSocket, port)) {
-        fprintf(stderr, "Nepodarilo sa zacat pocuvat na porte %d\n", port);
-        return 1;
+
+    process_client_data(&my_socket, port);
+
+
+
+    // komunikacia bola nadviazana, komunikacia medzi klientom - serverom:
+    printf("Komunikacia bola nadviazana.\n");
+    while (my_socket.is_reading) {
+        skus_ziskat_spravu(&my_socket);
     }
-
-    printf("Server pocuva na porte %d\n", port);
-
-
-    // Čakanie na klienta
-    while (1) {
-        ACTIVE_SOCKET clientSocket;
-        if (passive_socket_wait_for_client(&serverSocket, &clientSocket)) {
-            printf("Klient pripojeny\n");
-
-            // Začatie čítania dát
-            active_socket_start_reading(&clientSocket);
-
-            // Skúste získať prijaté dáta
-            struct char_buffer readBuffer;
-            if (active_socket_try_get_read_data(&clientSocket, &readBuffer)) {
-                // Vypíšte prijaté dáta
-                printf("Prijata sprava: %s\n", readBuffer.data);
-            }
-
-            // Ukončenie čítania a spojenia s klientom
-            active_socket_stop_reading(&clientSocket);
-            active_socket_destroy(&clientSocket);
-
-            break; // Prerušenie po prijatí jednej správy (pre ukončenie slučky)
-        }
-    }
-
-    // Zastavenie počúvania a uvoľnenie zdrojov
-    passive_socket_stop_listening(&serverSocket);
-    passive_socket_destroy(&serverSocket);
 
 
     /*SIMULACIA sim;

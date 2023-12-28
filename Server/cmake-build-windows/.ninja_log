@@ -1,5 +1,3 @@
 # ninja log v5
-1	172	7253933250358449	CMakeFiles/Server.dir/main.c.obj	96d4c1473a606d2e
-13	238	7253954103605733	CMakeFiles/Server.dir/PosSockets/char_buffer.c.obj	b8aa74deaf05da82
-2	239	7253954103619567	CMakeFiles/Server.dir/main.c.obj	96d4c1473a606d2e
 2	127	7253957657891628	CMakeFiles/Server.dir/main.c.obj	96d4c1473a606d2e
+13	238	7253954103605733	CMakeFiles/Server.dir/PosSockets/char_buffer.c.obj	b8aa74deaf05da82
