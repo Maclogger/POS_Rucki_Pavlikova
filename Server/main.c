@@ -48,9 +48,6 @@ void skus_ziskat_spravu(struct thread_data* data) {
 }
 
 
-
-
-
 void* process_client_data(void* thread_data) {
     struct thread_data* data = (struct thread_data*)thread_data;
 
@@ -80,14 +77,12 @@ int main() {
 
     thread_data_init(&data, &my_socket, port);
 
-
     pthread_create(&th_receive, NULL, process_client_data, &data);
 
     while (!data.jeKoniecKomunikacie) {
         skus_ziskat_spravu(&data);
         //printf("%d / 1000\n", i);
     }
-
 
     pthread_join(th_receive, NULL);
 

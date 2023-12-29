@@ -4,7 +4,10 @@ project(Client CXX)
 add_executable(Client main.cpp Logika/ZistovacOdpovedi.cpp
         Logika/Simulacia.cpp
         Logika/PravdepodobnostiPolicok.cpp
-        PosSockets/my_socket.cpp)
+        PosSockets/my_socket.cpp
+        Aplikacia.cpp
+        Aplikacia.h
+)
 
 # Linkujte s Winsock knižnicou
 target_link_libraries(Client wsock32 ws2_32)

@@ -84,6 +84,13 @@ build CMakeFiles\Client.dir\PosSockets\my_socket.cpp.obj: CXX_COMPILER__Client_u
   TARGET_COMPILE_PDB = CMakeFiles\Client.dir\
   TARGET_PDB = Client.pdb
 
+build CMakeFiles\Client.dir\Aplikacia.cpp.obj: CXX_COMPILER__Client_unscanned_Debug C$:\Users\rucki\Desktop\FRI\5.$ semester\POS\Semestralka\Projekt\Client\Aplikacia.cpp || cmake_object_order_depends_target_Client
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -MDd
+  OBJECT_DIR = CMakeFiles\Client.dir
+  OBJECT_FILE_DIR = CMakeFiles\Client.dir
+  TARGET_COMPILE_PDB = CMakeFiles\Client.dir\
+  TARGET_PDB = Client.pdb
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Client
@@ -92,7 +99,7 @@ build CMakeFiles\Client.dir\PosSockets\my_socket.cpp.obj: CXX_COMPILER__Client_u
 #############################################
 # Link the executable Client.exe
 
-build Client.exe: CXX_EXECUTABLE_LINKER__Client_Debug CMakeFiles\Client.dir\main.cpp.obj CMakeFiles\Client.dir\Logika\ZistovacOdpovedi.cpp.obj CMakeFiles\Client.dir\Logika\Simulacia.cpp.obj CMakeFiles\Client.dir\Logika\PravdepodobnostiPolicok.cpp.obj CMakeFiles\Client.dir\PosSockets\my_socket.cpp.obj
+build Client.exe: CXX_EXECUTABLE_LINKER__Client_Debug CMakeFiles\Client.dir\main.cpp.obj CMakeFiles\Client.dir\Logika\ZistovacOdpovedi.cpp.obj CMakeFiles\Client.dir\Logika\Simulacia.cpp.obj CMakeFiles\Client.dir\Logika\PravdepodobnostiPolicok.cpp.obj CMakeFiles\Client.dir\PosSockets\my_socket.cpp.obj CMakeFiles\Client.dir\Aplikacia.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -MDd
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
   LINK_LIBRARIES = wsock32.lib  ws2_32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib

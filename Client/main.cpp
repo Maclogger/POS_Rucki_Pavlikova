@@ -4,13 +4,9 @@
 #include <winsock2.h>
 #include <ws2tcpip.h>
 
-#include <iostream>
-#include <vector>
-#include "Logika/ZistovacOdpovedi.h"
-#include <string>
-#include "Logika/Simulacia.h"
 
 #include "PosSockets/my_socket.h"
+#include "Aplikacia.h"
 
 
 using  namespace std;
@@ -45,36 +41,10 @@ void vygenerujMapuPodlaPravdepodobnostiOdUzivatela(Simulacia &simulacia) {
 
 }
 
-void vytvorenieNovejSimulacie() {
-    vector<string> moznosti;
-    int odpoved;
-    int r = ZistovacOdpovedi().vypytajCislo("Zadajte pocet riadkov mapy: ", 3, 10);
-    int s = ZistovacOdpovedi().vypytajCislo("Zadajte pocet stlpcov mapy: ", 3, 10);
-    Simulacia simulacia(r, s);
 
-    while (true) {
-        simulacia.vypisSa();
 
-        moznosti.clear();
-        moznosti.emplace_back("Nahodne vygeneruj znova");
-        moznosti.emplace_back("Manualne uprav konkretne policko");
-        moznosti.emplace_back("Potvrdit aktualnu mapu");
-        odpoved = ZistovacOdpovedi().vypisMenu("Vytvaranie mapy", moznosti);
 
-        cout << endl;
-        if (odpoved == 0) {
-            vygenerujMapuPodlaPravdepodobnostiOdUzivatela(simulacia);
-        } else if (odpoved == 1) {
-            int rPolicka = ZistovacOdpovedi().vypytajCislo("Zadaj riadok policka: ", 0, r - 1);
-            int sPolicka = ZistovacOdpovedi().vypytajCislo("Zadaj stlpec policka: ", 0, s - 1);
-            char znak = ZistovacOdpovedi().getZnakPolickaOdUzivatela();
-            simulacia.nastavPolicko(rPolicka, sPolicka, znak);
-        } else {
-            break;
-        }
-    }
 
-}
 
 
 
@@ -85,6 +55,11 @@ int main() {
         cout << "Prebieha pokus o pripojenie..." << endl;
         MySocket* clientSocket = MySocket::createConnection("frios2.fri.uniza.sk", 13028);
         if (clientSocket) {
+
+            //Aplikacia aplikacia(&clientSocket);
+
+
+
             clientSocket->sendData("Zdravim vas."); // Najprv odoslať správu
 
             string pokracovat;
@@ -97,27 +72,6 @@ int main() {
         cerr << "Nastala vynimka:  " << e.what() << endl;
     }
     return 0;
-
-   /* cout << "\n      Simulacia POZIAR\n";
-    cout << "          Vytvoril:\n";
-    cout << "Agata Pavlikova & Marek Rucki\n\n";
-
-    vector<string> moznosti;
-    moznosti.emplace_back("Vytvor novu simulaciu");
-    moznosti.emplace_back("Pokracovat v ulozenej");
-    moznosti.emplace_back("Ukoncenie");
-    int odpoved = ZistovacOdpovedi().vypisMenu("Vyber jednu moznost", moznosti);
-
-    if(odpoved == 0) {
-        vytvorenieNovejSimulacie();
-    } else if (odpoved == 1) {
-        pokracovatVUlozenejMape();
-    } else if (odpoved == 2) {
-        cout << endl << "Prebieha ukoncenie. Dovidenia :)" << endl;
-        return 0;
-    }
-
-    return 0;*/
 }
 
 
