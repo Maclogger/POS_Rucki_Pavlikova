@@ -21,6 +21,7 @@ private:
     char** pole;
     PravdepodobnostiPolicok pravdepodobnostiPolicok = PravdepodobnostiPolicok(25, 25, 25, 25);
 public:
+    Simulacia();
     Simulacia(int pocetRiadkov, int pocetStlpcov);
     ~Simulacia();
     void vypisSa();

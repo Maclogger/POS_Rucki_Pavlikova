@@ -36,8 +36,8 @@ Simulacia::Simulacia(int pocetRiadkov, int pocetStlpcov) {
         if (odpoved == 0) {
             vygenerujMapuPodlaPravdepodobnostiOdUzivatela();
         } else if (odpoved == 1) {
-            int rPolicka = ZistovacOdpovedi().vypytajCislo("Zadaj riadok policka: ", 0, r - 1);
-            int sPolicka = ZistovacOdpovedi().vypytajCislo("Zadaj stlpec policka: ", 0, s - 1);
+            int rPolicka = ZistovacOdpovedi().vypytajCislo("Zadaj riadok policka: ", 0, this->pocetRiadkov - 1);
+            int sPolicka = ZistovacOdpovedi().vypytajCislo("Zadaj stlpec policka: ", 0, this->pocetStlpcov - 1);
             char znak = ZistovacOdpovedi().getZnakPolickaOdUzivatela();
             this->nastavPolicko(rPolicka, sPolicka, znak);
         } else {
@@ -269,4 +269,8 @@ string Simulacia::getSerializovanuMapu() {
     }
 
     return vysledok;
+}
+
+Simulacia::Simulacia() {
+
 }

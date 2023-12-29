@@ -18,7 +18,6 @@ public:
     ServerKomunikator(const string& ip, short port);
     ~ServerKomunikator();
     string posliSpravu(const string& sprava);
-
     bool jePripojeny();
 };
 

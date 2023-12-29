@@ -67,7 +67,7 @@ void* process_client_data(void* thread_data) {
 int main() {
     srand(time(NULL));
 
-    short port = 13028;
+    short port = 13029;
 
     struct active_socket my_socket;
     struct thread_data data;

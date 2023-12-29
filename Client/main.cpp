@@ -31,11 +31,9 @@ odpovede:
  */
 
 
-
-
 int main() {
     string ip = "frios2.fri.uniza.sk";
-    short port = 13028;
+    short port = 13029;
     Aplikacia aplikacia(ip, port);
     return 0;
 }

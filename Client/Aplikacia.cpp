@@ -12,8 +12,8 @@ Aplikacia::Aplikacia(const string& ip, short port) {
 }
 
 Aplikacia::~Aplikacia() {
-    free(this->serverKomunikator);
-    this->serverKomunikator = nullptr;
+    delete this->serverKomunikator; // Uvoľnenie ServerKomunikatora
+    delete this->simulacia; // Uvoľnenie Simulacie, ak je ne-null
 }
 
 void Aplikacia::hlavneMenu() {
@@ -31,7 +31,7 @@ void Aplikacia::hlavneMenu() {
         moznosti.clear();
         int r = ZistovacOdpovedi().vypytajCislo("Zadajte pocet riadkov mapy: ", 3, 10);
         int s = ZistovacOdpovedi().vypytajCislo("Zadajte pocet stlpcov mapy: ", 3, 10);
-        this->simulacia = Simulacia(r, s); // vytvorenie simulácie je priamo v konštruktore Simulácie
+        this->simulacia = new Simulacia(r, s); // vytvorenie simulácie je priamo v konštruktore Simulácie
         this->spustiSimulaciu();
     } else if (odpoved == 1) {
         pokracovatVUlozenejMape();
@@ -49,10 +49,9 @@ void Aplikacia::pokracovatVUlozenejMape() {
 void Aplikacia::spustiSimulaciu() {
     //"vytvorMapu;pocetRiadkov;pocetStlpcov;S;S;V;L;L;U;...;S;V;"
 
-    string serializovanyPrikazNaVytvorenieMapy = "vytvorMapu;" + this->simulacia.getSerializovanuMapu();
+    string serializovanyPrikazNaVytvorenieMapy = "vytvorMapu;" + this->simulacia->getSerializovanuMapu();
+    cout << "posielana sprava: '" << serializovanyPrikazNaVytvorenieMapy << "'" << endl;
     string odpoved = this->serverKomunikator->posliSpravu(serializovanyPrikazNaVytvorenieMapy);
-
     cout << "odpoved zo servera: '" << odpoved << "'" << endl;
-
 }
 

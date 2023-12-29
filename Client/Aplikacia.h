@@ -18,7 +18,7 @@
 class Aplikacia {
 private:
     ServerKomunikator* serverKomunikator;
-    Simulacia simulacia;
+    Simulacia* simulacia;
 public:
     Aplikacia(const string& ip, short port);
     ~Aplikacia();
