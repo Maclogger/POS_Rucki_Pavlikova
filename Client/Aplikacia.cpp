@@ -48,10 +48,38 @@ void Aplikacia::pokracovatVUlozenejMape() {
 
 void Aplikacia::spustiSimulaciu() {
     //"vytvorMapu;pocetRiadkov;pocetStlpcov;S;S;V;L;L;U;...;S;V;"
+    string odpoved = this->serverKomunikator->posliSpravu("vytvorMapu;" + this->simulacia->getSerializovanuMapu());
 
-    string serializovanyPrikazNaVytvorenieMapy = "vytvorMapu;" + this->simulacia->getSerializovanuMapu();
-    cout << "posielana sprava: '" << serializovanyPrikazNaVytvorenieMapy << "'" << endl;
-    string odpoved = this->serverKomunikator->posliSpravu(serializovanyPrikazNaVytvorenieMapy);
+    //"0;0;B;3;3;L;S;L;V;S;U;U;V;V;"
+
     cout << "odpoved zo servera: '" << odpoved << "'" << endl;
+
+
+    istringstream iss(data);
+    string segment;
+    getline(iss, segment, ';');
+
+    if (segment == "0") {
+        // Spracovanie stringu pri status 0
+        while (getline(iss, segment, ';')) {
+            if (!segment.empty()) {
+                if (isdigit(segment[0])) {
+                    int number = stoi(segment);
+                    cout << "Number: " << number << endl;
+                } else {
+                    cout << "Character: " << segment << endl;
+                }
+            }
+        }
+    } else if (segment == "1") {
+        // Spracovanie chyby
+        getline(iss, segment);  // Prečítanie zvyšku stringu
+        cout << "Error: " << segment << endl;
+    }
+
+
+
+    /*odpoved = this->serverKomunikator->posliSpravu("AHOJKY");
+    cout << "odpoved zo servera: '" << odpoved << "'" << endl;*/
 }
 

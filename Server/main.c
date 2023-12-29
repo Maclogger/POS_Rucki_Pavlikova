@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <time.h>
-#include "Logika/bunka.c"
 #include "Logika/simulacia.c"
 
 #include "PosSockets/active_socket.h"
@@ -24,26 +23,56 @@ void thread_data_destroy(struct thread_data* data) {
     data->my_socket = NULL;
 }
 
+
+
+
+int getCisloPrikazu(CHAR_BUFFER *buf) {
+
+    char* token = strtok(buf->data, ";");
+    if (token != NULL) {
+        if (strcmp(token, "vytvorMapu") == 0) {
+            return 0;
+        } else if (strcmp(token, "pridajOhen") == 0) {
+            return 1;
+        } else if (strcmp(token, "vykonajKrok") == 0) {
+            return 2;
+        } else if (strcmp(token, "vykonajNKrokov") == 0) {
+            return 3;
+        } else if (strcmp(token, "ziskajUlozeneMapy") == 0) {
+            return 4;
+        } else if (strcmp(token, "ulozMapu") == 0) {
+            return 5;
+        } else if (strcmp(token, "nacitajUlozenuMapu") == 0) {
+            return 6;
+        }
+    }
+    return -1;
+}
+
+
 void skus_ziskat_spravu(struct thread_data* data) {
     CHAR_BUFFER buf;
     char_buffer_init(&buf);
     if (active_socket_try_get_read_data(data->my_socket, &buf)) {
-        printf("%s\n", buf.data);
+        printf("Prijate data od clienta: '%s'\n", buf.data);
 
-        CHAR_BUFFER odpoved;
-        char_buffer_init(&odpoved);
-        char_buffer_append(&odpoved, "Zdravim vas tiez.", 17);
+        int cisloPrikazu = getCisloPrikazu(&buf);
 
-        active_socket_write_data(data->my_socket, &odpoved);
+        switch(cisloPrikazu) {
+            case 0: {
+                SIMULACIA simulacia;
+                simulacia_init_podla_spravy(&simulacia, &buf);
+                simulacia_serializuj_sa(&simulacia, &buf);
+                active_socket_write_data(data->my_socket, &buf);
+                break;
+            }
+        }
 
         if (active_socket_is_end_message(data->my_socket, &buf)) {
             active_socket_stop_reading(data->my_socket);
             data->jeKoniecKomunikacie = true;
         }
-
-        char_buffer_destroy(&odpoved);
     }
-
     char_buffer_destroy(&buf);
 }
 
@@ -81,13 +110,19 @@ int main() {
 
     while (!data.jeKoniecKomunikacie) {
         skus_ziskat_spravu(&data);
-        //printf("%d / 1000\n", i);
     }
 
     pthread_join(th_receive, NULL);
 
     thread_data_destroy(&data);
     active_socket_destroy(&my_socket);
+
+
+
+
+
+
+
 
     /*SIMULACIA sim;
     simulacia_init_default(&sim);

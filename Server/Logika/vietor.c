@@ -10,7 +10,7 @@ typedef enum {
     SMERY_COUNT // Pomocná hodnota na určenie počtu smerov
 } SMER;
 
-const char* SMER_POPISY[SMERY_COUNT] = {"Sever", "Vychod", "Juh", "Zapad", "Bezvetrie"};
+static const char SMER_POPISY[SMERY_COUNT] = {'S', 'V', 'J', 'Z', 'B'};
 
 
 int kontrola_rozsahu(int cislo, int pocetPrvkov) {
@@ -39,8 +39,8 @@ int get_suradnicuS_v_smere_vetra(SMER smerVetru, int rStart, int sStart, POLE* p
 
 
 void vypis_smer_vetra(SMER smer) {
-    if (smer >= 0 && smer < SMERY_COUNT) {
-        printf("%s", SMER_POPISY[smer]);
+    if (smer < SMERY_COUNT) {
+        printf("%c", SMER_POPISY[smer]);
     } else {
         printf("CHYBA!!! NEPLATNY SMER VETRU!\n");
     }

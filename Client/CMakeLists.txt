@@ -9,6 +9,8 @@ add_executable(Client main.cpp Logika/ZistovacOdpovedi.cpp
         Aplikacia.h
         Logika/ServerKomunikator.cpp
         Logika/ServerKomunikator.h
+        Logika/Serializator.cpp
+        Logika/Serializator.h
 )
 
 # Linkujte s Winsock knižnicou

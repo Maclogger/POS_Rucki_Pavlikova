@@ -2,6 +2,7 @@
 #define SOCKETS_SERVER_CHAR_BUFFER_H
 
 #include <stdlib.h>
+#include "string.h"
 
 typedef struct char_buffer {
     size_t capacity;

@@ -1,4 +1,7 @@
 #include <stdlib.h>
+#include "bunka.c"
+
+
 
 typedef struct pole {
     int pocetRiadkov;

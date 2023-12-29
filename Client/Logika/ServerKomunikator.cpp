@@ -23,6 +23,7 @@ ServerKomunikator::~ServerKomunikator() {
 }
 
 string ServerKomunikator::posliSpravu(const string &sprava) {
+    cout << "posielana sprava: '" << sprava << "'" << endl;
     this->socket->sendData(sprava); // Najprv odoslať správu
     return this->socket->receiveData(); // Vrátiť prijatú správu späť zo servera
 }

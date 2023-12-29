@@ -1,10 +1,10 @@
 # ninja log v5
-1	201	7255242388524753	build.ninja	1bda74a351c456ec
-18	412	7254945462519567	CMakeFiles/Client.dir/Logika/PravdepodobnostiPolicok.cpp.obj	4fd9eff8ea536192
-4	807	7255235473640892	CMakeFiles/Client.dir/main.cpp.obj	e7f647b6aa3b161e
-810	942	7255235474711233	Client.exe	7e96162aabd76241
-0	810	7255227679658529	CMakeFiles/Client.dir/Logika/Simulacia.cpp.obj	1ab0c4ff8604c05
-6	458	7254945462985030	CMakeFiles/Client.dir/Logika/ZistovacOdpovedi.cpp.obj	3fdce53b094fb9b2
-13	778	7254945466177613	CMakeFiles/Client.dir/PosSockets/my_socket.cpp.obj	1359d53cd7242d8d
-12	981	7255227126824722	CMakeFiles/Client.dir/Logika/ServerKomunikator.cpp.obj	a534cf2202068c4e
-0	810	7255235473670886	CMakeFiles/Client.dir/Aplikacia.cpp.obj	827e5c50b0ca90c1
+0	1126	7255652928203658	CMakeFiles/Client.dir/Logika/PravdepodobnostiPolicok.cpp.obj	4fd9eff8ea536192
+17	261	7255878444895309	build.ninja	1bda74a351c456ec
+1	1060	7255873546256228	CMakeFiles/Client.dir/main.cpp.obj	e7f647b6aa3b161e
+12	1542	7255652932294175	CMakeFiles/Client.dir/Logika/Simulacia.cpp.obj	1ab0c4ff8604c05
+1065	1196	7255873547329211	Client.exe	7e96162aabd76241
+28	1144	7255652928295677	CMakeFiles/Client.dir/Logika/ZistovacOdpovedi.cpp.obj	3fdce53b094fb9b2
+6	1522	7255652932097749	CMakeFiles/Client.dir/PosSockets/my_socket.cpp.obj	1359d53cd7242d8d
+1	1060	7255659581560641	CMakeFiles/Client.dir/Logika/ServerKomunikator.cpp.obj	a534cf2202068c4e
+5	1065	7255873546296564	CMakeFiles/Client.dir/Aplikacia.cpp.obj	827e5c50b0ca90c1

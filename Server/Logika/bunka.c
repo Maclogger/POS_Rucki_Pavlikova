@@ -12,6 +12,24 @@ typedef enum {
 
 static const char TYPY_BUNKY_ZNAKY[TYPY_BUNKY_COUNT] = {'U', 'L', 'S', 'V', 'P', 'Z'};
 
+TYPBUNKY typ_bunky_get_typ_podla_charu(char znak) {
+    switch (znak) {
+        case 'U':
+            return LUKA;
+        case 'L':
+            return LES;
+        case 'S':
+            return SKALA;
+        case 'V':
+            return VODA;
+        case 'P':
+            return POZIAR;
+        case 'Z':
+            return ZHORENA;
+    }
+    return LUKA;
+}
+
 
 typedef struct bunka {
     TYPBUNKY typ;
@@ -23,6 +41,12 @@ void bunka_init(BUNKA* bunka, TYPBUNKY typ, int r, int s) {
     bunka->typ = typ;
     bunka->r = r;
     bunka->s = s;
+}
+
+void bunka_init_with_char(BUNKA* bunka, char typChar, int r, int s) {
+    bunka->r = r;
+    bunka->s = s;
+    bunka->typ = typ_bunky_get_typ_podla_charu(typChar);
 }
 
 void bunka_destroy(BUNKA* bunka) {
