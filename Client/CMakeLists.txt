@@ -7,6 +7,8 @@ add_executable(Client main.cpp Logika/ZistovacOdpovedi.cpp
         PosSockets/my_socket.cpp
         Aplikacia.cpp
         Aplikacia.h
+        Logika/ServerKomunikator.cpp
+        Logika/ServerKomunikator.h
 )
 
 # Linkujte s Winsock knižnicou

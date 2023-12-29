@@ -21,14 +21,15 @@ private:
     char** pole;
     PravdepodobnostiPolicok pravdepodobnostiPolicok = PravdepodobnostiPolicok(25, 25, 25, 25);
 public:
-    Simulacia();
     Simulacia(int pocetRiadkov, int pocetStlpcov);
     ~Simulacia();
     void vypisSa();
     void nastavPravdepodobnosti(int lukaPrav, int lesPrav, int skalaPrav, int vodaPrav);
     void vygenerujSaNahodne();
     void nastavPolicko(int r, int s, char znak);
-    static void vytvorenieNovejSimulacie();
+    void vygenerujMapuPodlaPravdepodobnostiOdUzivatela();
+
+    string getSerializovanuMapu();
 };
 
 //

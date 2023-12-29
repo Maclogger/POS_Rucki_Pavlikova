@@ -9,6 +9,7 @@
 #include "PosSockets/my_socket.h"
 #include "Logika/ZistovacOdpovedi.h"
 #include "Logika/Simulacia.h"
+#include "Logika/ServerKomunikator.h"
 
 #include <iostream>
 #include <vector>
@@ -16,16 +17,17 @@
 
 class Aplikacia {
 private:
-    MySocket* clientSocket;
+    ServerKomunikator* serverKomunikator;
     Simulacia simulacia;
 public:
-    Aplikacia(MySocket* clientSocket);
+    Aplikacia(const string& ip, short port);
     ~Aplikacia();
 private:
     void hlavneMenu();
+    void pokracovatVUlozenejMape();
 
 
-
+    void spustiSimulaciu();
 };
 
 

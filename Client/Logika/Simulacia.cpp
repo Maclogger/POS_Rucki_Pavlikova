@@ -3,8 +3,7 @@
 //
 
 #include "Simulacia.h"
-
-
+#include "ZistovacOdpovedi.h"
 
 
 Simulacia::Simulacia(int pocetRiadkov, int pocetStlpcov) {
@@ -20,19 +19,13 @@ Simulacia::Simulacia(int pocetRiadkov, int pocetStlpcov) {
         }
     }
     this->vygenerujSaNahodne();
-}
 
-
-Simulacia::Simulacia() {
-    vector<string> moznosti;
-    int odpoved;
-    int r = ZistovacOdpovedi().vypytajCislo("Zadajte pocet riadkov mapy: ", 3, 10);
-    int s = ZistovacOdpovedi().vypytajCislo("Zadajte pocet stlpcov mapy: ", 3, 10);
-    Simulacia simulacia(r, s);
 
     while (true) {
-        simulacia.vypisSa();
+        this->vypisSa();
 
+        vector<string> moznosti;
+        int odpoved;
         moznosti.clear();
         moznosti.emplace_back("Nahodne vygeneruj znova");
         moznosti.emplace_back("Manualne uprav konkretne policko");
@@ -41,18 +34,18 @@ Simulacia::Simulacia() {
 
         cout << endl;
         if (odpoved == 0) {
-            vygenerujMapuPodlaPravdepodobnostiOdUzivatela(simulacia);
+            vygenerujMapuPodlaPravdepodobnostiOdUzivatela();
         } else if (odpoved == 1) {
             int rPolicka = ZistovacOdpovedi().vypytajCislo("Zadaj riadok policka: ", 0, r - 1);
             int sPolicka = ZistovacOdpovedi().vypytajCislo("Zadaj stlpec policka: ", 0, s - 1);
             char znak = ZistovacOdpovedi().getZnakPolickaOdUzivatela();
-            simulacia.nastavPolicko(rPolicka, sPolicka, znak);
+            this->nastavPolicko(rPolicka, sPolicka, znak);
         } else {
             break;
         }
     }
-
 }
+
 
 Simulacia::~Simulacia() {
     for (int r = 0; r < this->pocetRiadkov; r++) {
@@ -239,8 +232,41 @@ void Simulacia::nastavPolicko(int r, int s, char znak) {
 }
 
 
-void Simulacia::vytvorenieNovejSimulacie() {
+void Simulacia::vygenerujMapuPodlaPravdepodobnostiOdUzivatela() {
+    cout << "Zadajte pravdepodobnosti pre typy policok." << endl;
+    int lukaPrav = ZistovacOdpovedi().vypytajCislo("Zadajte pravdepodobnost luky 1/4: ", 0, 100);
+    int lesPrav = ZistovacOdpovedi().vypytajCislo("Zadajte pravdepodobnost les 2/4 :", 0, 100 - lukaPrav);
+    int skalaPrav = ZistovacOdpovedi().vypytajCislo("Zadajte pravdepodobnost luky 3/4 :", 0, 100 - lukaPrav - lesPrav);
+    int vodaPrav = 100 - lukaPrav - lesPrav - skalaPrav;
+    this->nastavPravdepodobnosti(lukaPrav, lesPrav, skalaPrav, vodaPrav);
+    this->vygenerujSaNahodne();
+    cout << "Vase zvolene pravdepodobnosti su: " << endl;
+    cout << "Luka - " << to_string(lukaPrav) << "%" << endl;
+    cout << "Les - " << to_string(lesPrav) << "%" << endl;
+    cout << "Skala - " << to_string(skalaPrav) << "%" << endl;
+    cout << "Voda - " << to_string(vodaPrav) << "%" << endl;
 
+    /*simulacia.nastavPolicko(0, 0, 'P');
+    simulacia.nastavPolicko(1, 0, 'P');
+    simulacia.nastavPolicko(0, 1, 'P');
 
+    simulacia.nastavPolicko(9, 9, 'Z');
+    simulacia.nastavPolicko(8, 9, 'Z');
+    simulacia.nastavPolicko(8, 8, 'Z');*/
 }
 
+string Simulacia::getSerializovanuMapu() {
+    // príkaz sa tu nerieši => viacvyužiteľnosť programu
+    //"pocetRiadkov;pocetStlpcov;S;S;V;L;L;U;...;S;V;"
+
+    string vysledok = to_string(this->pocetRiadkov) + ";" + to_string(this->pocetStlpcov) + ";";
+
+    for(int r = 0; r < this->pocetRiadkov; r++) {
+        for(int s = 0; s < this->pocetStlpcov; s++) {
+            vysledok += this->pole[r][s];
+            vysledok += ";";
+        }
+    }
+
+    return vysledok;
+}
