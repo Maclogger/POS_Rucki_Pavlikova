@@ -3,12 +3,13 @@
 //
 
 #include "Simulacia.h"
-#include "ZistovacOdpovedi.h"
-
+#include "winsock2.h"
 
 Simulacia::Simulacia(int pocetRiadkov, int pocetStlpcov) {
     this->pocetRiadkov  = pocetRiadkov;
     this->pocetStlpcov = pocetStlpcov;
+    this->cisloKroku = 0;
+    this->smerVetru = 'B';
 
     this->pole = static_cast<char **>(calloc(pocetRiadkov, sizeof(char *)));
     for (int r = 0; r < pocetRiadkov; r++) {
@@ -30,15 +31,15 @@ Simulacia::Simulacia(int pocetRiadkov, int pocetStlpcov) {
         moznosti.emplace_back("Nahodne vygeneruj znova");
         moznosti.emplace_back("Manualne uprav konkretne policko");
         moznosti.emplace_back("Potvrdit aktualnu mapu");
-        odpoved = ZistovacOdpovedi().vypisMenu("Vytvaranie mapy", moznosti);
+        odpoved = ZistovacOdpovedi::vypisMenu("Vytvaranie mapy", moznosti);
 
         cout << endl;
         if (odpoved == 0) {
             vygenerujMapuPodlaPravdepodobnostiOdUzivatela();
         } else if (odpoved == 1) {
-            int rPolicka = ZistovacOdpovedi().vypytajCislo("Zadaj riadok policka: ", 0, this->pocetRiadkov - 1);
-            int sPolicka = ZistovacOdpovedi().vypytajCislo("Zadaj stlpec policka: ", 0, this->pocetStlpcov - 1);
-            char znak = ZistovacOdpovedi().getZnakPolickaOdUzivatela();
+            int rPolicka = ZistovacOdpovedi::vypytajCislo("Zadaj riadok policka: ", 0, this->pocetRiadkov - 1);
+            int sPolicka = ZistovacOdpovedi::vypytajCislo("Zadaj stlpec policka: ", 0, this->pocetStlpcov - 1);
+            char znak = ZistovacOdpovedi::getZnakPolickaOdUzivatela();
             this->nastavPolicko(rPolicka, sPolicka, znak);
         } else {
             break;
@@ -59,7 +60,6 @@ Simulacia::~Simulacia() {
 
 void Simulacia::vypisSa() {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-
     cout << "   ";
     for (int i = 0; i < this->pocetStlpcov; i++) {
 
@@ -107,14 +107,14 @@ void Simulacia::vypisSa() {
         }
 
         cout << "|";
-        char up = 24;
-        char down = 25;
-        char right = 26;
-        char left = 27;
+        char up = 'A';
+        char down = 'V';
+        char right = '>';
+        char left = '<';
 
-        char smer = 4;
+
         switch(r) {
-            case 0:
+            case 0: {
                 SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
                 cout << "       U - luka     ";
                 SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
@@ -122,64 +122,81 @@ void Simulacia::vypisSa() {
 
                 SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
                 break;
-            case 1:
+            }
+            case 1: {
                 SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
                 cout << "       S - skala    ";
-
                 SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
                 cout << "Z - zhorena\n";
-
                 SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-
                 break;
+            }
 
 
-
-            case 2: SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY);
+            case 2: {
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY);
                 cout << "       P - poziar   ";
                 SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
                 cout << "L - les  \n";
 
                 SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
                 break;
+            }
 
-            case 3:
-                if (smer ==  1) {
-                    cout << "       SMER VETRA:  ";
+            case 3: {
+                if (this->smerVetru == 'S') {
+                    cout << "       SMER VETRU:  ";
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY);
                     cout << up << " ";
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-                    cout << down << " " << left << " " << right << endl;
+                    cout << down << " " << left << " " << right << "X" << endl;
                 }
-                if (smer == 2) {
-                    cout << "       SMER VETRA:  ";
+                if (this->smerVetru == 'J') {
+                    cout << "       SMER VETRU:  ";
                     cout << up << " ";
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY);
                     cout << down << " ";
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-                    cout << left << " " << right << endl;
+                    cout << left << " " << right << "X" << endl;
                 }
 
-                if (smer == 3) {
-                    cout << "       SMER VETRA:  ";
+                if (this->smerVetru == 'Z') {
+                    cout << "       SMER VETRU:  ";
                     cout << up << " " << down << " ";
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY);
                     cout << left << " ";
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-                    cout << right << endl;
+                    cout << right << "X" << endl;
                 }
 
-                if (smer == 4) {
-                    cout << "       SMER VETRA:  ";
+                if (this->smerVetru == 'V') {
+                    cout << "       SMER VETRU:  ";
                     cout << up << " " << down << " " << left << " ";
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY);
-                    cout << right << endl;
+                    cout << right;
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+                    cout << "X" << endl;
                 }
 
+                if (this->smerVetru == 'B') {
+                    cout << "       SMER VETRU:  ";
+                    cout << up << " " << down << " " << left << " " << right << " ";
+                    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY);
+                    cout << "X" << endl;
+                    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+                }
                 break;
-
-            default: cout << "\n";
+            }
+            case 4: {
+                cout << "       Krok simulacie: ";
+                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+                cout << to_string(this->cisloKroku) << endl;
+                SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+                break;
+            }
+            default: {
+                cout << "\n";
+            }
 
         }
 
@@ -234,9 +251,9 @@ void Simulacia::nastavPolicko(int r, int s, char znak) {
 
 void Simulacia::vygenerujMapuPodlaPravdepodobnostiOdUzivatela() {
     cout << "Zadajte pravdepodobnosti pre typy policok." << endl;
-    int lukaPrav = ZistovacOdpovedi().vypytajCislo("Zadajte pravdepodobnost luky 1/4: ", 0, 100);
-    int lesPrav = ZistovacOdpovedi().vypytajCislo("Zadajte pravdepodobnost les 2/4 :", 0, 100 - lukaPrav);
-    int skalaPrav = ZistovacOdpovedi().vypytajCislo("Zadajte pravdepodobnost luky 3/4 :", 0, 100 - lukaPrav - lesPrav);
+    int lukaPrav = ZistovacOdpovedi::vypytajCislo("Zadajte pravdepodobnost luky 1/4: ", 0, 100);
+    int lesPrav = ZistovacOdpovedi::vypytajCislo("Zadajte pravdepodobnost les 2/4 :", 0, 100 - lukaPrav);
+    int skalaPrav = ZistovacOdpovedi::vypytajCislo("Zadajte pravdepodobnost luky 3/4 :", 0, 100 - lukaPrav - lesPrav);
     int vodaPrav = 100 - lukaPrav - lesPrav - skalaPrav;
     this->nastavPravdepodobnosti(lukaPrav, lesPrav, skalaPrav, vodaPrav);
     this->vygenerujSaNahodne();
@@ -255,22 +272,35 @@ void Simulacia::vygenerujMapuPodlaPravdepodobnostiOdUzivatela() {
     simulacia.nastavPolicko(8, 8, 'Z');*/
 }
 
-string Simulacia::getSerializovanuMapu() {
-    // príkaz sa tu nerieši => viacvyužiteľnosť programu
-    //"pocetRiadkov;pocetStlpcov;S;S;V;L;L;U;...;S;V;"
-
-    string vysledok = to_string(this->pocetRiadkov) + ";" + to_string(this->pocetStlpcov) + ";";
-
-    for(int r = 0; r < this->pocetRiadkov; r++) {
-        for(int s = 0; s < this->pocetStlpcov; s++) {
-            vysledok += this->pole[r][s];
-            vysledok += ";";
-        }
-    }
-
-    return vysledok;
-}
 
 Simulacia::Simulacia() {
 
+}
+
+int Simulacia::getPocetRiadkov() const {
+    return this->pocetRiadkov;
+}
+
+int Simulacia::getPocetStlpcov() const {
+    return this->pocetStlpcov;
+}
+
+char** Simulacia::getPole() const {
+    return this->pole;
+}
+
+void Simulacia::setPocetRiadkov(int pocetRiadkov) {
+    this->pocetRiadkov = pocetRiadkov;
+}
+
+void Simulacia::setPocetStlpcov(int pocetStlpcov) {
+    this->pocetStlpcov = pocetStlpcov;
+}
+
+void Simulacia::setCisloKroku(int cisloKroku) {
+    this->cisloKroku = cisloKroku;
+}
+
+void Simulacia::setSmerVetru(char smerVetru) {
+    this->smerVetru = smerVetru;
 }

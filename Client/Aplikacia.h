@@ -6,10 +6,11 @@
 #define CLIENT_APLIKACIA_H
 
 
-#include "PosSockets/my_socket.h"
 #include "Logika/ZistovacOdpovedi.h"
 #include "Logika/Simulacia.h"
 #include "Logika/ServerKomunikator.h"
+#include "Logika/Serializator.h"
+
 
 #include <iostream>
 #include <vector>
@@ -25,8 +26,6 @@ public:
 private:
     void hlavneMenu();
     void pokracovatVUlozenejMape();
-
-
     void spustiSimulaciu();
 };
 

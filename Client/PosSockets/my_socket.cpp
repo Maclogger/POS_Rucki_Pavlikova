@@ -1,7 +1,6 @@
 #include "my_socket.h"
 #include <stdexcept>
 #include <ws2tcpip.h>
-#include <winsock2.h>
 #include <iostream>
 #include <string>
 

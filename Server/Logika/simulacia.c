@@ -91,7 +91,6 @@ void simulacia_serializuj_sa(SIMULACIA *sim, CHAR_BUFFER* odpoved) {
     }
 }
 
-
 _Bool simulacia_pridaj_ohen(SIMULACIA* sim, int r, int s) {
     if (r < 0 || r >= sim->pole->pocetRiadkov || s < 0 || s >= sim->pole->pocetStlpcov) {
         printf("Bunka [%d, %d] je MIMO ROZSAH!!!\n", r, s);
@@ -110,4 +109,8 @@ _Bool simulacia_pridaj_ohen(SIMULACIA* sim, int r, int s) {
     return 1;
 }
 
-
+_Bool vykonaj_krok(SIMULACIA* sim) {
+    sim->cisloKroku++;
+    // TODO Vykonanie kroku simulacie podla pravidiel definovanych v zadani
+    return 1;
+}

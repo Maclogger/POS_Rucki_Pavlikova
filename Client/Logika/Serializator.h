@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 
@@ -17,9 +18,12 @@ using namespace std;
 
 class Serializator {
 
-public:
-    serializujSimualicu();
+private:
+    static vector<string> split(const string& str, char delim);
 
+public:
+    static string serializujSimualicu(Simulacia* sim);
+    static void deserializujOdpovedSimulacie(Simulacia* sim, const string& odpoved);
 };
 
 

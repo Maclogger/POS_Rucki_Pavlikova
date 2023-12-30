@@ -2,15 +2,15 @@
 // Created by agata on 26. 12. 2023.
 //
 
-//#ifndef CLIENT_SIMULACIA_H
-//#define CLIENT_SIMULACIA_H
+#ifndef CLIENT_SIMULACIA_H
+#define CLIENT_SIMULACIA_H
 
 #include <cstdlib>
 #include <iostream>
-#include <Windows.h>
 #include <iostream>
 #include <vector>
 #include <string>
+#include "ZistovacOdpovedi.h"
 #include "PravdepodobnostiPolicok.h"
 using namespace std;
 
@@ -18,6 +18,8 @@ class Simulacia {
 private:
     int pocetRiadkov;
     int pocetStlpcov;
+    int cisloKroku;
+    char smerVetru;
     char** pole;
     PravdepodobnostiPolicok pravdepodobnostiPolicok = PravdepodobnostiPolicok(25, 25, 25, 25);
 public:
@@ -30,8 +32,19 @@ public:
     void nastavPolicko(int r, int s, char znak);
     void vygenerujMapuPodlaPravdepodobnostiOdUzivatela();
 
-    string getSerializovanuMapu();
+    int getPocetRiadkov() const;
+    int getPocetStlpcov() const;
+    char** getPole() const;
+
+    void setPocetRiadkov(int pocetRiadkov);
+
+    void setPocetStlpcov(int pocetStlpcov);
+
+    void setCisloKroku(int cisloKroku);
+
+    void setSmerVetru(char smerVetru);
+
 };
 
-//
-//#endif //CLIENT_SIMULACIA_H
+
+#endif //CLIENT_SIMULACIA_H

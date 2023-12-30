@@ -10,12 +10,14 @@ typedef struct thread_data {
     short port;
     ACTIVE_SOCKET* my_socket;
     _Bool jeKoniecKomunikacie;
+    SIMULACIA* simulacia;
 };
 
-void thread_data_init(struct thread_data* data, ACTIVE_SOCKET* sock, short port) {
+void thread_data_init(struct thread_data* data, ACTIVE_SOCKET* sock, short port, SIMULACIA* simulacia) {
     data->my_socket = sock;
     data->port = port;
     data->jeKoniecKomunikacie = false;
+    data->simulacia = simulacia;
 }
 
 void thread_data_destroy(struct thread_data* data) {
@@ -60,9 +62,16 @@ void skus_ziskat_spravu(struct thread_data* data) {
 
         switch(cisloPrikazu) {
             case 0: {
-                SIMULACIA simulacia;
-                simulacia_init_podla_spravy(&simulacia, &buf);
-                simulacia_serializuj_sa(&simulacia, &buf);
+                // vytvorenie novej simulacie podla spravy
+                simulacia_init_podla_spravy(data->simulacia, &buf);
+                simulacia_serializuj_sa(data->simulacia, &buf);
+                active_socket_write_data(data->my_socket, &buf);
+                break;
+            }
+            case 2: {
+                // vykonanie kroku simulacie
+                vykonaj_krok(data->simulacia);
+                simulacia_serializuj_sa(data->simulacia, &buf);
                 active_socket_write_data(data->my_socket, &buf);
                 break;
             }
@@ -101,10 +110,11 @@ int main() {
     struct active_socket my_socket;
     struct thread_data data;
     pthread_t th_receive;
+    SIMULACIA simulacia;
 
     active_socket_init(&my_socket);
 
-    thread_data_init(&data, &my_socket, port);
+    thread_data_init(&data, &my_socket, port, &simulacia);
 
     pthread_create(&th_receive, NULL, process_client_data, &data);
 
@@ -114,11 +124,9 @@ int main() {
 
     pthread_join(th_receive, NULL);
 
+    simulacia_destroy(&simulacia);
     thread_data_destroy(&data);
     active_socket_destroy(&my_socket);
-
-
-
 
 
 

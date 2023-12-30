@@ -1,11 +1,7 @@
 //
 // Created by agata on 26. 12. 2023.
 //
-#include <winsock2.h>
-#include <ws2tcpip.h>
 
-
-#include "PosSockets/my_socket.h"
 #include "Aplikacia.h"
 
 
@@ -40,7 +36,8 @@ int main() {
     string ip = "frios2.fri.uniza.sk";
     short port = 13029;
     Aplikacia aplikacia(ip, port);
+
+    system("pause");
     return 0;
 }
-
 

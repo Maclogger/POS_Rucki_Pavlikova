@@ -25,7 +25,9 @@ ServerKomunikator::~ServerKomunikator() {
 string ServerKomunikator::posliSpravu(const string &sprava) {
     cout << "posielana sprava: '" << sprava << "'" << endl;
     this->socket->sendData(sprava); // Najprv odoslať správu
-    return this->socket->receiveData(); // Vrátiť prijatú správu späť zo servera
+    string odpovedZoServera = this->socket->receiveData();
+    cout << "odpoved zo serveru: '" << odpovedZoServera << "'" << endl << endl;
+    return odpovedZoServera; // Vrátiť prijatú správu späť zo servera
 }
 
 bool ServerKomunikator::jePripojeny() {

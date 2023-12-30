@@ -51,7 +51,7 @@ char ZistovacOdpovedi::getZnakPolickaOdUzivatela() {
     moznosti.emplace_back("Skala");
     moznosti.emplace_back("Voda");
 
-    int odpoved = this->vypisMenu("Zvolte typ policka: ", moznosti);
+    int odpoved = vypisMenu("Zvolte typ policka: ", moznosti);
 
     switch (odpoved) {
         case 0: return 'U';
