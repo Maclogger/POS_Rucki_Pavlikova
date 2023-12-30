@@ -304,3 +304,14 @@ void Simulacia::setCisloKroku(int cisloKroku) {
 void Simulacia::setSmerVetru(char smerVetru) {
     this->smerVetru = smerVetru;
 }
+
+bool Simulacia::skusPridatOhen(int r, int s) {
+    if (r < 0 || r >= this->pocetRiadkov || s < 0 || s >= this->pocetStlpcov) {
+        return false;
+    }
+    if (this->pole[r][s] == 'S' || this->pole[r][s] == 'V' || this->pole[r][s] == 'Z') {
+        return false;
+    }
+    this->nastavPolicko(r, s, 'P');
+    return true;
+}

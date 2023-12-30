@@ -6,7 +6,7 @@
 
 
 int ZistovacOdpovedi::vypisMenu(const string& otazka, vector<string>& moznosti) {
-    cout << otazka << ":" << endl;
+    cout << otazka << endl;
     for (int i = 0; i < moznosti.size(); i++) {
         cout << moznosti[i] << " - zadajte [" << i << "]" << endl;
     }

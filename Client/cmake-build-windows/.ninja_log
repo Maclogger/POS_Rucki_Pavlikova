@@ -72,3 +72,14 @@
 384	519	7255999558257893	Client.exe	ad49620be2f7da9c
 1	822	7256000317543336	CMakeFiles/Client.dir/Aplikacia.cpp.obj	827e5c50b0ca90c1
 823	946	7256000318501951	Client.exe	ad49620be2f7da9c
+5	815	7256014798688606	CMakeFiles/Client.dir/Logika/ZistovacOdpovedi.cpp.obj	3fdce53b094fb9b2
+0	946	7256014800010855	CMakeFiles/Client.dir/main.cpp.obj	e7f647b6aa3b161e
+9	983	7256014800368896	CMakeFiles/Client.dir/Aplikacia.cpp.obj	827e5c50b0ca90c1
+983	1123	7256014801469078	Client.exe	ad49620be2f7da9c
+1	1099	7256035705004661	CMakeFiles/Client.dir/Aplikacia.cpp.obj	827e5c50b0ca90c1
+1100	1281	7256035706504503	Client.exe	ad49620be2f7da9c
+9	804	7256058049844350	CMakeFiles/Client.dir/Logika/Serializator.cpp.obj	e5333c767de0b4c6
+1	946	7256058051267115	CMakeFiles/Client.dir/main.cpp.obj	e7f647b6aa3b161e
+5	967	7256058051471913	CMakeFiles/Client.dir/Logika/Simulacia.cpp.obj	1ab0c4ff8604c05
+13	983	7256058051634093	CMakeFiles/Client.dir/Aplikacia.cpp.obj	827e5c50b0ca90c1
+983	1120	7256058052714265	Client.exe	ad49620be2f7da9c

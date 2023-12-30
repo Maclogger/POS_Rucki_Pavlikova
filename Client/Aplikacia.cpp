@@ -25,7 +25,7 @@ void Aplikacia::hlavneMenu() {
     moznosti.emplace_back("Vytvor novu simulaciu");
     moznosti.emplace_back("Pokracovat v ulozenej");
     moznosti.emplace_back("Ukoncenie");
-    int odpoved = ZistovacOdpovedi::vypisMenu("Vyber jednu moznost", moznosti);
+    int odpoved = ZistovacOdpovedi::vypisMenu("Vyber jednu moznost:", moznosti);
 
     if(odpoved == 0) {
         moznosti.clear();
@@ -68,7 +68,19 @@ void Aplikacia::spustiSimulaciu() {
             odpovedZoServera = this->serverKomunikator->posliSpravu("vykonajKrok;");
             Serializator::deserializujOdpovedSimulacie(this->simulacia, odpovedZoServera);
         } else if (odpoved == 1) {
-            //TODO pridanie ohna
+
+            int riadokNovehoOhna = 0;
+            int stlpecNovehoOhna = 0;
+            while (true) {
+                riadokNovehoOhna = ZistovacOdpovedi::vypytajCislo("Zadajte riadok policka", 0, this->simulacia->getPocetRiadkov() - 1);
+                stlpecNovehoOhna = ZistovacOdpovedi::vypytajCislo("Zadajte stlpec policka", 0, this->simulacia->getPocetStlpcov() - 1);
+                if (this->simulacia->skusPridatOhen(riadokNovehoOhna, stlpecNovehoOhna)) break;
+                cout << "Na tomto policku nemoze byt zalozeny poziar!" << endl;
+            }
+            // "pridajOhen;riadok;stlpec;" - "pridajOhen;2;3;"
+            string prikaz = "pridajOhen;" + to_string(riadokNovehoOhna) + ";" + to_string(stlpecNovehoOhna) + ";";
+            odpovedZoServera = this->serverKomunikator->posliSpravu(prikaz);
+            Serializator::deserializujOdpovedSimulacie(this->simulacia, odpovedZoServera);
         } else if (odpoved == 2) {
             // TODO ulozit simulaciu na server
         } else if (odpoved == 3) {

@@ -14,7 +14,7 @@ void simulacia_init(SIMULACIA* sim, int pocetRiadkov, int pocetStlpcov) {
     sim->cisloKroku = 0;
 }
 
-void simulacia_init_podla_spravy(SIMULACIA* sim, CHAR_BUFFER* buf) {
+void simulacia_init_podla_spravy(SIMULACIA* sim) {
     char* token = strtok(NULL, ";");
     int pocetRiadkov = atoi(token);
 
@@ -91,22 +91,14 @@ void simulacia_serializuj_sa(SIMULACIA *sim, CHAR_BUFFER* odpoved) {
     }
 }
 
-_Bool simulacia_pridaj_ohen(SIMULACIA* sim, int r, int s) {
-    if (r < 0 || r >= sim->pole->pocetRiadkov || s < 0 || s >= sim->pole->pocetStlpcov) {
-        printf("Bunka [%d, %d] je MIMO ROZSAH!!!\n", r, s);
-        return 0;
-    }
+void simulacia_pridaj_ohen(SIMULACIA* sim) {
+    char* token = strtok(NULL, ";");
+    int r = atoi(token);
 
-    if (sim->pole->bunky[r][s].typ == SKALA) {
-        printf("Na bunke [%d, %d] nemozete zalozit poziar! To je skala!\n", r, s);
-        return 0;
-    }
-    if (sim->pole->bunky[r][s].typ == POZIAR) {
-        printf("V bunke [%d, %d] sa uz poziar nachadza!\n", r, s);
-        return 0;
-    }
+    token = strtok(NULL, ";");
+    int s = atoi(token);
+
     bunka_init(&sim->pole->bunky[r][s], POZIAR, r, s);
-    return 1;
 }
 
 _Bool vykonaj_krok(SIMULACIA* sim) {

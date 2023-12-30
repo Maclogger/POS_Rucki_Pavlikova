@@ -63,7 +63,14 @@ void skus_ziskat_spravu(struct thread_data* data) {
         switch(cisloPrikazu) {
             case 0: {
                 // vytvorenie novej simulacie podla spravy
-                simulacia_init_podla_spravy(data->simulacia, &buf);
+                simulacia_init_podla_spravy(data->simulacia); // ono ten strtok si to prenasa sam ten string, netreba prenasat znova buffer
+                simulacia_serializuj_sa(data->simulacia, &buf);
+                active_socket_write_data(data->my_socket, &buf);
+                break;
+            }
+            case 1: {
+                // pridanie ohňa
+                simulacia_pridaj_ohen(data->simulacia); // ono ten strtok si to prenasa sam ten string, netreba prenasat znova buffer
                 simulacia_serializuj_sa(data->simulacia, &buf);
                 active_socket_write_data(data->my_socket, &buf);
                 break;
@@ -76,7 +83,6 @@ void skus_ziskat_spravu(struct thread_data* data) {
                 break;
             }
         }
-
         if (active_socket_is_end_message(data->my_socket, &buf)) {
             active_socket_stop_reading(data->my_socket);
             data->jeKoniecKomunikacie = true;
@@ -128,21 +134,6 @@ int main() {
     thread_data_destroy(&data);
     active_socket_destroy(&my_socket);
 
-
-
-
-
-    /*SIMULACIA sim;
-    simulacia_init_default(&sim);
-
-    simulacia_vypis_sa(&sim);
-
-    simulacia_pridaj_ohen(&sim, 0, 0);
-    simulacia_pridaj_ohen(&sim, 3, 3);
-
-    simulacia_vypis_sa(&sim);
-
-    simulacia_destroy(&sim);*/
     return 0;
 }
 

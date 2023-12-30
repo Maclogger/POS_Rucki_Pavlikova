@@ -44,6 +44,7 @@ public:
 
     void setSmerVetru(char smerVetru);
 
+    bool skusPridatOhen(int r, int s);
 };
 
 
