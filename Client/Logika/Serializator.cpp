@@ -23,6 +23,7 @@ string Serializator::serializujSimualicu(Simulacia *sim) {
 void Serializator::deserializujOdpovedSimulacie(Simulacia *sim, const string& odpoved) {
     //"0;1;2;3;4;5;6;7;8;9;0;1;2;3;"
     //"0;0;B;3;3;L;S;L;V;S;U;U;V;V;"
+    //"0;0;B;5;5;L;S;L;V;S;U;U;V;V;S;L;V;S;S;U;L;L;U;L;L;V;U;L;L;L;"
     //"status;aktualneCisloKroku;smerVetru;pocetRiadkov;pocetStlpcov;S;S;V;L;L;U;...;S;V;"
 
     vector<string> prvky = split(odpoved, ';');
@@ -70,4 +71,18 @@ vector<string> Serializator::split(const string &str, char delim) {
     }
 
     return tokens;
+}
+
+vector<string> Serializator::deserializujZoznamSavov(const string& odpoved) {
+    vector<string> zoznam;
+    zoznam = split(odpoved, ';');
+    if (zoznam[0] == "0") {
+        zoznam.erase(zoznam.begin());
+    }
+    return zoznam;
+}
+
+bool Serializator::jeSpravaOk(const string& basicString) {
+    vector<string> casti = split(basicString, ';');
+    return (!casti.empty() && casti[0] == "0");
 }

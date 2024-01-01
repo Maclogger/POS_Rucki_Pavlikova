@@ -7,7 +7,6 @@
 
 using  namespace std;
 
-
 /*
  Názvoslovie príkazov:
 
@@ -31,10 +30,9 @@ odpovede:
 
  */
 
-
 int main() {
     string ip = "frios2.fri.uniza.sk";
-    short port = 13029;
+    short port = 13028;
     Aplikacia aplikacia(ip, port);
     cout << endl;
     system("pause");

@@ -18,12 +18,13 @@ using namespace std;
 
 class Serializator {
 
-private:
-    static vector<string> split(const string& str, char delim);
-
 public:
+    static vector<string> split(const string& str, char delim);
     static string serializujSimualicu(Simulacia* sim);
     static void deserializujOdpovedSimulacie(Simulacia* sim, const string& odpoved);
+    static vector<string> deserializujZoznamSavov(const string& odpoved);
+
+    static bool jeSpravaOk(const string& basicString);
 };
 
 

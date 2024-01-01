@@ -1,10 +1,14 @@
 #include "vietor.c"
 #include "../PosSockets/char_buffer.h"
+#include "../Utilities/generator_nahody.c"
 
 typedef struct simulacia {
     POLE* pole;
     SMER smerVetru;
     int cisloKroku;
+    int kolkoKratFukalVietor;
+
+
 } SIMULACIA;
 
 void simulacia_init(SIMULACIA* sim, int pocetRiadkov, int pocetStlpcov) {
@@ -12,9 +16,11 @@ void simulacia_init(SIMULACIA* sim, int pocetRiadkov, int pocetStlpcov) {
     pole_init(sim->pole, pocetRiadkov, pocetStlpcov);
     sim->smerVetru = BEZVETRIE;
     sim->cisloKroku = 0;
+    sim->kolkoKratFukalVietor = 0;
 }
 
-void simulacia_init_podla_spravy(SIMULACIA* sim) {
+void simulacia_init_podla_spravy_vytvorenia(SIMULACIA* sim) {
+
     char* token = strtok(NULL, ";");
     int pocetRiadkov = atoi(token);
 
@@ -35,6 +41,22 @@ void simulacia_init_podla_spravy(SIMULACIA* sim) {
     }
 }
 
+void simulacia_init_podla_savu(SIMULACIA* sim, CHAR_BUFFER* char_buffer) {
+    //"priklad;0;0;B;5;5;L;S;L;V;S;U;U;V;V;S;L;V;S;S;U;L;L;U;L;L;V;U;L;L;L;\n"
+
+    strtok(char_buffer->data, ";");
+
+    char* token = strtok(NULL, ";");
+    token = strtok(NULL, ";");
+
+    sim->cisloKroku = atoi(token);
+
+    token = strtok(NULL, ";");
+    char smerVetru = token[0];
+    sim->smerVetru = get_smer_z_charu(smerVetru);
+    simulacia_init_podla_spravy_vytvorenia(sim);
+}
+
 void simulacia_destroy(SIMULACIA* sim) {
     pole_destroy(sim->pole);
     free(sim->pole);
@@ -51,19 +73,14 @@ void simulacia_vypis_sa(SIMULACIA* sim) {
 
 void simulacia_serializuj_sa(SIMULACIA *sim, CHAR_BUFFER* odpoved) {
 
-    // malo by vrátiť: "cisloKroku;smerVetru;pocetRiadkov;pocetStlpcov;S;S;V;L;L;U;...;S;V;"
+    // vracia: "cisloKroku;smerVetru;pocetRiadkov;pocetStlpcov;S;S;V;L;L;U;...;S;V;"
     // smer vetru ako char iba.
-    // pocetRiadkov = sim->pocetRiadkov;
-    // pocetStlpcov = sim->pocetStlpcov;
-    // na získanie znaku podľa typu bunky sa dá použiť: TYPY_BUNKY_ZNAKY[bunka->typ]
-    // pričom bunka je sim->pole->bunky[r][s]
 
-    char_buffer_clear(odpoved);
+    //char_buffer_clear(odpoved);
 
     char temp[50]; // Dočasný buffer na formátovanie reťazcov
 
     // Pridáme čislo statusu OK
-
     sprintf(temp, "%d;", 0);
     char_buffer_append(odpoved, temp, strlen(temp));
 
@@ -74,7 +91,6 @@ void simulacia_serializuj_sa(SIMULACIA *sim, CHAR_BUFFER* odpoved) {
     // Pridáme smer vetru ako char
     temp[0] = SMER_POPISY[sim->smerVetru];
     temp[1] = ';';
-    temp[2] = '\0';
     char_buffer_append(odpoved, temp, strlen(temp));
 
     // Pridáme počet riadkov a stĺpcov
@@ -101,8 +117,135 @@ void simulacia_pridaj_ohen(SIMULACIA* sim) {
     bunka_init(&sim->pole->bunky[r][s], POZIAR, r, s);
 }
 
+
+BUNKA* getBunkuOkolia(POLE* pole, BUNKA* stred, int poradoveCislo) {
+
+    int rStred = stred->r;
+    int sStred = stred->s;
+
+    switch(poradoveCislo) {
+        case 0: {
+            // hore
+            if (rStred - 1 >= 0) {
+                return &pole->bunky[rStred - 1][sStred];
+            }
+        }
+        case 1: {
+            // dole
+            if (rStred + 1 < pole->pocetRiadkov) {
+                return &pole->bunky[rStred + 1][sStred];
+            }
+        }
+        case 2: {
+            // doprava
+            if (sStred + 1 < pole->pocetStlpcov) {
+                return &pole->bunky[rStred][sStred + 1];
+            }
+        }
+        case 3: {
+            // doľava
+            if (sStred - 1 >= 0) {
+                return &pole->bunky[rStred][sStred - 1];
+            }
+        }
+    }
+    return NULL;
+}
+
+
+
 _Bool vykonaj_krok(SIMULACIA* sim) {
     sim->cisloKroku++;
-    // TODO Vykonanie kroku simulacie podla pravidiel definovanych v zadani
+
+    POLE* kopia = (POLE*)malloc(sizeof(POLE));
+    pole_copy(kopia, sim->pole);
+
+
+    // požiar a zhorene:
+    for (int r = 0; r < kopia->pocetRiadkov; r++) {
+        for (int s = 0; s < kopia->pocetStlpcov; s++) {
+            BUNKA* stredKopia = &kopia->bunky[r][s];
+            BUNKA* stred = &sim->pole->bunky[r][s];
+            if (stredKopia->typ == POZIAR) {
+                for (int i = 0; i < 4; i++) {
+                    BUNKA* bunkaOkoliaKopia = getBunkuOkolia(kopia, stredKopia, i);
+                    BUNKA* bunkaOkolia = getBunkuOkolia(sim->pole, stred, i);
+                    if (bunkaOkoliaKopia != NULL) {
+                        // je v rámci mapy:
+                        if (bunkaOkoliaKopia->typ == LES || bunkaOkoliaKopia->typ == LUKA) {
+                            if (sim->smerVetru == BEZVETRIE) {
+                                if (getRandomDouble(0.0, 100.0) < 20.0) {
+                                    bunkaOkolia->typ = POZIAR;
+                                }
+                            } else {
+                                // ak veje vietor:
+                                if ((i == 0 && sim->smerVetru == SEVER) ||
+                                        (i == 1 && sim->smerVetru == JUH) ||
+                                        (i == 2 && sim->smerVetru == VYCHOD) ||
+                                        (i == 3 && sim->smerVetru == ZAPAD)) {
+
+                                    if (getRandomDouble(0.0, 100.0) < 90.0) {
+                                        bunkaOkolia->typ = POZIAR;
+                                    }
+                                } else {
+                                    if (getRandomDouble(0.0, 100.0) < 2.0) {
+                                        bunkaOkolia->typ = POZIAR;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                stred->typ = ZHORENA;
+            }
+            else if (stredKopia->typ == ZHORENA) {
+                for (int i = 0; i < 4; i++) {
+                    BUNKA* okolnaKopia = getBunkuOkolia(kopia, stredKopia, i);
+                    if (okolnaKopia != NULL && okolnaKopia->typ == VODA) {
+                        if (getRandomDouble(0.0, 100.0) < 10.0) {
+                            stred->typ = LUKA;
+                        }
+                        break;
+                    }
+                }
+            }
+            else if (stred->typ == LUKA) {
+                for (int i = 0; i < 4; i++) {
+                    BUNKA* okolnaKopia = getBunkuOkolia(kopia, stredKopia, i);
+                    if (okolnaKopia != NULL && okolnaKopia->typ == LES) {
+                        if (getRandomDouble(0.0, 100.0) < 2.0) {
+                            stred->typ = LES;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    // smer vetru:
+    if (sim->smerVetru == BEZVETRIE) {
+        if (getRandomDouble(0.0, 100.0) < 10.0) {
+            sim->smerVetru = getRandomSmerVetru();
+        }
+    } else {
+        if (sim->kolkoKratFukalVietor < 3) {
+            sim->kolkoKratFukalVietor++;
+        } else {
+            if (getRandomDouble(0.0, 100.0) < 10.0) {
+                SMER novySmer = getRandomSmerVetru();
+                if (novySmer == sim->smerVetru) {
+                    sim->kolkoKratFukalVietor++;
+                } else {
+                    sim->kolkoKratFukalVietor = 0;
+                }
+            } else {
+                sim->smerVetru = BEZVETRIE;
+                sim->kolkoKratFukalVietor = 0;
+            }
+        }
+    }
+    pole_destroy(kopia);
+    free(kopia);
     return 1;
 }

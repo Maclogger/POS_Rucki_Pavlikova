@@ -67,10 +67,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /tmp/tmp.IYg82QNYa0
+CMAKE_SOURCE_DIR = /tmp/tmp.1VlpqybPYc
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /tmp/tmp.IYg82QNYa0/cmake-build-frios
+CMAKE_BINARY_DIR = /tmp/tmp.1VlpqybPYc/cmake-build-frios
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -99,9 +99,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /tmp/tmp.IYg82QNYa0/cmake-build-frios/CMakeFiles /tmp/tmp.IYg82QNYa0/cmake-build-frios//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /tmp/tmp.1VlpqybPYc/cmake-build-frios/CMakeFiles /tmp/tmp.1VlpqybPYc/cmake-build-frios//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /tmp/tmp.IYg82QNYa0/cmake-build-frios/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /tmp/tmp.1VlpqybPYc/cmake-build-frios/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -142,6 +142,87 @@ Server/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/build
 .PHONY : Server/fast
 
+PosSockets/active_socket.o: PosSockets/active_socket.c.o
+
+.PHONY : PosSockets/active_socket.o
+
+# target to build an object file
+PosSockets/active_socket.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/PosSockets/active_socket.c.o
+.PHONY : PosSockets/active_socket.c.o
+
+PosSockets/active_socket.i: PosSockets/active_socket.c.i
+
+.PHONY : PosSockets/active_socket.i
+
+# target to preprocess a source file
+PosSockets/active_socket.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/PosSockets/active_socket.c.i
+.PHONY : PosSockets/active_socket.c.i
+
+PosSockets/active_socket.s: PosSockets/active_socket.c.s
+
+.PHONY : PosSockets/active_socket.s
+
+# target to generate assembly for a file
+PosSockets/active_socket.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/PosSockets/active_socket.c.s
+.PHONY : PosSockets/active_socket.c.s
+
+PosSockets/char_buffer.o: PosSockets/char_buffer.c.o
+
+.PHONY : PosSockets/char_buffer.o
+
+# target to build an object file
+PosSockets/char_buffer.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/PosSockets/char_buffer.c.o
+.PHONY : PosSockets/char_buffer.c.o
+
+PosSockets/char_buffer.i: PosSockets/char_buffer.c.i
+
+.PHONY : PosSockets/char_buffer.i
+
+# target to preprocess a source file
+PosSockets/char_buffer.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/PosSockets/char_buffer.c.i
+.PHONY : PosSockets/char_buffer.c.i
+
+PosSockets/char_buffer.s: PosSockets/char_buffer.c.s
+
+.PHONY : PosSockets/char_buffer.s
+
+# target to generate assembly for a file
+PosSockets/char_buffer.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/PosSockets/char_buffer.c.s
+.PHONY : PosSockets/char_buffer.c.s
+
+PosSockets/passive_socket.o: PosSockets/passive_socket.c.o
+
+.PHONY : PosSockets/passive_socket.o
+
+# target to build an object file
+PosSockets/passive_socket.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/PosSockets/passive_socket.c.o
+.PHONY : PosSockets/passive_socket.c.o
+
+PosSockets/passive_socket.i: PosSockets/passive_socket.c.i
+
+.PHONY : PosSockets/passive_socket.i
+
+# target to preprocess a source file
+PosSockets/passive_socket.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/PosSockets/passive_socket.c.i
+.PHONY : PosSockets/passive_socket.c.i
+
+PosSockets/passive_socket.s: PosSockets/passive_socket.c.s
+
+.PHONY : PosSockets/passive_socket.s
+
+# target to generate assembly for a file
+PosSockets/passive_socket.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/PosSockets/passive_socket.c.s
+.PHONY : PosSockets/passive_socket.c.s
+
 main.o: main.c.o
 
 .PHONY : main.o
@@ -178,6 +259,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Server"
+	@echo "... PosSockets/active_socket.o"
+	@echo "... PosSockets/active_socket.i"
+	@echo "... PosSockets/active_socket.s"
+	@echo "... PosSockets/char_buffer.o"
+	@echo "... PosSockets/char_buffer.i"
+	@echo "... PosSockets/char_buffer.s"
+	@echo "... PosSockets/passive_socket.o"
+	@echo "... PosSockets/passive_socket.i"
+	@echo "... PosSockets/passive_socket.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

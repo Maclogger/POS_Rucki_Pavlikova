@@ -4,6 +4,7 @@
 
 #include "Simulacia.h"
 #include "winsock2.h"
+#include "Serializator.h"
 
 Simulacia::Simulacia(int pocetRiadkov, int pocetStlpcov) {
     this->pocetRiadkov  = pocetRiadkov;
@@ -11,14 +12,7 @@ Simulacia::Simulacia(int pocetRiadkov, int pocetStlpcov) {
     this->cisloKroku = 0;
     this->smerVetru = 'B';
 
-    this->pole = static_cast<char **>(calloc(pocetRiadkov, sizeof(char *)));
-    for (int r = 0; r < pocetRiadkov; r++) {
-        // Alokácia stĺpcov v každom riadku
-        this->pole[r] = (char*) calloc(pocetStlpcov, sizeof(char));
-        for (int s = 0; s < pocetStlpcov; s++) {
-            this->pole[r][s]= 'U'; // Inicializácia každej bunky
-        }
-    }
+    this->alokujPole();
     this->vygenerujSaNahodne();
 
 
@@ -47,6 +41,41 @@ Simulacia::Simulacia(int pocetRiadkov, int pocetStlpcov) {
     }
 }
 
+void Simulacia::alokujPole() {
+    this->pole = static_cast<char **>(calloc(this->pocetRiadkov, sizeof(char *)));
+    for (int r = 0; r < this->pocetRiadkov; r++) {
+        // Alokácia stĺpcov v každom riadku
+        this->pole[r] = (char*) calloc(this->pocetStlpcov, sizeof(char));
+        for (int s = 0; s < this->pocetStlpcov; s++) {
+            this->pole[r][s]= 'U'; // Inicializácia každej bunky
+        }
+    }
+}
+
+Simulacia::Simulacia(const string& serializovanyString) {
+    //"0;0;B;5;5;L;S;L;V;S;U;U;V;V;S;L;V;S;S;U;L;L;U;L;L;V;U;L;L;L;"
+    //"status;aktualneCisloKroku;smerVetru;pocetRiadkov;pocetStlpcov;S;S;V;L;L;U;...;S;V;"
+
+    vector<string> prvky = Serializator::split(serializovanyString, ';');
+
+    if (prvky[0] == "0") {
+
+        this->cisloKroku = stoi(prvky[1]);
+        this->smerVetru = prvky[2][0];
+        this->pocetRiadkov = stoi(prvky[3]);
+        this->pocetStlpcov = stoi(prvky[4]);
+
+        this->alokujPole();
+
+        int i = 5;
+        for (int r = 0; r < pocetRiadkov; r++) {
+            for (int s = 0; s < pocetStlpcov; s++) {
+                this->pole[r][s]= prvky[i][0]; // Inicializácia každej bunky
+                i++;
+            }
+        }
+    }
+}
 
 Simulacia::~Simulacia() {
     for (int r = 0; r < this->pocetRiadkov; r++) {
@@ -73,19 +102,27 @@ void Simulacia::vypisSa() {
         }
     }
     cout << endl << "  ";
+
+
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY);
+
     cout << " ";
     for (int i = 0; i < this->pocetStlpcov; i++) {
         cout << "+-----";
-
-
     }
-    cout << "+    -------------------------------\n";
+    cout << "+";
+    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE); // Reset na predvolenú farbu
+    cout << "    -------------------------------\n";
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY);
 
     for (int r = 0; r < this->pocetRiadkov; r++) {
         if (r <= 9) {
             cout << " ";
         }
+
+        SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE); // Reset na predvolenú farbu
         cout << r << " ";
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY);
         for (int s = 0; s < this->pocetStlpcov; s++) {
             char znak = this->pole[r][s];
 
@@ -103,15 +140,16 @@ void Simulacia::vypisSa() {
             }
 
             cout << znak << "  ";
-            SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE); // Reset na predvolenú farbu
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY);
         }
-
         cout << "|";
+
         char up = 'A';
         char down = 'V';
         char right = '>';
         char left = '<';
 
+        SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE); // Reset na predvolenú farbu
 
         switch(r) {
             case 0: {
@@ -199,7 +237,7 @@ void Simulacia::vypisSa() {
             }
 
         }
-
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY);
         cout << "   ";
 
         for (int i = 0; i < this->pocetStlpcov; i++) {
@@ -234,7 +272,6 @@ void Simulacia::vygenerujSaNahodne() {
             } else {
                 typ = 'V';
             }
-
             this->pole[r][s] = typ;
         }
     }
@@ -262,14 +299,6 @@ void Simulacia::vygenerujMapuPodlaPravdepodobnostiOdUzivatela() {
     cout << "Les - " << to_string(lesPrav) << "%" << endl;
     cout << "Skala - " << to_string(skalaPrav) << "%" << endl;
     cout << "Voda - " << to_string(vodaPrav) << "%" << endl;
-
-    /*simulacia.nastavPolicko(0, 0, 'P');
-    simulacia.nastavPolicko(1, 0, 'P');
-    simulacia.nastavPolicko(0, 1, 'P');
-
-    simulacia.nastavPolicko(9, 9, 'Z');
-    simulacia.nastavPolicko(8, 9, 'Z');
-    simulacia.nastavPolicko(8, 8, 'Z');*/
 }
 
 
@@ -315,3 +344,5 @@ bool Simulacia::skusPridatOhen(int r, int s) {
     this->nastavPolicko(r, s, 'P');
     return true;
 }
+
+

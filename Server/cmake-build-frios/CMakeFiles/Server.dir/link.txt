@@ -1,1 +1,1 @@
-/usr/bin/cc -O3 -DNDEBUG CMakeFiles/Server.dir/main.c.o -o Server 
+/usr/bin/cc -g CMakeFiles/Server.dir/main.c.o CMakeFiles/Server.dir/PosSockets/passive_socket.c.o CMakeFiles/Server.dir/PosSockets/active_socket.c.o CMakeFiles/Server.dir/PosSockets/char_buffer.c.o -o Server  -lpthread 

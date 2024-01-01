@@ -6,9 +6,9 @@
 #define CLIENT_APLIKACIA_H
 
 
-#include "Logika/ZistovacOdpovedi.h"
+#include "Utilities/ZistovacOdpovedi.h"
 #include "Logika/Simulacia.h"
-#include "Logika/ServerKomunikator.h"
+#include "Utilities/ServerKomunikator.h"
 #include "Logika/Serializator.h"
 
 
@@ -27,6 +27,8 @@ private:
     void hlavneMenu();
     void pokracovatVUlozenejMape();
     void spustiSimulaciu();
+
+    void vytvorSimulaciuPodlaClientaNaServeri();
 };
 
 

@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="CMakePresetLoader">{
+  &quot;useNewFormat&quot;: true
+}</component>
+  <component name="CMakeReloadState">
+    <option name="reloaded" value="true" />
+  </component>
+  <component name="CMakeRunConfigurationManager">
+    <generated>
+      <config projectName="Server" targetName="Server" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="FRIOS" ENABLED="true" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5d54bcfc-6103-4340-b857-5cefc6ad7ef4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../Client/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Utilities/ZistovacOdpovedi.cpp.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Utilities/generator_nahody.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Utilities/saves.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Utilities/spravca.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/.idea/deployment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/.idea/other.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/Aplikacia.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/Aplikacia.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/Aplikacia.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/Aplikacia.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/Logika/Serializator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/Logika/Serializator.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/Logika/Serializator.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/Logika/Serializator.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/Logika/ServerKomunikator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/Utilities/ServerKomunikator.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/Logika/ServerKomunikator.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/Utilities/ServerKomunikator.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/Logika/Simulacia.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/Logika/Simulacia.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/Logika/Simulacia.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/Logika/Simulacia.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/Logika/ZistovacOdpovedi.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/Utilities/ZistovacOdpovedi.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/Logika/ZistovacOdpovedi.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/Utilities/ZistovacOdpovedi.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/PosSockets/my_socket.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/PosSockets/my_socket.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/CMakeCache.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/CMakeFiles/3.18.4/CMakeCXXCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/CMakeFiles/3.18.4/CMakeSystem.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/CMakeFiles/3.18.4/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/CMakeFiles/CMakeError.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/CMakeFiles/CMakeOutput.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/CMakeFiles/CheckLibraryExists/CheckFunctionExists.cxx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/CMakeFiles/Client.dir/CXX.includecache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/CMakeFiles/Client.dir/DependInfo.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/CMakeFiles/Client.dir/build.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/CMakeFiles/Client.dir/cmake_clean.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/CMakeFiles/Client.dir/depend.internal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/CMakeFiles/Client.dir/depend.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/CMakeFiles/Client.dir/flags.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/CMakeFiles/Client.dir/link.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/CMakeFiles/Client.dir/progress.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/CMakeFiles/Makefile.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/CMakeFiles/Makefile2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/CMakeFiles/Progress/1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/CMakeFiles/Progress/2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/CMakeFiles/Progress/3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/CMakeFiles/Progress/4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/CMakeFiles/Progress/5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/CMakeFiles/Progress/count.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/CMakeFiles/TargetDirectories.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/CMakeFiles/clion-FRIOS-log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/CMakeFiles/clion-environment.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/CMakeFiles/cmake.check_cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/CMakeFiles/progress.marks" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/Client.cbp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/Testing/Temporary/LastTest.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-frios/cmake_install.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/CMakeCache.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/CMakeFiles/3.18.4/CMakeCXXCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/CMakeFiles/3.18.4/CMakeSystem.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/CMakeFiles/3.18.4/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/CMakeFiles/CMakeOutput.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/CMakeFiles/Client.dir/CXX.includecache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/CMakeFiles/Client.dir/DependInfo.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/CMakeFiles/Client.dir/build.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/CMakeFiles/Client.dir/cmake_clean.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/CMakeFiles/Client.dir/depend.internal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/CMakeFiles/Client.dir/depend.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/CMakeFiles/Client.dir/flags.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/CMakeFiles/Client.dir/link.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/CMakeFiles/Client.dir/progress.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/CMakeFiles/Makefile.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/CMakeFiles/Makefile2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/CMakeFiles/TargetDirectories.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/CMakeFiles/clion-Release-log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/CMakeFiles/clion-environment.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/CMakeFiles/cmake.check_cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/CMakeFiles/new_target.dir/CXX.includecache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/CMakeFiles/new_target.dir/DependInfo.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/CMakeFiles/new_target.dir/build.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/CMakeFiles/new_target.dir/cmake_clean.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/CMakeFiles/new_target.dir/depend.internal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/CMakeFiles/new_target.dir/depend.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/CMakeFiles/new_target.dir/flags.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/CMakeFiles/new_target.dir/link.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/CMakeFiles/new_target.dir/progress.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/CMakeFiles/progress.marks" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/Client.cbp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/Testing/Temporary/LastTest.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/cmake_install.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-release/new_target.cbp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/.cmake/api/v1/query/cache-v2" beforeDir="false" afterPath="$PROJECT_DIR$/saves.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/.cmake/api/v1/query/cmakeFiles-v1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/.cmake/api/v1/query/codemodel-v2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/.cmake/api/v1/query/toolchains-v1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/.cmake/api/v1/reply/cache-v2-81c2c108f6b80d1f2d0c.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/.cmake/api/v1/reply/cmakeFiles-v1-dc735e955ba4ed2754ed.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/.cmake/api/v1/reply/codemodel-v2-56b947c7c1c86c7d6c90.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/.cmake/api/v1/reply/directory-.-Debug-d0094a50bb2071803777.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/.cmake/api/v1/reply/index-2023-12-29T21-17-24-0522.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/.cmake/api/v1/reply/target-Client-Debug-44e9ecab49c51ad47bef.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/.cmake/api/v1/reply/toolchains-v1-d7d272de3b947180210f.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/.ninja_deps" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeCache.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/3.26.4/CMakeCXXCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/3.26.4/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/3.26.4/CMakeRCCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/3.26.4/CMakeSystem.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/3.26.4/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/3.26.4/CompilerIdCXX/CMakeCXXCompilerId.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/3.26.4/CompilerIdCXX/CMakeCXXCompilerId.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/CMakeConfigureLog.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Aplikacia.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Aplikacia.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Logika/PravdepodobnostiPolicok.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Logika/PravdepodobnostiPolicok.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Logika/Serializator.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Logika/Serializator.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Logika/ServerKomunikator.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Utilities/ServerKomunikator.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Logika/Simulacia.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Logika/Simulacia.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Logika/ZistovacOdpovedi.cpp.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/PosSockets/my_socket.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/PosSockets/my_socket.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/main.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/main.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/vc140.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/vc140.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/ShowIncludes/foo.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/ShowIncludes/main.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/ShowIncludes/main.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/TargetDirectories.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/clion-Windows-log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/clion-environment.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/cmake.check_cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/rules.ninja" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/Client.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/Client.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/Client.exe.manifest" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/Client.ilk" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/Client.ilk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/Client.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/Client.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/Testing/Temporary/LastTest.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/build.ninja" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/cmake_install.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logika/bunka.c" beforeDir="false" afterPath="$PROJECT_DIR$/Logika/bunka.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logika/pole.c" beforeDir="false" afterPath="$PROJECT_DIR$/Logika/pole.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logika/simulacia.c" beforeDir="false" afterPath="$PROJECT_DIR$/Logika/simulacia.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logika/vietor.c" beforeDir="false" afterPath="$PROJECT_DIR$/Logika/vietor.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PosSockets/char_buffer.c" beforeDir="false" afterPath="$PROJECT_DIR$/PosSockets/char_buffer.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-frios/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-frios/CMakeCache.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/CMakeError.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/CMakeError.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/CMakeOutput.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/Makefile.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/Makefile2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/Progress/1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/Progress/2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/Progress/3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/Progress/4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/Progress/5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/Progress/count.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/Server.dir/C.includecache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/Server.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/Server.dir/DependInfo.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/Server.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/Server.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/Server.dir/cmake_clean.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/Server.dir/cmake_clean.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/Server.dir/depend.internal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/Server.dir/flags.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/Server.dir/flags.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/Server.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/Server.dir/link.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/Server.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/Server.dir/progress.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/TargetDirectories.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/clion-FRIOS-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/clion-FRIOS-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/progress.marks" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-frios/CMakeFiles/progress.marks" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-frios/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-frios/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-frios/Server.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-frios/Server.cbp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-frios/Testing/Temporary/LastTest.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-frios/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-frios/cmake_install.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/.cmake/api/v1/query/cache-v2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/.cmake/api/v1/query/cmakeFiles-v1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/.cmake/api/v1/query/codemodel-v2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/.cmake/api/v1/query/toolchains-v1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/.cmake/api/v1/reply/cache-v2-816cfd5cbb57201ab18e.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/.cmake/api/v1/reply/cmakeFiles-v1-af571faa535eec871147.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/.cmake/api/v1/reply/codemodel-v2-efe3213b1fc27f08c70b.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/.cmake/api/v1/reply/directory-.-Debug-d0094a50bb2071803777.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/.cmake/api/v1/reply/index-2023-12-29T17-22-34-0382.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/.cmake/api/v1/reply/target-Server-Debug-fe9255fcbfb23d68d70a.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/.cmake/api/v1/reply/toolchains-v1-64fa840c7efda116bc73.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/.ninja_deps" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/.ninja_log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeCache.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/3.26.4/CMakeCCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/3.26.4/CMakeDetermineCompilerABI_C.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/3.26.4/CMakeRCCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/3.26.4/CMakeSystem.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/3.26.4/CompilerIdC/CMakeCCompilerId.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/3.26.4/CompilerIdC/a.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/CMakeConfigureLog.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Server.dir/PosSockets/char_buffer.c.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Server.dir/main.c.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/TargetDirectories.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/clion-Windows-log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/clion-environment.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/cmake.check_cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/rules.ninja" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/Testing/Temporary/LastTest.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/build.ninja" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/cmake_install.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:FRIOS" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectApplicationVersion">
+    <option name="ide" value="CLion" />
+    <option name="majorVersion" value="2023" />
+    <option name="minorVersion" value="2.2" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2aKdVsaRV2r0gLmO07XgU4fqG7D" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration name="Server" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Server" TARGET_NAME="Server" CONFIG_NAME="FRIOS" RUN_TARGET_PROJECT_NAME="Server" RUN_TARGET_NAME="Server">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5d54bcfc-6103-4340-b857-5cefc6ad7ef4" name="Changes" comment="" />
+      <created>1704071230383</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1704071230383</updated>
+      <workItem from="1704071231488" duration="1989000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VCPKGProject">
+    <isAutomaticEditVcpkgJson value="false" />
+    <isAutomaticCheckingOnLaunch value="false" />
+    <isAutomaticFoundErrors value="true" />
+    <isAutomaticFoundErrors value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="CMakeRunConfiguration">
+        <watch expression="sim-&gt;kolkoKratFukalVietor" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>

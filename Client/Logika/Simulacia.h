@@ -10,7 +10,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "ZistovacOdpovedi.h"
+#include "../Utilities/ZistovacOdpovedi.h"
 #include "PravdepodobnostiPolicok.h"
 using namespace std;
 
@@ -25,6 +25,7 @@ private:
 public:
     Simulacia();
     Simulacia(int pocetRiadkov, int pocetStlpcov);
+    Simulacia(const string& serializovanyString);
     ~Simulacia();
     void vypisSa();
     void nastavPravdepodobnosti(int lukaPrav, int lesPrav, int skalaPrav, int vodaPrav);
@@ -45,6 +46,8 @@ public:
     void setSmerVetru(char smerVetru);
 
     bool skusPridatOhen(int r, int s);
+
+    void alokujPole();
 };
 
 

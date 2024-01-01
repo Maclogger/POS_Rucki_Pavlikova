@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <time.h>
+#include "Utilities/spravca.c"
 #include "Logika/simulacia.c"
 
 #include "PosSockets/active_socket.h"
@@ -11,21 +12,19 @@ typedef struct thread_data {
     ACTIVE_SOCKET* my_socket;
     _Bool jeKoniecKomunikacie;
     SIMULACIA* simulacia;
-};
+} SHARED_DATA;
 
-void thread_data_init(struct thread_data* data, ACTIVE_SOCKET* sock, short port, SIMULACIA* simulacia) {
+void thread_data_init(SHARED_DATA* data, ACTIVE_SOCKET* sock, short port, SIMULACIA* simulacia) {
     data->my_socket = sock;
     data->port = port;
     data->jeKoniecKomunikacie = false;
     data->simulacia = simulacia;
 }
 
-void thread_data_destroy(struct thread_data* data) {
+void thread_data_destroy(SHARED_DATA* data) {
     data->port = 0;
     data->my_socket = NULL;
 }
-
-
 
 
 int getCisloPrikazu(CHAR_BUFFER *buf) {
@@ -52,48 +51,127 @@ int getCisloPrikazu(CHAR_BUFFER *buf) {
 }
 
 
-void skus_ziskat_spravu(struct thread_data* data) {
+void skus_ziskat_spravu(SHARED_DATA* data) {
     CHAR_BUFFER buf;
     char_buffer_init(&buf);
+    //char* nazovSuboruSavov = "C:/Users/rucki/Desktop/FRI/5. semester/POS/Semestralka/Projekt/Server/Utilities/saves.txt";
+    char* nazovSuboruSavov = "../saves.txt";
+
     if (active_socket_try_get_read_data(data->my_socket, &buf)) {
         printf("Prijate data od clienta: '%s'\n", buf.data);
+
+        if (active_socket_is_end_message(data->my_socket, &buf)) {
+            active_socket_stop_reading(data->my_socket);
+            data->jeKoniecKomunikacie = true;
+            return;
+        }
 
         int cisloPrikazu = getCisloPrikazu(&buf);
 
         switch(cisloPrikazu) {
             case 0: {
                 // vytvorenie novej simulacie podla spravy
-                simulacia_init_podla_spravy(data->simulacia); // ono ten strtok si to prenasa sam ten string, netreba prenasat znova buffer
+                simulacia_init_podla_spravy_vytvorenia(data->simulacia); // ono ten strtok si to prenasa sam ten string, netreba prenasat znova buffer
+                char_buffer_clear(&buf);
                 simulacia_serializuj_sa(data->simulacia, &buf);
+                char_buffer_append(&buf, "\0", 1);
                 active_socket_write_data(data->my_socket, &buf);
                 break;
             }
             case 1: {
                 // pridanie ohňa
                 simulacia_pridaj_ohen(data->simulacia); // ono ten strtok si to prenasa sam ten string, netreba prenasat znova buffer
+                char_buffer_clear(&buf);
                 simulacia_serializuj_sa(data->simulacia, &buf);
+                char_buffer_append(&buf, "\0", 1);
                 active_socket_write_data(data->my_socket, &buf);
                 break;
+                //priklad;0;B;5;5;L;S;L;V;S;U;U;V;V;S;L;V;S;S;U;L;L;U;L;L;V;U;L;L;L;
             }
             case 2: {
                 // vykonanie kroku simulacie
                 vykonaj_krok(data->simulacia);
+                char_buffer_clear(&buf);
                 simulacia_serializuj_sa(data->simulacia, &buf);
+                char_buffer_append(&buf, "\0", 1);
+                active_socket_write_data(data->my_socket, &buf);
+                break;
+            }
+            case 4: {
+                // ziskajUlozeneMapy
+                SPRAVCA spravca;
+                spravca_init(&spravca, nazovSuboruSavov);
+                char_buffer_clear(&buf);
+                serializuj_nazvy_vsetkych_savov(&spravca, &buf);
+                char_buffer_append(&buf, "\0", 1);
+                active_socket_write_data(data->my_socket, &buf);
+                spravca_destroy(&spravca);
+                break;
+            }
+            case 5: {
+                // ulozMapu
+                SPRAVCA spravca;
+                spravca_init(&spravca, nazovSuboruSavov);
+                char* nazovSuboru = strtok(NULL, ";");
+
+                CHAR_BUFFER retazec;
+                char_buffer_init(&retazec);
+                char_buffer_append(&retazec, nazovSuboru, strlen(nazovSuboru));
+                char_buffer_append(&retazec, ";", 1);
+
+                simulacia_serializuj_sa(data->simulacia, &retazec);
+                char_buffer_append(&retazec, "\0", 1);
+
+                if (uloz_novy_save(&spravca, retazec.data)) {
+                    char_buffer_clear(&retazec);
+                    char_buffer_append(&retazec, "0;\0", 3);
+                } else {
+                    char_buffer_clear(&retazec);
+                    char_buffer_append(&retazec, "1;\0", 3);
+                }
+
+                active_socket_write_data(data->my_socket, &retazec);
+
+                char_buffer_destroy(&retazec);
+                spravca_destroy(&spravca);
+                break;
+            }
+            case 6: {
+                // nacitajUlozenuMapu
+                SPRAVCA spravca;
+                spravca_init(&spravca, nazovSuboruSavov);
+
+                CHAR_BUFFER stringZoSuboru;
+                char_buffer_init(&stringZoSuboru);
+
+                get_save_zo_suboru(&spravca, strtok(NULL, ";"), &stringZoSuboru);
+
+                simulacia_init_podla_savu(data->simulacia, &stringZoSuboru);
+                char_buffer_clear(&buf);
+                simulacia_serializuj_sa(data->simulacia, &buf);
+                printf("Odosialene data: %s\n", buf.data);
+                char_buffer_append(&buf, "\0", 1);
+                active_socket_write_data(data->my_socket, &buf);
+
+                spravca_destroy(&spravca);
+                break;
+            }
+            default: {
+                char_buffer_clear(&buf);
+                char_buffer_append(&buf, "1;Tento prikaz neexistuje!\0", 27);
                 active_socket_write_data(data->my_socket, &buf);
                 break;
             }
         }
-        if (active_socket_is_end_message(data->my_socket, &buf)) {
-            active_socket_stop_reading(data->my_socket);
-            data->jeKoniecKomunikacie = true;
-        }
+
+
     }
     char_buffer_destroy(&buf);
 }
 
 
 void* process_client_data(void* thread_data) {
-    struct thread_data* data = (struct thread_data*)thread_data;
+    SHARED_DATA* data = (SHARED_DATA*)thread_data;
 
     PASSIVE_SOCKET sock_passive;
     passive_socket_init(&sock_passive);
@@ -111,10 +189,11 @@ void* process_client_data(void* thread_data) {
 int main() {
     srand(time(NULL));
 
-    short port = 13029;
+    short port = 13028;
 
     struct active_socket my_socket;
-    struct thread_data data;
+    SHARED_DATA data;
+
     pthread_t th_receive;
     SIMULACIA simulacia;
 
