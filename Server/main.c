@@ -119,7 +119,7 @@ void skus_ziskat_spravu(SHARED_DATA* data) {
                 char_buffer_append(&retazec, nazovSuboru, strlen(nazovSuboru));
                 char_buffer_append(&retazec, ";", 1);
 
-                simulacia_serializuj_sa(data->simulacia, &retazec);
+                simulacia_serializuj_sa_pre_save(data->simulacia, &retazec);
                 char_buffer_append(&retazec, "\0", 1);
 
                 if (uloz_novy_save(&spravca, retazec.data)) {
@@ -147,6 +147,7 @@ void skus_ziskat_spravu(SHARED_DATA* data) {
                 get_save_zo_suboru(&spravca, strtok(NULL, ";"), &stringZoSuboru);
 
                 simulacia_init_podla_savu(data->simulacia, &stringZoSuboru);
+
                 char_buffer_clear(&buf);
                 simulacia_serializuj_sa(data->simulacia, &buf);
                 printf("Odosialene data: %s\n", buf.data);
@@ -163,8 +164,6 @@ void skus_ziskat_spravu(SHARED_DATA* data) {
                 break;
             }
         }
-
-
     }
     char_buffer_destroy(&buf);
 }

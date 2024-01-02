@@ -2,13 +2,15 @@
 #include "../PosSockets/char_buffer.h"
 #include "../Utilities/generator_nahody.c"
 
+#define KOLKO_VYDRZI_OHEN 5
+#define PRAVDEPODOBNOST_VETRU 25.0
+
 typedef struct simulacia {
     POLE* pole;
     SMER smerVetru;
     int cisloKroku;
     int kolkoKratFukalVietor;
-
-
+    _Bool initialized;
 } SIMULACIA;
 
 void simulacia_init(SIMULACIA* sim, int pocetRiadkov, int pocetStlpcov) {
@@ -17,6 +19,7 @@ void simulacia_init(SIMULACIA* sim, int pocetRiadkov, int pocetStlpcov) {
     sim->smerVetru = BEZVETRIE;
     sim->cisloKroku = 0;
     sim->kolkoKratFukalVietor = 0;
+    sim->initialized = 1;
 }
 
 void simulacia_init_podla_spravy_vytvorenia(SIMULACIA* sim) {
@@ -36,31 +39,65 @@ void simulacia_init_podla_spravy_vytvorenia(SIMULACIA* sim) {
             if (token != NULL) {
                 char prvok = token[0]; // Predpokladáme, že každý prvok je jeden znak
                 bunka_init_with_char(&sim->pole->bunky[r][s], prvok, r, s);
+                sim->pole->bunky[r][s].kolkoKrokovHorela = 0;
             }
         }
     }
 }
 
 void simulacia_init_podla_savu(SIMULACIA* sim, CHAR_BUFFER* char_buffer) {
-    //"priklad;0;0;B;5;5;L;S;L;V;S;U;U;V;V;S;L;V;S;S;U;L;L;U;L;L;V;U;L;L;L;\n"
+    // "nazovSavu;cisloKroku;smerVetru;kolkoKratFukalVietor;pocetRiadkov;pocetStlpcov;S;kolkoHorelPoziar;S;kolkoHorelPoziar;V;kolkoHorelPoziar;L;kolkoHorelPoziar;L;kolkoHorelPoziar;U;kolkoHorelPoziar;...;S;kolkoHorelPoziar;V;kolkoHorelPoziar;"
 
+    // ignoracia nazvu:
     strtok(char_buffer->data, ";");
 
+    // cislo Kroku:
     char* token = strtok(NULL, ";");
-    token = strtok(NULL, ";");
+    int cisloKroku = atoi(token);
 
-    sim->cisloKroku = atoi(token);
-
+    // smer vetru:
     token = strtok(NULL, ";");
     char smerVetru = token[0];
+
+    // kolkokrat fukal vetrik:
+    token = strtok(NULL, ";");
+    int kolkoKratFukalVietor = atoi(token);
+
+    // pocet riadkov:
+    token = strtok(NULL, ";");
+    int pocetRiadkov = atoi(token);
+
+    // pocet stlpcov:
+    token = strtok(NULL, ";");
+    int pocetStlpcov = atoi(token);
+
+    simulacia_init(sim, pocetRiadkov, pocetStlpcov);
+
+    for (int r = 0; r < pocetRiadkov; r++) {
+        for (int s = 0; s < pocetStlpcov; s++) {
+            // typ bunky:
+            token = strtok(NULL, ";");
+            char typBunky = token[0];
+            bunka_init_with_char(&sim->pole->bunky[r][s], typBunky, r, s);
+
+            // pocet horeni bunky:
+            token = strtok(NULL, ";");
+            int kolkoHorel = atoi(token);
+            sim->pole->bunky[r][s].kolkoKrokovHorela = kolkoHorel;
+        }
+    }
+
+    sim->cisloKroku = cisloKroku;
     sim->smerVetru = get_smer_z_charu(smerVetru);
-    simulacia_init_podla_spravy_vytvorenia(sim);
+    sim->kolkoKratFukalVietor = kolkoKratFukalVietor;
 }
 
 void simulacia_destroy(SIMULACIA* sim) {
-    pole_destroy(sim->pole);
-    free(sim->pole);
-    sim->smerVetru = BEZVETRIE;
+    if (sim->initialized) {
+        pole_destroy(sim->pole);
+        free(sim->pole);
+        sim->smerVetru = BEZVETRIE;
+    }
 }
 
 void simulacia_vypis_sa(SIMULACIA* sim) {
@@ -73,7 +110,7 @@ void simulacia_vypis_sa(SIMULACIA* sim) {
 
 void simulacia_serializuj_sa(SIMULACIA *sim, CHAR_BUFFER* odpoved) {
 
-    // vracia: "cisloKroku;smerVetru;pocetRiadkov;pocetStlpcov;S;S;V;L;L;U;...;S;V;"
+    // vracia: "0;cisloKroku;smerVetru;pocetRiadkov;pocetStlpcov;S;S;V;L;L;U;...;S;V;"
     // smer vetru ako char iba.
 
     //char_buffer_clear(odpoved);
@@ -107,6 +144,45 @@ void simulacia_serializuj_sa(SIMULACIA *sim, CHAR_BUFFER* odpoved) {
     }
 }
 
+void simulacia_serializuj_sa_pre_save(SIMULACIA *sim, CHAR_BUFFER* odpoved) {
+
+    // vracia: "cisloKroku;smerVetru;kolkoKratFukalVietor;pocetRiadkov;pocetStlpcov;S;kolkoHorelPoziar;S;kolkoHorelPoziar;V;kolkoHorelPoziar;L;kolkoHorelPoziar;L;kolkoHorelPoziar;U;kolkoHorelPoziar;...;S;kolkoHorelPoziar;V;kolkoHorelPoziar;"
+    // smer vetru ako char iba.
+
+    //char_buffer_clear(odpoved);
+
+    char temp[50]; // Dočasný buffer na formátovanie reťazcov
+
+    // Pridáme číslo kroku
+    sprintf(temp, "%d;", sim->cisloKroku);
+    char_buffer_append(odpoved, temp, strlen(temp));
+
+    // Pridáme smer vetru ako char
+    temp[0] = SMER_POPISY[sim->smerVetru];
+    temp[1] = ';';
+    char_buffer_append(odpoved, temp, strlen(temp));
+
+    sprintf(temp, "%d;", sim->kolkoKratFukalVietor);
+    char_buffer_append(odpoved, temp, strlen(temp));
+
+    // Pridáme počet riadkov a stĺpcov
+    sprintf(temp, "%d;%d;", sim->pole->pocetRiadkov, sim->pole->pocetStlpcov);
+    char_buffer_append(odpoved, temp, strlen(temp));
+
+    // Pridáme znaky pre jednotlivé bunky
+    for (int r = 0; r < sim->pole->pocetRiadkov; r++) {
+        for (int s = 0; s < sim->pole->pocetStlpcov; s++) {
+            int typBunky = sim->pole->bunky[r][s].typ;
+            sprintf(temp, "%c;", TYPY_BUNKY_ZNAKY[typBunky]);
+            char_buffer_append(odpoved, temp, strlen(temp));
+
+            int kolkoHorel = sim->pole->bunky[r][s].kolkoKrokovHorela;
+            sprintf(temp, "%d;", kolkoHorel);
+            char_buffer_append(odpoved, temp, strlen(temp));
+        }
+    }
+}
+
 void simulacia_pridaj_ohen(SIMULACIA* sim) {
     char* token = strtok(NULL, ";");
     int r = atoi(token);
@@ -116,7 +192,6 @@ void simulacia_pridaj_ohen(SIMULACIA* sim) {
 
     bunka_init(&sim->pole->bunky[r][s], POZIAR, r, s);
 }
-
 
 BUNKA* getBunkuOkolia(POLE* pole, BUNKA* stred, int poradoveCislo) {
 
@@ -151,8 +226,6 @@ BUNKA* getBunkuOkolia(POLE* pole, BUNKA* stred, int poradoveCislo) {
     }
     return NULL;
 }
-
-
 
 _Bool vykonaj_krok(SIMULACIA* sim) {
     sim->cisloKroku++;
@@ -196,7 +269,10 @@ _Bool vykonaj_krok(SIMULACIA* sim) {
                         }
                     }
                 }
-                stred->typ = ZHORENA;
+                if (stred->kolkoKrokovHorela >= KOLKO_VYDRZI_OHEN) {
+                    stred->typ = ZHORENA;
+                    stred->kolkoKrokovHorela = 0;
+                }
             }
             else if (stredKopia->typ == ZHORENA) {
                 for (int i = 0; i < 4; i++) {
@@ -220,19 +296,20 @@ _Bool vykonaj_krok(SIMULACIA* sim) {
                     }
                 }
             }
+            aktualizujSa(stred);
         }
     }
 
     // smer vetru:
     if (sim->smerVetru == BEZVETRIE) {
-        if (getRandomDouble(0.0, 100.0) < 10.0) {
+        if (getRandomDouble(0.0, 100.0) < PRAVDEPODOBNOST_VETRU) {
             sim->smerVetru = getRandomSmerVetru();
         }
     } else {
         if (sim->kolkoKratFukalVietor < 3) {
             sim->kolkoKratFukalVietor++;
         } else {
-            if (getRandomDouble(0.0, 100.0) < 10.0) {
+            if (getRandomDouble(0.0, 100.0) < PRAVDEPODOBNOST_VETRU) {
                 SMER novySmer = getRandomSmerVetru();
                 if (novySmer == sim->smerVetru) {
                     sim->kolkoKratFukalVietor++;

@@ -1,5 +1,9 @@
 #include <stdio.h>
 
+
+
+
+
 typedef enum {
     LUKA,
     LES,
@@ -35,18 +39,21 @@ typedef struct bunka {
     TYPBUNKY typ;
     int r;
     int s;
+    int kolkoKrokovHorela;
 } BUNKA;
 
 void bunka_init(BUNKA* bunka, TYPBUNKY typ, int r, int s) {
     bunka->typ = typ;
     bunka->r = r;
     bunka->s = s;
+    bunka->kolkoKrokovHorela = 0;
 }
 
 void bunka_copy(BUNKA* dest, BUNKA* src) {
     dest->typ = src->typ;
     dest->r = src->r;
     dest->s = src->s;
+    dest->kolkoKrokovHorela = src->kolkoKrokovHorela;
 }
 
 
@@ -68,6 +75,14 @@ void bunka_vypis_sa(BUNKA* bunka) {
     } else {
         printf("?");
     }
+}
+
+_Bool aktualizujSa(BUNKA* bunka) {
+    if (bunka->typ == POZIAR) {
+        bunka->kolkoKrokovHorela++;
+        return 1;
+    }
+    return 0;
 }
 
 

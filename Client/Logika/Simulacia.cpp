@@ -302,10 +302,6 @@ void Simulacia::vygenerujMapuPodlaPravdepodobnostiOdUzivatela() {
 }
 
 
-Simulacia::Simulacia() {
-
-}
-
 int Simulacia::getPocetRiadkov() const {
     return this->pocetRiadkov;
 }

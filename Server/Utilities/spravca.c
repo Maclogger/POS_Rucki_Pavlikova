@@ -3,7 +3,7 @@
 #include <string.h>
 #include "../PosSockets/char_buffer.h"
 
-#define RIADOK_DLZKA 30000
+#define RIADOK_DLZKA 50000
 #define INIT_SIZE 1024
 
 typedef struct {
@@ -23,6 +23,8 @@ void spravca_destroy(SPRAVCA* spravca) {
 }
 
 _Bool uloz_novy_save(SPRAVCA* spravca, const char* line) {
+    // line = "nazovSavu;cisloKroku;smerVetru;kolkoKratFukalVietor;pocetRiadkov;pocetStlpcov;S;kolkoHorelPoziar;S;kolkoHorelPoziar;V;kolkoHorelPoziar;L;kolkoHorelPoziar;L;kolkoHorelPoziar;U;kolkoHorelPoziar;...;S;kolkoHorelPoziar;V;kolkoHorelPoziar;"
+
     spravca->file = fopen(spravca->filename, "a+"); // a+ = append a čítanie
     if (spravca->file == NULL) {
         printf("Chyba pri otvarani suboru pri uloz_novy_save!\n");
@@ -40,7 +42,6 @@ _Bool uloz_novy_save(SPRAVCA* spravca, const char* line) {
 
     spravca->file = fopen(spravca->filename, "r");
 
-
     printf("\nzaciatok: \n");
 
     char riadok[RIADOK_DLZKA];
@@ -53,7 +54,6 @@ _Bool uloz_novy_save(SPRAVCA* spravca, const char* line) {
     printf("\nkoniec\n");
 
     fclose(spravca->file);
-
 
     return 1;
 }
@@ -89,8 +89,10 @@ void serializuj_nazvy_vsetkych_savov(SPRAVCA* spravca, CHAR_BUFFER* buffer) {
 
 
 
-void get_save_zo_suboru(SPRAVCA* spravca, const char* nazov_savu, CHAR_BUFFER* buffer) {
-    char_buffer_clear(buffer);
+void get_save_zo_suboru(SPRAVCA* spravca, const char* nazov_savu, CHAR_BUFFER* stringZoSuboru) {
+    // vracia zo súboru: "nazovSavu;cisloKroku;smerVetru;kolkoKratFukalVietor;pocetRiadkov;pocetStlpcov;S;kolkoHorelPoziar;S;kolkoHorelPoziar;V;kolkoHorelPoziar;L;kolkoHorelPoziar;L;kolkoHorelPoziar;U;kolkoHorelPoziar;...;S;kolkoHorelPoziar;V;kolkoHorelPoziar;"
+
+    char_buffer_clear(stringZoSuboru);
 
     spravca->file = fopen(spravca->filename, "r");
     if (spravca->file == NULL) {
@@ -102,7 +104,7 @@ void get_save_zo_suboru(SPRAVCA* spravca, const char* nazov_savu, CHAR_BUFFER* b
     size_t dlzkaNazvuSavu = strlen(nazov_savu);
     while (fgets(riadok, sizeof(riadok), spravca->file)) {
         if (strncmp(riadok, nazov_savu, dlzkaNazvuSavu) == 0 && riadok[dlzkaNazvuSavu] == ';') {
-            char_buffer_append(buffer, riadok, strlen(riadok));
+            char_buffer_append(stringZoSuboru, riadok, strlen(riadok));
             break;
         }
     }

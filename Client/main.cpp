@@ -27,7 +27,6 @@ odpovede:
 
     "vytvorMapu" => "status;aktualneCisloKroku;smerVetru;pocetRiadkov;pocetStlpcov;S;S;V;L;L;U;...;S;V;" - "0;3;S;3;3;S;S;V;L;L;U;U;S;V;"
     chybová hláška => "status(chybový);textChyby;" - "1;Na tejto bunke nemoze byt zalozeny poziar!;"
-
  */
 
 int main() {

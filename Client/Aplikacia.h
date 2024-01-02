@@ -18,8 +18,8 @@
 
 class Aplikacia {
 private:
-    ServerKomunikator* serverKomunikator;
-    Simulacia* simulacia;
+    ServerKomunikator* serverKomunikator = nullptr;
+    Simulacia* simulacia = nullptr;
 public:
     Aplikacia(const string& ip, short port);
     ~Aplikacia();
