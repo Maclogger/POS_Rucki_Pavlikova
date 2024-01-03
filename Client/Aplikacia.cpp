@@ -124,6 +124,8 @@ void Aplikacia::spustiSimulaciu() {
                     this->simulacia->vypisSa();
                     Sleep(2000);
                 }
+            } else {
+                this->vykonajNKrokov(n);
             }
         } else {
             break;
@@ -133,6 +135,11 @@ void Aplikacia::spustiSimulaciu() {
 
 void Aplikacia::vykonajKrok() {
     string odpovedZoServera = this->serverKomunikator->posliSpravu("vykonajKrok;");
+    Serializator::deserializujOdpovedSimulacie(this->simulacia, odpovedZoServera);
+}
+
+void Aplikacia::vykonajNKrokov(int n) {
+    string odpovedZoServera = this->serverKomunikator->posliSpravu("vykonajNKrokov;" + to_string(n) + ";");
     Serializator::deserializujOdpovedSimulacie(this->simulacia, odpovedZoServera);
 }
 

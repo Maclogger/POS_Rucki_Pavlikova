@@ -31,6 +31,8 @@ private:
     void vytvorSimulaciuPodlaClientaNaServeri();
 
     void vykonajKrok();
+
+    void vykonajNKrokov(int n);
 };
 
 
