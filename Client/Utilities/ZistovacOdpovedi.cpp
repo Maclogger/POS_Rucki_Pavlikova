@@ -68,3 +68,11 @@ string ZistovacOdpovedi::vypitajString(const string &otazka) {
     cout << odpoved << endl;
     return odpoved;
 }
+
+bool ZistovacOdpovedi::ziskajBoolean(const string& otazka) {
+    vector<string> moznosti;
+    moznosti.emplace_back("Ano");
+    moznosti.emplace_back("Nie");
+    int odpoved = ZistovacOdpovedi::vypisMenu(otazka, moznosti);
+    return odpoved == 0;
+}

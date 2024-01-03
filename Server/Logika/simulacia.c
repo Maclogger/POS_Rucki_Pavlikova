@@ -269,7 +269,7 @@ _Bool vykonaj_krok(SIMULACIA* sim) {
                         }
                     }
                 }
-                if (stred->kolkoKrokovHorela >= KOLKO_VYDRZI_OHEN) {
+                if ((stred->kolkoKrokovHorela >= KOLKO_VYDRZI_OHEN) && (getRandomDouble(0,100.0) < 50.0)) {
                     stred->typ = ZHORENA;
                     stred->kolkoKrokovHorela = 0;
                 }

@@ -29,6 +29,8 @@ private:
     void spustiSimulaciu();
 
     void vytvorSimulaciuPodlaClientaNaServeri();
+
+    void vykonajKrok();
 };
 
 
