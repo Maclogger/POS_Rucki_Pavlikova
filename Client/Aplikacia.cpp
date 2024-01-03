@@ -68,8 +68,8 @@ void Aplikacia::pokracovatVUlozenejMape() {
 
 void Aplikacia::vytvorSimulaciuPodlaClientaNaServeri() {
     //"vytvorMapu;pocetRiadkov;pocetStlpcov;S;S;V;L;L;U;...;S;V;"
-    string odpovedZoServera = serverKomunikator->posliSpravu("vytvorMapu;" + Serializator::serializujSimualicu(simulacia));
-    Serializator::deserializujOdpovedSimulacie(simulacia, odpovedZoServera);
+    string odpovedZoServera = this->serverKomunikator->posliSpravu("vytvorMapu;" + Serializator::serializujSimualicu(this->simulacia));
+    Serializator::deserializujOdpovedSimulacie(this->simulacia, odpovedZoServera);
     this->spustiSimulaciu();
 }
 
@@ -82,13 +82,13 @@ void Aplikacia::spustiSimulaciu() {
         moznosti.emplace_back("Vykonat krok simulacie");
         moznosti.emplace_back("Pridat ohen");
         moznosti.emplace_back("Ulozit simulaciu na server");
+        moznosti.emplace_back("Vykonat n krokov simulacie");
         moznosti.emplace_back("Ukoncit simulaciu");
 
         int odpoved = ZistovacOdpovedi::vypisMenu("\n", moznosti);
 
         if (odpoved == 0) {
-            string odpovedZoServera = this->serverKomunikator->posliSpravu("vykonajKrok;");
-            Serializator::deserializujOdpovedSimulacie(this->simulacia, odpovedZoServera);
+            this->vykonajKrok();
         } else if (odpoved == 1) {
             int riadokNovehoOhna;
             int stlpecNovehoOhna;
@@ -112,9 +112,28 @@ void Aplikacia::spustiSimulaciu() {
                 cout << "Chyba, simulacia nebola ulozena." << endl;
             }
         } else if (odpoved == 3) {
+            // vykonaj n krokov
+            bool chceAnimaciu = ZistovacOdpovedi::ziskajBoolean("Chcete vypisat animaciu? ");
+
+            int hornaHranica = chceAnimaciu ? 20 : 200;
+            int n = ZistovacOdpovedi::vypytajCislo("Zadajte pocet krokov simulacie: ", 1, hornaHranica);
+
+            if (chceAnimaciu) {
+                for (int i = 0; i < n; i++) {
+                    this->vykonajKrok();
+                    this->simulacia->vypisSa();
+                    Sleep(2000);
+                }
+            }
+        } else {
             break;
         }
     }
+}
+
+void Aplikacia::vykonajKrok() {
+    string odpovedZoServera = this->serverKomunikator->posliSpravu("vykonajKrok;");
+    Serializator::deserializujOdpovedSimulacie(this->simulacia, odpovedZoServera);
 }
 
 

@@ -16,7 +16,7 @@ using  namespace std;
     0: "vytvorMapu;pocetRiadkov;pocetStlpcov;S;S;V;L;L;U;...;S;V;" - "vytvorMapu;3;3;S;S;V;L;L;U;U;S;V;"
     1: "pridajOhen;riadok;stlpec;" - "pridajOhen;2;3;"
     2: "vykonajKrok;" - "vykonajKrok;"
-    3: "vykonajNKrokov;n;" - "vykonajNKrokov;8;"
+    3: "vykonajNKrokov;n;chcePomalyVykreslovat" - "vykonajNKrokov;8;1"
     4: "ziskajUlozeneMapy;" - "ziskajUlozeneMapy;"
     5: "ulozMapu;nazovUlozenejMapy;" - "ulozMapu;extremneInteligenteNazvanaUlozenaMapa;"
     6: "nacitajUlozenuMapu;nazovUlozenejMapy;" - "nacitajUlozenuMapu;extremneInteligenteNazvanaUlozenaMapa;"

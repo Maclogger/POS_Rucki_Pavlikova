@@ -17,6 +17,8 @@ public:
     static int vypytajCislo(const string& otazka, int rozsahOd, int rozsahDo);
     static char getZnakPolickaOdUzivatela();
     static string vypitajString(const string& otazka);
+
+    static bool ziskajBoolean(const string& otazka);
 };
 
 
