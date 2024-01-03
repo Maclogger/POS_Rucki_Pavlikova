@@ -1,0 +1,408 @@
+Index: Logika/simulacia.c
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#include \"vietor.c\"\r\n#include \"../PosSockets/char_buffer.h\"\r\n#include \"../Utilities/generator_nahody.c\"\r\n\r\n#define KOLKO_VYDRZI_OHEN 5\r\n#define PRAVDEPODOBNOST_VETRU 25.0\r\n\r\ntypedef struct simulacia {\r\n    POLE* pole;\r\n    SMER smerVetru;\r\n    int cisloKroku;\r\n    int kolkoKratFukalVietor;\r\n    _Bool initialized;\r\n} SIMULACIA;\r\n\r\nvoid simulacia_init(SIMULACIA* sim, int pocetRiadkov, int pocetStlpcov) {\r\n    sim->pole = (POLE*) malloc(sizeof(POLE));\r\n    pole_init(sim->pole, pocetRiadkov, pocetStlpcov);\r\n    sim->smerVetru = BEZVETRIE;\r\n    sim->cisloKroku = 0;\r\n    sim->kolkoKratFukalVietor = 0;\r\n    sim->initialized = 1;\r\n}\r\n\r\nvoid simulacia_init_podla_spravy_vytvorenia(SIMULACIA* sim) {\r\n    //\"pocetRiadkov;pocetStlpcov;S;S;V;L;L;U;...;S;V;\" - \"vytvorMapu;3;3;S;S;V;L;L;U;U;S;V;\"\r\n    char* token = strtok(NULL, \";\");\r\n    int pocetRiadkov = atoi(token);\r\n\r\n    token = strtok(NULL, \";\");\r\n    int pocetStlpcov = atoi(token);\r\n\r\n    simulacia_init(sim, pocetRiadkov, pocetStlpcov);\r\n\r\n    // Načítame prvky mapy\r\n    for (int r = 0; r < pocetRiadkov; r++) {\r\n        for (int s = 0; s < pocetStlpcov; s++) {\r\n            token = strtok(NULL, \";\");\r\n            if (token != NULL) {\r\n                char prvok = token[0]; // Predpokladáme, že každý prvok je jeden znak\r\n                bunka_init_with_char(&sim->pole->bunky[r][s], prvok, r, s);\r\n                sim->pole->bunky[r][s].kolkoKrokovHorela = 0;\r\n            }\r\n        }\r\n    }\r\n}\r\n\r\nvoid simulacia_init_podla_savu(SIMULACIA* sim, CHAR_BUFFER* char_buffer) {\r\n    // \"nazovSavu;cisloKroku;smerVetru;kolkoKratFukalVietor;pocetRiadkov;pocetStlpcov;S;kolkoHorelPoziar;S;kolkoHorelPoziar;V;kolkoHorelPoziar;L;kolkoHorelPoziar;L;kolkoHorelPoziar;U;kolkoHorelPoziar;...;S;kolkoHorelPoziar;V;kolkoHorelPoziar;\"\r\n\r\n    // ignoracia nazvu:\r\n    strtok(char_buffer->data, \";\");\r\n\r\n    // cislo Kroku:\r\n    char* token = strtok(NULL, \";\");\r\n    int cisloKroku = atoi(token);\r\n\r\n    // smer vetru:\r\n    token = strtok(NULL, \";\");\r\n    char smerVetru = token[0];\r\n\r\n    // kolkokrat fukal vetrik:\r\n    token = strtok(NULL, \";\");\r\n    int kolkoKratFukalVietor = atoi(token);\r\n\r\n    // pocet riadkov:\r\n    token = strtok(NULL, \";\");\r\n    int pocetRiadkov = atoi(token);\r\n\r\n    // pocet stlpcov:\r\n    token = strtok(NULL, \";\");\r\n    int pocetStlpcov = atoi(token);\r\n\r\n    simulacia_init(sim, pocetRiadkov, pocetStlpcov);\r\n\r\n    for (int r = 0; r < pocetRiadkov; r++) {\r\n        for (int s = 0; s < pocetStlpcov; s++) {\r\n            // typ bunky:\r\n            token = strtok(NULL, \";\");\r\n            char typBunky = token[0];\r\n            bunka_init_with_char(&sim->pole->bunky[r][s], typBunky, r, s);\r\n\r\n            // pocet horeni bunky:\r\n            token = strtok(NULL, \";\");\r\n            int kolkoHorel = atoi(token);\r\n            sim->pole->bunky[r][s].kolkoKrokovHorela = kolkoHorel;\r\n        }\r\n    }\r\n\r\n    sim->cisloKroku = cisloKroku;\r\n    sim->smerVetru = get_smer_z_charu(smerVetru);\r\n    sim->kolkoKratFukalVietor = kolkoKratFukalVietor;\r\n}\r\n\r\nvoid simulacia_destroy(SIMULACIA* sim) {\r\n    if (sim->initialized) {\r\n        pole_destroy(sim->pole);\r\n        free(sim->pole);\r\n        sim->smerVetru = BEZVETRIE;\r\n    }\r\n}\r\n\r\nvoid simulacia_vypis_sa(SIMULACIA* sim) {\r\n    printf(\"\\n\\n\");\r\n    pole_vypis_sa(sim->pole);\r\n    printf(\"Aktualny vietor: \");\r\n    vypis_smer_vetra(sim->smerVetru);\r\n    printf(\"\\n\\n\\n\");\r\n}\r\n\r\nvoid simulacia_serializuj_sa(SIMULACIA *sim, CHAR_BUFFER* odpoved) {\r\n\r\n    // vracia: \"0;cisloKroku;smerVetru;pocetRiadkov;pocetStlpcov;S;S;V;L;L;U;...;S;V;\"\r\n    // smer vetru ako char iba.\r\n\r\n    //char_buffer_clear(odpoved);\r\n\r\n    char temp[50]; // Dočasný buffer na formátovanie reťazcov\r\n\r\n    // Pridáme čislo statusu OK\r\n    sprintf(temp, \"%d;\", 0);\r\n    char_buffer_append(odpoved, temp, strlen(temp));\r\n\r\n    // Pridáme číslo kroku\r\n    sprintf(temp, \"%d;\", sim->cisloKroku);\r\n    char_buffer_append(odpoved, temp, strlen(temp));\r\n\r\n    // Pridáme smer vetru ako char\r\n    temp[0] = SMER_POPISY[sim->smerVetru];\r\n    temp[1] = ';';\r\n    char_buffer_append(odpoved, temp, strlen(temp));\r\n\r\n    // Pridáme počet riadkov a stĺpcov\r\n    sprintf(temp, \"%d;%d;\", sim->pole->pocetRiadkov, sim->pole->pocetStlpcov);\r\n    char_buffer_append(odpoved, temp, strlen(temp));\r\n\r\n    // Pridáme znaky pre jednotlivé bunky\r\n    for (int r = 0; r < sim->pole->pocetRiadkov; r++) {\r\n        for (int s = 0; s < sim->pole->pocetStlpcov; s++) {\r\n            int typBunky = sim->pole->bunky[r][s].typ;\r\n            sprintf(temp, \"%c;\", TYPY_BUNKY_ZNAKY[typBunky]);\r\n            char_buffer_append(odpoved, temp, strlen(temp));\r\n        }\r\n    }\r\n}\r\n\r\nvoid simulacia_serializuj_sa_pre_save(SIMULACIA *sim, CHAR_BUFFER* odpoved) {\r\n\r\n    // vracia: \"cisloKroku;smerVetru;kolkoKratFukalVietor;pocetRiadkov;pocetStlpcov;S;kolkoHorelPoziar;S;kolkoHorelPoziar;V;kolkoHorelPoziar;L;kolkoHorelPoziar;L;kolkoHorelPoziar;U;kolkoHorelPoziar;...;S;kolkoHorelPoziar;V;kolkoHorelPoziar;\"\r\n    // smer vetru ako char iba.\r\n\r\n    //char_buffer_clear(odpoved);\r\n\r\n    char temp[50]; // Dočasný buffer na formátovanie reťazcov\r\n\r\n    // Pridáme číslo kroku\r\n    sprintf(temp, \"%d;\", sim->cisloKroku);\r\n    char_buffer_append(odpoved, temp, strlen(temp));\r\n\r\n    // Pridáme smer vetru ako char\r\n    temp[0] = SMER_POPISY[sim->smerVetru];\r\n    temp[1] = ';';\r\n    char_buffer_append(odpoved, temp, strlen(temp));\r\n\r\n    sprintf(temp, \"%d;\", sim->kolkoKratFukalVietor);\r\n    char_buffer_append(odpoved, temp, strlen(temp));\r\n\r\n    // Pridáme počet riadkov a stĺpcov\r\n    sprintf(temp, \"%d;%d;\", sim->pole->pocetRiadkov, sim->pole->pocetStlpcov);\r\n    char_buffer_append(odpoved, temp, strlen(temp));\r\n\r\n    // Pridáme znaky pre jednotlivé bunky\r\n    for (int r = 0; r < sim->pole->pocetRiadkov; r++) {\r\n        for (int s = 0; s < sim->pole->pocetStlpcov; s++) {\r\n            int typBunky = sim->pole->bunky[r][s].typ;\r\n            sprintf(temp, \"%c;\", TYPY_BUNKY_ZNAKY[typBunky]);\r\n            char_buffer_append(odpoved, temp, strlen(temp));\r\n\r\n            int kolkoHorel = sim->pole->bunky[r][s].kolkoKrokovHorela;\r\n            sprintf(temp, \"%d;\", kolkoHorel);\r\n            char_buffer_append(odpoved, temp, strlen(temp));\r\n        }\r\n    }\r\n}\r\n\r\nvoid simulacia_pridaj_ohen(SIMULACIA* sim) {\r\n    char* token = strtok(NULL, \";\");\r\n    int r = atoi(token);\r\n\r\n    token = strtok(NULL, \";\");\r\n    int s = atoi(token);\r\n\r\n    bunka_init(&sim->pole->bunky[r][s], POZIAR, r, s);\r\n}\r\n\r\nBUNKA* getBunkuOkolia(POLE* pole, BUNKA* stred, int poradoveCislo) {\r\n\r\n    int rStred = stred->r;\r\n    int sStred = stred->s;\r\n\r\n    switch(poradoveCislo) {\r\n        case 0: {\r\n            // hore\r\n            if (rStred - 1 >= 0) {\r\n                return &pole->bunky[rStred - 1][sStred];\r\n            }\r\n        }\r\n        case 1: {\r\n            // dole\r\n            if (rStred + 1 < pole->pocetRiadkov) {\r\n                return &pole->bunky[rStred + 1][sStred];\r\n            }\r\n        }\r\n        case 2: {\r\n            // doprava\r\n            if (sStred + 1 < pole->pocetStlpcov) {\r\n                return &pole->bunky[rStred][sStred + 1];\r\n            }\r\n        }\r\n        case 3: {\r\n            // doľava\r\n            if (sStred - 1 >= 0) {\r\n                return &pole->bunky[rStred][sStred - 1];\r\n            }\r\n        }\r\n    }\r\n    return NULL;\r\n}\r\n\r\n_Bool vykonaj_krok(SIMULACIA* sim) {\r\n    sim->cisloKroku++;\r\n\r\n    POLE* kopia = (POLE*)malloc(sizeof(POLE));\r\n    pole_copy(kopia, sim->pole);\r\n\r\n\r\n    // požiar a zhorene:\r\n    for (int r = 0; r < kopia->pocetRiadkov; r++) {\r\n        for (int s = 0; s < kopia->pocetStlpcov; s++) {\r\n            BUNKA* stredKopia = &kopia->bunky[r][s];\r\n            BUNKA* stred = &sim->pole->bunky[r][s];\r\n            if (stredKopia->typ == POZIAR) {\r\n                for (int i = 0; i < 4; i++) {\r\n                    BUNKA* bunkaOkoliaKopia = getBunkuOkolia(kopia, stredKopia, i);\r\n                    BUNKA* bunkaOkolia = getBunkuOkolia(sim->pole, stred, i);\r\n                    if (bunkaOkoliaKopia != NULL) {\r\n                        // je v rámci mapy:\r\n                        if (bunkaOkoliaKopia->typ == LES || bunkaOkoliaKopia->typ == LUKA) {\r\n                            if (sim->smerVetru == BEZVETRIE) {\r\n                                if (getRandomDouble(0.0, 100.0) < 20.0) {\r\n                                    bunkaOkolia->typ = POZIAR;\r\n                                }\r\n                            } else {\r\n                                // ak veje vietor:\r\n                                if ((i == 0 && sim->smerVetru == SEVER) ||\r\n                                        (i == 1 && sim->smerVetru == JUH) ||\r\n                                        (i == 2 && sim->smerVetru == VYCHOD) ||\r\n                                        (i == 3 && sim->smerVetru == ZAPAD)) {\r\n\r\n                                    if (getRandomDouble(0.0, 100.0) < 90.0) {\r\n                                        bunkaOkolia->typ = POZIAR;\r\n                                    }\r\n                                } else {\r\n                                    if (getRandomDouble(0.0, 100.0) < 2.0) {\r\n                                        bunkaOkolia->typ = POZIAR;\r\n                                    }\r\n                                }\r\n                            }\r\n                        }\r\n                    }\r\n                }\r\n                if (stred->kolkoKrokovHorela >= KOLKO_VYDRZI_OHEN) {\r\n                    stred->typ = ZHORENA;\r\n                    stred->kolkoKrokovHorela = 0;\r\n                }\r\n            }\r\n            else if (stredKopia->typ == ZHORENA) {\r\n                for (int i = 0; i < 4; i++) {\r\n                    BUNKA* okolnaKopia = getBunkuOkolia(kopia, stredKopia, i);\r\n                    if (okolnaKopia != NULL && okolnaKopia->typ == VODA) {\r\n                        if (getRandomDouble(0.0, 100.0) < 10.0) {\r\n                            stred->typ = LUKA;\r\n                        }\r\n                        break;\r\n                    }\r\n                }\r\n            }\r\n            else if (stred->typ == LUKA) {\r\n                for (int i = 0; i < 4; i++) {\r\n                    BUNKA* okolnaKopia = getBunkuOkolia(kopia, stredKopia, i);\r\n                    if (okolnaKopia != NULL && okolnaKopia->typ == LES) {\r\n                        if (getRandomDouble(0.0, 100.0) < 2.0) {\r\n                            stred->typ = LES;\r\n                        }\r\n                        break;\r\n                    }\r\n                }\r\n            }\r\n            aktualizujSa(stred);\r\n        }\r\n    }\r\n\r\n    // smer vetru:\r\n    if (sim->smerVetru == BEZVETRIE) {\r\n        if (getRandomDouble(0.0, 100.0) < PRAVDEPODOBNOST_VETRU) {\r\n            sim->smerVetru = getRandomSmerVetru();\r\n        }\r\n    } else {\r\n        if (sim->kolkoKratFukalVietor < 3) {\r\n            sim->kolkoKratFukalVietor++;\r\n        } else {\r\n            if (getRandomDouble(0.0, 100.0) < PRAVDEPODOBNOST_VETRU) {\r\n                SMER novySmer = getRandomSmerVetru();\r\n                if (novySmer == sim->smerVetru) {\r\n                    sim->kolkoKratFukalVietor++;\r\n                } else {\r\n                    sim->kolkoKratFukalVietor = 0;\r\n                }\r\n            } else {\r\n                sim->smerVetru = BEZVETRIE;\r\n                sim->kolkoKratFukalVietor = 0;\r\n            }\r\n        }\r\n    }\r\n    pole_destroy(kopia);\r\n    free(kopia);\r\n    return 1;\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Logika/simulacia.c b/Logika/simulacia.c
+--- a/Logika/simulacia.c	(revision 2a1f0c8b9035b35076ae64433fd065f79e67593c)
++++ b/Logika/simulacia.c	(date 1704317197244)
+@@ -128,6 +128,7 @@
+     // Pridáme smer vetru ako char
+     temp[0] = SMER_POPISY[sim->smerVetru];
+     temp[1] = ';';
++    temp[2] = '\0';
+     char_buffer_append(odpoved, temp, strlen(temp));
+ 
+     // Pridáme počet riadkov a stĺpcov
+@@ -160,6 +161,7 @@
+     // Pridáme smer vetru ako char
+     temp[0] = SMER_POPISY[sim->smerVetru];
+     temp[1] = ';';
++    temp[2] = '\0';
+     char_buffer_append(odpoved, temp, strlen(temp));
+ 
+     sprintf(temp, "%d;", sim->kolkoKratFukalVietor);
+@@ -233,7 +235,6 @@
+     POLE* kopia = (POLE*)malloc(sizeof(POLE));
+     pole_copy(kopia, sim->pole);
+ 
+-
+     // požiar a zhorene:
+     for (int r = 0; r < kopia->pocetRiadkov; r++) {
+         for (int s = 0; s < kopia->pocetStlpcov; s++) {
+Index: Logika/bunka.c
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#include <stdio.h>\r\n\r\n\r\n\r\n\r\n\r\ntypedef enum {\r\n    LUKA,\r\n    LES,\r\n    SKALA,\r\n    VODA,\r\n    POZIAR,\r\n    ZHORENA,\r\n    TYPY_BUNKY_COUNT // Pomocná hodnota na určenie počtu typov\r\n} TYPBUNKY;\r\n\r\nstatic const char TYPY_BUNKY_ZNAKY[TYPY_BUNKY_COUNT] = {'U', 'L', 'S', 'V', 'P', 'Z'};\r\n\r\nTYPBUNKY typ_bunky_get_typ_podla_charu(char znak) {\r\n    switch (znak) {\r\n        case 'U':\r\n            return LUKA;\r\n        case 'L':\r\n            return LES;\r\n        case 'S':\r\n            return SKALA;\r\n        case 'V':\r\n            return VODA;\r\n        case 'P':\r\n            return POZIAR;\r\n        case 'Z':\r\n            return ZHORENA;\r\n    }\r\n    return LUKA;\r\n}\r\n\r\n\r\ntypedef struct bunka {\r\n    TYPBUNKY typ;\r\n    int r;\r\n    int s;\r\n    int kolkoKrokovHorela;\r\n} BUNKA;\r\n\r\nvoid bunka_init(BUNKA* bunka, TYPBUNKY typ, int r, int s) {\r\n    bunka->typ = typ;\r\n    bunka->r = r;\r\n    bunka->s = s;\r\n    bunka->kolkoKrokovHorela = 0;\r\n}\r\n\r\nvoid bunka_copy(BUNKA* dest, BUNKA* src) {\r\n    dest->typ = src->typ;\r\n    dest->r = src->r;\r\n    dest->s = src->s;\r\n    dest->kolkoKrokovHorela = src->kolkoKrokovHorela;\r\n}\r\n\r\n\r\nvoid bunka_init_with_char(BUNKA* bunka, char typChar, int r, int s) {\r\n    bunka->r = r;\r\n    bunka->s = s;\r\n    bunka->typ = typ_bunky_get_typ_podla_charu(typChar);\r\n}\r\n\r\nvoid bunka_destroy(BUNKA* bunka) {\r\n    bunka->typ = LES;\r\n    bunka->r = 0;\r\n    bunka->s = 0;\r\n}\r\n\r\nvoid bunka_vypis_sa(BUNKA* bunka) {\r\n    if (bunka->typ >= 0 && bunka->typ < TYPY_BUNKY_COUNT) {\r\n        printf(\"%c\", TYPY_BUNKY_ZNAKY[bunka->typ]);\r\n    } else {\r\n        printf(\"?\");\r\n    }\r\n}\r\n\r\n_Bool aktualizujSa(BUNKA* bunka) {\r\n    if (bunka->typ == POZIAR) {\r\n        bunka->kolkoKrokovHorela++;\r\n        return 1;\r\n    }\r\n    return 0;\r\n}\r\n\r\n\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Logika/bunka.c b/Logika/bunka.c
+--- a/Logika/bunka.c	(revision 2a1f0c8b9035b35076ae64433fd065f79e67593c)
++++ b/Logika/bunka.c	(date 1704317197243)
+@@ -16,6 +16,8 @@
+ 
+ static const char TYPY_BUNKY_ZNAKY[TYPY_BUNKY_COUNT] = {'U', 'L', 'S', 'V', 'P', 'Z'};
+ 
++
++
+ TYPBUNKY typ_bunky_get_typ_podla_charu(char znak) {
+     switch (znak) {
+         case 'U':
+Index: main.c
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#include <stdio.h>\r\n#include <time.h>\r\n#include \"Utilities/spravca.c\"\r\n#include \"Logika/simulacia.c\"\r\n\r\n#include \"PosSockets/active_socket.h\"\r\n#include \"PosSockets/passive_socket.h\"\r\n#include \"PosSockets/char_buffer.h\"\r\n\r\ntypedef struct thread_data {\r\n    short port;\r\n    ACTIVE_SOCKET* my_socket;\r\n    _Bool jeKoniecKomunikacie;\r\n    SIMULACIA* simulacia;\r\n} SHARED_DATA;\r\n\r\nvoid thread_data_init(SHARED_DATA* data, ACTIVE_SOCKET* sock, short port, SIMULACIA* simulacia) {\r\n    data->my_socket = sock;\r\n    data->port = port;\r\n    data->jeKoniecKomunikacie = false;\r\n    data->simulacia = simulacia;\r\n}\r\n\r\nvoid thread_data_destroy(SHARED_DATA* data) {\r\n    data->port = 0;\r\n    data->my_socket = NULL;\r\n}\r\n\r\nint getCisloPrikazu(CHAR_BUFFER *buf) {\r\n    //\"pocetRiadkov;pocetStlpcov;S;S;V;L;L;U;...;S;V;\" - \"vytvorMapu;3;3;S;S;V;L;L;U;U;S;V;\"\r\n    char* token = strtok(buf->data, \";\");\r\n    if (token != NULL) {\r\n        if (strcmp(token, \"vytvorMapu\") == 0) {\r\n            return 0;\r\n        } else if (strcmp(token, \"pridajOhen\") == 0) {\r\n            return 1;\r\n        } else if (strcmp(token, \"vykonajKrok\") == 0) {\r\n            return 2;\r\n        } else if (strcmp(token, \"vykonajNKrokov\") == 0) {\r\n            return 3;\r\n        } else if (strcmp(token, \"ziskajUlozeneMapy\") == 0) {\r\n            return 4;\r\n        } else if (strcmp(token, \"ulozMapu\") == 0) {\r\n            return 5;\r\n        } else if (strcmp(token, \"nacitajUlozenuMapu\") == 0) {\r\n            return 6;\r\n        }\r\n    }\r\n    return -1;\r\n}\r\n\r\n\r\nvoid skus_ziskat_spravu(SHARED_DATA* data) {\r\n    CHAR_BUFFER buf;\r\n    char_buffer_init(&buf);\r\n    //char* nazovSuboruSavov = \"C:/Users/rucki/Desktop/FRI/5. semester/POS/Semestralka/Projekt/Server/Utilities/saves.txt\";\r\n    char* nazovSuboruSavov = \"../saves.txt\";\r\n\r\n    if (active_socket_try_get_read_data(data->my_socket, &buf)) {\r\n        printf(\"Prijate data od clienta: '%s'\\n\", buf.data);\r\n\r\n        if (active_socket_is_end_message(data->my_socket, &buf)) {\r\n            active_socket_stop_reading(data->my_socket);\r\n            data->jeKoniecKomunikacie = true;\r\n            return;\r\n        }\r\n\r\n        int cisloPrikazu = getCisloPrikazu(&buf);\r\n\r\n        switch(cisloPrikazu) {\r\n            case 0: {\r\n                // vytvorenie novej simulacie podla spravy\r\n                simulacia_init_podla_spravy_vytvorenia(data->simulacia); // ono ten strtok si to prenasa sam ten string, netreba prenasat znova buffer\r\n                char_buffer_clear(&buf);\r\n                simulacia_serializuj_sa(data->simulacia, &buf);\r\n                char_buffer_append(&buf, \"\\0\", 1);\r\n                active_socket_write_data(data->my_socket, &buf);\r\n                break;\r\n            }\r\n            case 1: {\r\n                // pridanie ohňa\r\n                simulacia_pridaj_ohen(data->simulacia); // ono ten strtok si to prenasa sam ten string, netreba prenasat znova buffer\r\n                char_buffer_clear(&buf);\r\n                simulacia_serializuj_sa(data->simulacia, &buf);\r\n                char_buffer_append(&buf, \"\\0\", 1);\r\n                active_socket_write_data(data->my_socket, &buf);\r\n                break;\r\n                //priklad;0;B;5;5;L;S;L;V;S;U;U;V;V;S;L;V;S;S;U;L;L;U;L;L;V;U;L;L;L;\r\n            }\r\n            case 2: {\r\n                // vykonanie kroku simulacie\r\n                vykonaj_krok(data->simulacia);\r\n                char_buffer_clear(&buf);\r\n                simulacia_serializuj_sa(data->simulacia, &buf);\r\n                char_buffer_append(&buf, \"\\0\", 1);\r\n                active_socket_write_data(data->my_socket, &buf);\r\n                break;\r\n            }\r\n            case 4: {\r\n                // ziskajUlozeneMapy\r\n                SPRAVCA spravca;\r\n                spravca_init(&spravca, nazovSuboruSavov);\r\n                char_buffer_clear(&buf);\r\n                serializuj_nazvy_vsetkych_savov(&spravca, &buf);\r\n                char_buffer_append(&buf, \"\\0\", 1);\r\n                active_socket_write_data(data->my_socket, &buf);\r\n                spravca_destroy(&spravca);\r\n                break;\r\n            }\r\n            case 5: {\r\n                // ulozMapu\r\n                SPRAVCA spravca;\r\n                spravca_init(&spravca, nazovSuboruSavov);\r\n                char* nazovSuboru = strtok(NULL, \";\");\r\n\r\n                CHAR_BUFFER retazec;\r\n                char_buffer_init(&retazec);\r\n                char_buffer_append(&retazec, nazovSuboru, strlen(nazovSuboru));\r\n                char_buffer_append(&retazec, \";\", 1);\r\n\r\n                simulacia_serializuj_sa_pre_save(data->simulacia, &retazec);\r\n                char_buffer_append(&retazec, \"\\0\", 1);\r\n\r\n                if (uloz_novy_save(&spravca, retazec.data)) {\r\n                    char_buffer_clear(&retazec);\r\n                    char_buffer_append(&retazec, \"0;\\0\", 3);\r\n                } else {\r\n                    char_buffer_clear(&retazec);\r\n                    char_buffer_append(&retazec, \"1;\\0\", 3);\r\n                }\r\n\r\n                active_socket_write_data(data->my_socket, &retazec);\r\n\r\n                char_buffer_destroy(&retazec);\r\n                spravca_destroy(&spravca);\r\n                break;\r\n            }\r\n            case 6: {\r\n                // nacitajUlozenuMapu\r\n                SPRAVCA spravca;\r\n                spravca_init(&spravca, nazovSuboruSavov);\r\n\r\n                CHAR_BUFFER stringZoSuboru;\r\n                char_buffer_init(&stringZoSuboru);\r\n\r\n                get_save_zo_suboru(&spravca, strtok(NULL, \";\"), &stringZoSuboru);\r\n\r\n                simulacia_init_podla_savu(data->simulacia, &stringZoSuboru);\r\n\r\n                char_buffer_clear(&buf);\r\n                simulacia_serializuj_sa(data->simulacia, &buf);\r\n                printf(\"Odosialene data: %s\\n\", buf.data);\r\n                char_buffer_append(&buf, \"\\0\", 1);\r\n                active_socket_write_data(data->my_socket, &buf);\r\n\r\n                spravca_destroy(&spravca);\r\n                break;\r\n            }\r\n            default: {\r\n                char_buffer_clear(&buf);\r\n                char_buffer_append(&buf, \"1;Tento prikaz neexistuje!\\0\", 27);\r\n                active_socket_write_data(data->my_socket, &buf);\r\n                break;\r\n            }\r\n        }\r\n    }\r\n    char_buffer_destroy(&buf);\r\n}\r\n\r\n\r\nvoid* process_client_data(void* thread_data) {\r\n    SHARED_DATA* data = (SHARED_DATA*)thread_data;\r\n\r\n    PASSIVE_SOCKET sock_passive;\r\n    passive_socket_init(&sock_passive);\r\n    passive_socket_start_listening(&sock_passive, data->port);\r\n    // Spustenie počúvania\r\n    printf(\"Server pocuva na porte %d\\n\", data->port);\r\n    passive_socket_wait_for_client(&sock_passive, data->my_socket);\r\n    passive_socket_stop_listening(&sock_passive);\r\n    passive_socket_destroy(&sock_passive);\r\n\r\n    active_socket_start_reading(data->my_socket);\r\n}\r\n\r\n\r\nint main() {\r\n    srand(time(NULL));\r\n\r\n    short port = 13028;\r\n\r\n    ACTIVE_SOCKET my_socket;\r\n    SHARED_DATA data;\r\n\r\n    pthread_t th_receive;\r\n    SIMULACIA simulacia;\r\n\r\n    active_socket_init(&my_socket);\r\n\r\n    thread_data_init(&data, &my_socket, port, &simulacia);\r\n\r\n    pthread_create(&th_receive, NULL, process_client_data, &data);\r\n\r\n    while (!data.jeKoniecKomunikacie) {\r\n        skus_ziskat_spravu(&data);\r\n    }\r\n\r\n    pthread_join(th_receive, NULL);\r\n\r\n    simulacia_destroy(&simulacia);\r\n    thread_data_destroy(&data);\r\n    active_socket_destroy(&my_socket);\r\n\r\n    return 0;\r\n}\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/main.c b/main.c
+--- a/main.c	(revision 2a1f0c8b9035b35076ae64433fd065f79e67593c)
++++ b/main.c	(date 1704317197244)
+@@ -96,6 +96,17 @@
+                 active_socket_write_data(data->my_socket, &buf);
+                 break;
+             }
++            case 3: {
++                char* token = strtok(NULL, ";");
++                int n = atoi(token);
++                for (int i = 0; i < n; i++) {
++                    vykonaj_krok(data->simulacia);
++                }
++                char_buffer_clear(&buf);
++                simulacia_serializuj_sa(data->simulacia, &buf);
++                char_buffer_append(&buf, "\0", 1);
++                active_socket_write_data(data->my_socket, &buf);
++            }
+             case 4: {
+                 // ziskajUlozeneMapy
+                 SPRAVCA spravca;
+@@ -187,7 +198,7 @@
+ int main() {
+     srand(time(NULL));
+ 
+-    short port = 13028;
++    short port = 13029;
+ 
+     ACTIVE_SOCKET my_socket;
+     SHARED_DATA data;
+Index: .idea/other.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/other.xml b/.idea/other.xml
+new file mode 100644
+--- /dev/null	(date 1704317197242)
++++ b/.idea/other.xml	(date 1704317197242)
+@@ -0,0 +1,10 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="AutoUploadManager">
++    <option name="hosts">
++      <list>
++        <option value="f01bc23d-aff3-419e-828d-5c73ec441c2d" />
++      </list>
++    </option>
++  </component>
++</project>
+\ No newline at end of file
+Index: ../Client/.idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"CMakePresetLoader\">{\r\n  &quot;useNewFormat&quot;: true\r\n}</component>\r\n  <component name=\"CMakeReloadState\">\r\n    <option name=\"reloaded\" value=\"true\" />\r\n  </component>\r\n  <component name=\"CMakeRunConfigurationManager\">\r\n    <generated>\r\n      <config projectName=\"Client\" targetName=\"Client\" />\r\n    </generated>\r\n  </component>\r\n  <component name=\"CMakeSettings\">\r\n    <configurations>\r\n      <configuration PROFILE_NAME=\"Windows\" ENABLED=\"true\" CONFIG_NAME=\"Debug\" TOOLCHAIN_NAME=\"Visual Studio\" />\r\n    </configurations>\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"1b26aded-469c-481a-b7c6-4543b8de9c14\" name=\"Changes\" comment=\"Spravena praca so subormi. Potrebuje este pracu\">\r\n      <change beforePath=\"$PROJECT_DIR$/../Server/.idea/deployment.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/../Server/.idea/deployment.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/../Server/.idea/other.xml\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/../Server/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/../Server/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/../Server/cmake-build-frios/CMakeCache.txt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/../Server/cmake-build-frios/CMakeCache.txt\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/../Server/cmake-build-frios/CMakeFiles/clion-FRIOS-log.txt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/../Server/cmake-build-frios/CMakeFiles/clion-FRIOS-log.txt\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"ClangdSettings\">\r\n    <option name=\"formatViaClangd\" value=\"false\" />\r\n  </component>\r\n  <component name=\"ExecutionTargetManager\" SELECTED_TARGET=\"CMakeBuildProfile:Windows\" />\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$/..\" />\r\n  </component>\r\n  <component name=\"ProjectApplicationVersion\">\r\n    <option name=\"ide\" value=\"CLion\" />\r\n    <option name=\"majorVersion\" value=\"2023\" />\r\n    <option name=\"minorVersion\" value=\"2.2\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 3\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2aKaoknBdLKRbRoMOSuUA9hEO8w\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,\r\n    &quot;WebServerToolWindowFactoryState&quot;: &quot;true&quot;,\r\n    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,\r\n    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,\r\n    &quot;git-widget-placeholder&quot;: &quot;master&quot;,\r\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,\r\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"Client\" type=\"CMakeRunConfiguration\" factoryName=\"Application\" REDIRECT_INPUT=\"false\" ELEVATE=\"false\" USE_EXTERNAL_CONSOLE=\"false\" EMULATE_TERMINAL=\"false\" PASS_PARENT_ENVS_2=\"true\" PROJECT_NAME=\"Client\" TARGET_NAME=\"Client\" CONFIG_NAME=\"Windows\" RUN_TARGET_PROJECT_NAME=\"Client\" RUN_TARGET_NAME=\"Client\">\r\n      <method v=\"2\">\r\n        <option name=\"com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"1b26aded-469c-481a-b7c6-4543b8de9c14\" name=\"Changes\" comment=\"\" />\r\n      <created>1704069901981</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1704069901981</updated>\r\n      <workItem from=\"1704069903084\" duration=\"2932000\" />\r\n      <workItem from=\"1704145492964\" duration=\"6444000\" />\r\n      <workItem from=\"1704162281685\" duration=\"1380000\" />\r\n      <workItem from=\"1704201883456\" duration=\"6416000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"VCPKGProject\">\r\n    <isAutomaticEditVcpkgJson value=\"false\" />\r\n    <isAutomaticCheckingOnLaunch value=\"false\" />\r\n    <isAutomaticFoundErrors value=\"true\" />\r\n    <isAutomaticFoundErrors value=\"true\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"Funguje pridanie požiaru, provizorne spraveny posun kroku simulacie\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Funguje pridanie požiaru, provizorne spraveny posun kroku simulacie\" />\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Client/.idea/workspace.xml b/../Client/.idea/workspace.xml
+--- a/../Client/.idea/workspace.xml	(revision 2a1f0c8b9035b35076ae64433fd065f79e67593c)
++++ b/../Client/.idea/workspace.xml	(date 1704317197196)
+@@ -20,12 +20,29 @@
+     </configurations>
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="1b26aded-469c-481a-b7c6-4543b8de9c14" name="Changes" comment="Spravena praca so subormi. Potrebuje este pracu">
+-      <change beforePath="$PROJECT_DIR$/../Server/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/.idea/deployment.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/../Server/.idea/other.xml" beforeDir="false" />
++    <list default="true" id="1b26aded-469c-481a-b7c6-4543b8de9c14" name="Changes" comment="Zaciatok prace na vláknach pri spravocani simulacie">
++      <change afterPath="$PROJECT_DIR$/../Server/.idea/other.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Aplikacia.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Aplikacia.cpp" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/cmake-build-windows/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/.ninja_deps" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/cmake-build-windows/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/.ninja_log" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Aplikacia.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Aplikacia.cpp.obj" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Logika/PravdepodobnostiPolicok.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Logika/PravdepodobnostiPolicok.cpp.obj" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Logika/Serializator.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Logika/Serializator.cpp.obj" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Logika/Simulacia.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Logika/Simulacia.cpp.obj" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/PosSockets/my_socket.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/PosSockets/my_socket.cpp.obj" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Utilities/ServerKomunikator.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Utilities/ServerKomunikator.cpp.obj" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Utilities/ZistovacOdpovedi.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Utilities/ZistovacOdpovedi.cpp.obj" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/main.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/main.cpp.obj" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/vc140.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/vc140.pdb" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/cmake-build-windows/Client.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/Client.exe" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/cmake-build-windows/Client.ilk" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/Client.ilk" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/cmake-build-windows/Client.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/Client.pdb" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/cmake-build-windows/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/Testing/Temporary/LastTest.log" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/../Server/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeCache.txt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeFiles/clion-FRIOS-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeFiles/clion-FRIOS-log.txt" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/../Server/Logika/simulacia.c" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Logika/simulacia.c" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/../Server/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/main.c" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -52,23 +69,23 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+-    &quot;WebServerToolWindowFactoryState&quot;: &quot;true&quot;,
+-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
+-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "RunOnceActivity.OpenProjectViewOnStart": "true",
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "RunOnceActivity.cidr.known.project.marker": "true",
++    "WebServerToolWindowFactoryState": "true",
++    "cf.first.check.clang-format": "false",
++    "cidr.known.project.marker": "true",
++    "git-widget-placeholder": "Marek",
++    "node.js.detected.package.eslint": "true",
++    "node.js.detected.package.tslint": "true",
++    "node.js.selected.package.eslint": "(autodetect)",
++    "node.js.selected.package.tslint": "(autodetect)",
++    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
++    "vue.rearranger.settings.migration": "true"
+   }
+-}</component>
++}]]></component>
+   <component name="RunManager">
+     <configuration name="Client" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Client" TARGET_NAME="Client" CONFIG_NAME="Windows" RUN_TARGET_PROJECT_NAME="Client" RUN_TARGET_NAME="Client">
+       <method v="2">
+@@ -88,7 +105,17 @@
+       <workItem from="1704145492964" duration="6444000" />
+       <workItem from="1704162281685" duration="1380000" />
+       <workItem from="1704201883456" duration="6416000" />
++      <workItem from="1704299319606" duration="4964000" />
+     </task>
++    <task id="LOCAL-00001" summary="Zaciatok prace na vláknach pri spravocani simulacie">
++      <option name="closed" value="true" />
++      <created>1704299350806</created>
++      <option name="number" value="00001" />
++      <option name="presentableId" value="LOCAL-00001" />
++      <option name="project" value="LOCAL" />
++      <updated>1704299350806</updated>
++    </task>
++    <option name="localTasksCounter" value="2" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -113,7 +140,24 @@
+   </component>
+   <component name="VcsManagerConfiguration">
+     <MESSAGE value="Funguje pridanie požiaru, provizorne spraveny posun kroku simulacie" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Funguje pridanie požiaru, provizorne spraveny posun kroku simulacie" />
++    <MESSAGE value="Zaciatok prace na vláknach pri spravocani simulacie" />
++    <option name="LAST_COMMIT_MESSAGE" value="Zaciatok prace na vláknach pri spravocani simulacie" />
++  </component>
++  <component name="XDebuggerManager">
++    <breakpoint-manager>
++      <breakpoints>
++        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
++          <url>file://$PROJECT_DIR$/Logika/Serializator.cpp</url>
++          <line>28</line>
++          <option name="timeStamp" value="1" />
++        </line-breakpoint>
++        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
++          <url>file://$PROJECT_DIR$/Logika/Serializator.cpp</url>
++          <line>72</line>
++          <option name="timeStamp" value="2" />
++        </line-breakpoint>
++      </breakpoints>
++    </breakpoint-manager>
+   </component>
+   <component name="XSLT-Support.FileAssociations.UIState">
+     <expand />
+Index: ../Client/cmake-build-windows/.ninja_log
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># ninja log v5\r\n19\t673\t7257733136868489\tCMakeFiles/Client.dir/Logika/PravdepodobnostiPolicok.cpp.obj\t4fd9eff8ea536192\r\n5\t679\t7257733136937972\tCMakeFiles/Client.dir/Utilities/ZistovacOdpovedi.cpp.obj\t164843b16256c167\r\n35\t685\t7257733137002479\tCMakeFiles/Client.dir/Logika/Serializator.cpp.obj\te5333c767de0b4c6\r\n9\t867\t7257733138805104\tCMakeFiles/Client.dir/PosSockets/my_socket.cpp.obj\t1359d53cd7242d8d\r\n29\t875\t7257733138898416\tCMakeFiles/Client.dir/Utilities/ServerKomunikator.cpp.obj\t75895fca67f74fec\r\n0\t918\t7257733139334642\tCMakeFiles/Client.dir/main.cpp.obj\te7f647b6aa3b161e\r\n24\t920\t7257733139354719\tCMakeFiles/Client.dir/Aplikacia.cpp.obj\t827e5c50b0ca90c1\r\n14\t939\t7257733139544181\tCMakeFiles/Client.dir/Logika/Simulacia.cpp.obj\t1ab0c4ff8604c05\r\n940\t1202\t7257733142055351\tClient.exe\te5d988060c437973\r\n1\t1178\t7258520886315595\tCMakeFiles/Client.dir/main.cpp.obj\te7f647b6aa3b161e\r\n1179\t1354\t7258520887687976\tClient.exe\te5d988060c437973\r\n1\t1117\t7258658176249359\tCMakeFiles/Client.dir/Aplikacia.cpp.obj\t827e5c50b0ca90c1\r\n1118\t1245\t7258658177270540\tClient.exe\te5d988060c437973\r\n12\t554\t7258659404349772\tCMakeFiles/Client.dir/Logika/Serializator.cpp.obj\te5333c767de0b4c6\r\n5\t670\t7258659405534868\tCMakeFiles/Client.dir/main.cpp.obj\te7f647b6aa3b161e\r\n9\t705\t7258659405882007\tCMakeFiles/Client.dir/Logika/Simulacia.cpp.obj\t1ab0c4ff8604c05\r\n1\t741\t7258659406230956\tCMakeFiles/Client.dir/Aplikacia.cpp.obj\t827e5c50b0ca90c1\r\n742\t923\t7258659407766976\tClient.exe\te5d988060c437973\r\n13\t582\t7258661251626860\tCMakeFiles/Client.dir/Logika/Serializator.cpp.obj\te5333c767de0b4c6\r\n1\t758\t7258661253378479\tCMakeFiles/Client.dir/main.cpp.obj\te7f647b6aa3b161e\r\n5\t773\t7258661253532323\tCMakeFiles/Client.dir/Aplikacia.cpp.obj\t827e5c50b0ca90c1\r\n9\t782\t7258661253624653\tCMakeFiles/Client.dir/Logika/Simulacia.cpp.obj\t1ab0c4ff8604c05\r\n782\t914\t7258661254676017\tClient.exe\te5d988060c437973\r\n13\t543\t7258662618493115\tCMakeFiles/Client.dir/Logika/Serializator.cpp.obj\te5333c767de0b4c6\r\n1\t685\t7258662619904025\tCMakeFiles/Client.dir/main.cpp.obj\te7f647b6aa3b161e\r\n1\t673\t7258662710558905\tCMakeFiles/Client.dir/Aplikacia.cpp.obj\t827e5c50b0ca90c1\r\n1\t721\t7258662766150091\tCMakeFiles/Client.dir/Logika/Simulacia.cpp.obj\t1ab0c4ff8604c05\r\n722\t908\t7258662767672198\tClient.exe\te5d988060c437973\r\n5\t796\t7258664594966358\tCMakeFiles/Client.dir/main.cpp.obj\te7f647b6aa3b161e\r\n1\t805\t7258664595061823\tCMakeFiles/Client.dir/Aplikacia.cpp.obj\t827e5c50b0ca90c1\r\n805\t954\t7258664596242697\tClient.exe\te5d988060c437973\r\n26\t858\t7259110294296162\tCMakeFiles/Client.dir/Logika/Serializator.cpp.obj\te5333c767de0b4c6\r\n23\t972\t7259110295418873\tCMakeFiles/Client.dir/Utilities/ServerKomunikator.cpp.obj\t75895fca67f74fec\r\n1\t973\t7259110295444040\tCMakeFiles/Client.dir/main.cpp.obj\te7f647b6aa3b161e\r\n8\t980\t7259110295524691\tCMakeFiles/Client.dir/PosSockets/my_socket.cpp.obj\t1359d53cd7242d8d\r\n18\t1013\t7259110295849111\tCMakeFiles/Client.dir/Aplikacia.cpp.obj\t827e5c50b0ca90c1\r\n13\t1022\t7259110295944720\tCMakeFiles/Client.dir/Logika/Simulacia.cpp.obj\t1ab0c4ff8604c05\r\n1023\t1250\t7259110297833105\tClient.exe\te5d988060c437973\r\n1\t1094\t7259123842080480\tCMakeFiles/Client.dir/main.cpp.obj\te7f647b6aa3b161e\r\n1094\t1231\t7259123843197562\tClient.exe\te5d988060c437973\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Client/cmake-build-windows/.ninja_log b/../Client/cmake-build-windows/.ninja_log
+--- a/../Client/cmake-build-windows/.ninja_log	(revision 2a1f0c8b9035b35076ae64433fd065f79e67593c)
++++ b/../Client/cmake-build-windows/.ninja_log	(date 1704317197198)
+@@ -39,3 +39,20 @@
+ 1023	1250	7259110297833105	Client.exe	e5d988060c437973
+ 1	1094	7259123842080480	CMakeFiles/Client.dir/main.cpp.obj	e7f647b6aa3b161e
+ 1094	1231	7259123843197562	Client.exe	e5d988060c437973
++17	1099	7260028964312116	CMakeFiles/Client.dir/Logika/PravdepodobnostiPolicok.cpp.obj	4fd9eff8ea536192
++34	1104	7260028964367344	CMakeFiles/Client.dir/Logika/Serializator.cpp.obj	e5333c767de0b4c6
++12	1107	7260028964400625	CMakeFiles/Client.dir/Utilities/ZistovacOdpovedi.cpp.obj	164843b16256c167
++30	1251	7260028965822977	CMakeFiles/Client.dir/Utilities/ServerKomunikator.cpp.obj	75895fca67f74fec
++1	1282	7260028966139755	CMakeFiles/Client.dir/main.cpp.obj	e7f647b6aa3b161e
++25	1283	7260028966160696	CMakeFiles/Client.dir/PosSockets/my_socket.cpp.obj	1359d53cd7242d8d
++21	1340	7260028966716890	CMakeFiles/Client.dir/Logika/Simulacia.cpp.obj	1ab0c4ff8604c05
++7	1352	7260028966844564	CMakeFiles/Client.dir/Aplikacia.cpp.obj	827e5c50b0ca90c1
++1352	1527	7260028968253192	Client.exe	e5d988060c437973
++1	834	7260029525360725	CMakeFiles/Client.dir/main.cpp.obj	e7f647b6aa3b161e
++834	970	7260029526442689	Client.exe	e5d988060c437973
++1	791	7260031830034748	CMakeFiles/Client.dir/main.cpp.obj	e7f647b6aa3b161e
++791	965	7260031831464218	Client.exe	e5d988060c437973
++1	1066	7260087530924712	CMakeFiles/Client.dir/main.cpp.obj	e7f647b6aa3b161e
++1066	1195	7260087531924341	Client.exe	e5d988060c437973
++1	1104	7260113529723477	CMakeFiles/Client.dir/Aplikacia.cpp.obj	827e5c50b0ca90c1
++1104	1232	7260113530724295	Client.exe	e5d988060c437973
+Index: ../Client/Aplikacia.cpp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>//\r\n// Created by rucki on 29. 12. 2023.\r\n//\r\n\r\n#include \"Aplikacia.h\"\r\n\r\nAplikacia::Aplikacia(const string& ip, short port) {\r\n    this->serverKomunikator = new ServerKomunikator(ip, port);\r\n    if (this->serverKomunikator->jePripojeny()) {\r\n        hlavneMenu();\r\n    }\r\n}\r\n\r\nAplikacia::~Aplikacia() {\r\n    if (this->serverKomunikator) {\r\n        delete this->serverKomunikator; // Uvoľnenie ServerKomunikatora\r\n    }\r\n    if (this->simulacia) {\r\n        delete this->simulacia; // Uvoľnenie Simulacie, ak je ne-null\r\n    }\r\n}\r\n\r\nvoid Aplikacia::hlavneMenu() {\r\n    cout << \"\\n\\n      Simulacia POZIAR\\n\";\r\n    cout << \"          Vytvoril:\\n\";\r\n    cout << \"Agata Pavlikova & Marek Rucki\\n\\n\";\r\n\r\n    vector<string> moznosti;\r\n    moznosti.emplace_back(\"Vytvor novu simulaciu\");\r\n    moznosti.emplace_back(\"Vybrat simulaciu zo savov\");\r\n    moznosti.emplace_back(\"Ukoncenie\");\r\n    int odpoved = ZistovacOdpovedi::vypisMenu(\"Vyber jednu moznost:\", moznosti);\r\n\r\n    if(odpoved == 0) {\r\n        moznosti.clear();\r\n        int r = ZistovacOdpovedi::vypytajCislo(\"Zadajte pocet riadkov mapy: \", 3, 100);\r\n        int s = ZistovacOdpovedi::vypytajCislo(\"Zadajte pocet stlpcov mapy: \", 3, 100);\r\n        this->simulacia = new Simulacia(r, s); // vytvorenie simulácie je priamo v konštruktore Simulácie\r\n        this->vytvorSimulaciuPodlaClientaNaServeri();\r\n    } else if (odpoved == 1) {\r\n        pokracovatVUlozenejMape();\r\n    } else if (odpoved == 2) {\r\n        cout << endl << \"Prebieha ukoncenie. Dovidenia :)\" << endl;\r\n        return;\r\n    }\r\n}\r\n\r\nvoid Aplikacia::pokracovatVUlozenejMape() {\r\n\r\n\r\n    string odpovedZoServera = this->serverKomunikator->posliSpravu(\"ziskajUlozeneMapy;\");\r\n    vector<string> moznosti = Serializator::deserializujZoznamSavov(odpovedZoServera);\r\n\r\n    if (moznosti.empty()) {\r\n        cout << \"Bohuzial, na serveri nie su ulozene ziadne ulozene simulacie. :(\" << endl;\r\n        return;\r\n    }\r\n    int indexOpdovede = ZistovacOdpovedi::vypisMenu(\"Ktory nacitany save chcete?\", moznosti);\r\n\r\n\r\n    string sprava = \"nacitajUlozenuMapu;\" + moznosti[indexOpdovede] + \";\";\r\n    odpovedZoServera = this->serverKomunikator->posliSpravu(sprava);\r\n\r\n    this->simulacia = new Simulacia(odpovedZoServera);\r\n\r\n    this->spustiSimulaciu();\r\n}\r\n\r\nvoid Aplikacia::vytvorSimulaciuPodlaClientaNaServeri() {\r\n    //\"vytvorMapu;pocetRiadkov;pocetStlpcov;S;S;V;L;L;U;...;S;V;\"\r\n    string odpovedZoServera = serverKomunikator->posliSpravu(\"vytvorMapu;\" + Serializator::serializujSimualicu(simulacia));\r\n    Serializator::deserializujOdpovedSimulacie(simulacia, odpovedZoServera);\r\n    this->spustiSimulaciu();\r\n}\r\n\r\nvoid Aplikacia::spustiSimulaciu() {\r\n    while(true) {\r\n        cout << endl << endl;\r\n        this->simulacia->vypisSa();\r\n\r\n        vector<string> moznosti;\r\n        moznosti.emplace_back(\"Vykonat krok simulacie\");\r\n        moznosti.emplace_back(\"Pridat ohen\");\r\n        moznosti.emplace_back(\"Ulozit simulaciu na server\");\r\n        moznosti.emplace_back(\"Ukoncit simulaciu\");\r\n\r\n        int odpoved = ZistovacOdpovedi::vypisMenu(\"\\n\", moznosti);\r\n\r\n        if (odpoved == 0) {\r\n            string odpovedZoServera = this->serverKomunikator->posliSpravu(\"vykonajKrok;\");\r\n            Serializator::deserializujOdpovedSimulacie(this->simulacia, odpovedZoServera);\r\n        } else if (odpoved == 1) {\r\n            int riadokNovehoOhna;\r\n            int stlpecNovehoOhna;\r\n            while (true) {\r\n                riadokNovehoOhna = ZistovacOdpovedi::vypytajCislo(\"Zadajte riadok policka\", 0, this->simulacia->getPocetRiadkov() - 1);\r\n                stlpecNovehoOhna = ZistovacOdpovedi::vypytajCislo(\"Zadajte stlpec policka\", 0, this->simulacia->getPocetStlpcov() - 1);\r\n                if (this->simulacia->skusPridatOhen(riadokNovehoOhna, stlpecNovehoOhna)) break;\r\n                cout << \"Na tomto policku nemoze byt zalozeny poziar!\" << endl;\r\n            }\r\n            // \"pridajOhen;riadok;stlpec;\" - \"pridajOhen;2;3;\"\r\n            string prikaz = \"pridajOhen;\" + to_string(riadokNovehoOhna) + \";\" + to_string(stlpecNovehoOhna) + \";\";\r\n            string odpovedZoServera = this->serverKomunikator->posliSpravu(prikaz);\r\n            Serializator::deserializujOdpovedSimulacie(this->simulacia, odpovedZoServera);\r\n        } else if (odpoved == 2) {\r\n            string nazovNaUlozenie = ZistovacOdpovedi::vypitajString(\"Zadajte nazov pre ulozenie: \");\r\n            string prikaz = \"ulozMapu;\" + nazovNaUlozenie + \";\";\r\n            string odpovedZoServera = this->serverKomunikator->posliSpravu(prikaz);\r\n            if (Serializator::jeSpravaOk(odpovedZoServera)) {\r\n                cout << \"Simulacia bola uspesne ulozena.\" << endl;\r\n            } else {\r\n                cout << \"Chyba, simulacia nebola ulozena.\" << endl;\r\n            }\r\n        } else if (odpoved == 3) {\r\n            break;\r\n        }\r\n    }\r\n}\r\n\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Client/Aplikacia.cpp b/../Client/Aplikacia.cpp
+--- a/../Client/Aplikacia.cpp	(revision 2a1f0c8b9035b35076ae64433fd065f79e67593c)
++++ b/../Client/Aplikacia.cpp	(date 1704317197196)
+@@ -12,12 +12,8 @@
+ }
+ 
+ Aplikacia::~Aplikacia() {
+-    if (this->serverKomunikator) {
+-        delete this->serverKomunikator; // Uvoľnenie ServerKomunikatora
+-    }
+-    if (this->simulacia) {
+-        delete this->simulacia; // Uvoľnenie Simulacie, ak je ne-null
+-    }
++    delete this->serverKomunikator; // Uvoľnenie ServerKomunikatora
++    delete this->simulacia; // Uvoľnenie Simulacie, ak je ne-null
+ }
+ 
+ void Aplikacia::hlavneMenu() {
+@@ -47,7 +43,6 @@
+ 
+ void Aplikacia::pokracovatVUlozenejMape() {
+ 
+-
+     string odpovedZoServera = this->serverKomunikator->posliSpravu("ziskajUlozeneMapy;");
+     vector<string> moznosti = Serializator::deserializujZoznamSavov(odpovedZoServera);
+ 
+@@ -68,7 +63,7 @@
+ 
+ void Aplikacia::vytvorSimulaciuPodlaClientaNaServeri() {
+     //"vytvorMapu;pocetRiadkov;pocetStlpcov;S;S;V;L;L;U;...;S;V;"
+-    string odpovedZoServera = serverKomunikator->posliSpravu("vytvorMapu;" + Serializator::serializujSimualicu(simulacia));
++    string odpovedZoServera = this->serverKomunikator->posliSpravu("vytvorMapu;" + Serializator::serializujSimualicu(simulacia));
+     Serializator::deserializujOdpovedSimulacie(simulacia, odpovedZoServera);
+     this->spustiSimulaciu();
+ }
+Index: ../Client/cmake-build-windows/Testing/Temporary/LastTest.log
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>Start testing: Jan 03 17:28 Stredoeur�psky �as (norm�lny)\r\n----------------------------------------------------------\r\nEnd testing: Jan 03 17:28 Stredoeur�psky �as (norm�lny)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Client/cmake-build-windows/Testing/Temporary/LastTest.log b/../Client/cmake-build-windows/Testing/Temporary/LastTest.log
+--- a/../Client/cmake-build-windows/Testing/Temporary/LastTest.log	(revision 2a1f0c8b9035b35076ae64433fd065f79e67593c)
++++ b/../Client/cmake-build-windows/Testing/Temporary/LastTest.log	(date 1704317197240)
+@@ -1,3 +1,3 @@
+-Start testing: Jan 03 17:28 Stredoeur�psky �as (norm�lny)
++Start testing: Jan 03 19:55 Stredoeur�psky �as (norm�lny)
+ ----------------------------------------------------------
+-End testing: Jan 03 17:28 Stredoeur�psky �as (norm�lny)
++End testing: Jan 03 19:55 Stredoeur�psky �as (norm�lny)
+Index: ../Client/main.cpp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>//\r\n// Created by agata on 26. 12. 2023.\r\n//\r\n\r\n#include \"Aplikacia.h\"\r\n\r\n\r\nusing  namespace std;\r\n\r\n/*\r\n Názvoslovie príkazov:\r\n\r\n \"nazovPrikazu;argument1;argument2;...;argumentN;\"\r\n\r\n prikazy:\r\n    0: \"vytvorMapu;pocetRiadkov;pocetStlpcov;S;S;V;L;L;U;...;S;V;\" - \"vytvorMapu;3;3;S;S;V;L;L;U;U;S;V;\"\r\n    1: \"pridajOhen;riadok;stlpec;\" - \"pridajOhen;2;3;\"\r\n    2: \"vykonajKrok;\" - \"vykonajKrok;\"\r\n    3: \"vykonajNKrokov;n;\" - \"vykonajNKrokov;8;\"\r\n    4: \"ziskajUlozeneMapy;\" - \"ziskajUlozeneMapy;\"\r\n    5: \"ulozMapu;nazovUlozenejMapy;\" - \"ulozMapu;extremneInteligenteNazvanaUlozenaMapa;\"\r\n    6: \"nacitajUlozenuMapu;nazovUlozenejMapy;\" - \"nacitajUlozenuMapu;extremneInteligenteNazvanaUlozenaMapa;\"\r\n\r\nodpovede:\r\n    OK status = 0\r\n    ERROR status = 1\r\n\r\n    \"vytvorMapu\" => \"status;aktualneCisloKroku;smerVetru;pocetRiadkov;pocetStlpcov;S;S;V;L;L;U;...;S;V;\" - \"0;3;S;3;3;S;S;V;L;L;U;U;S;V;\"\r\n    chybová hláška => \"status(chybový);textChyby;\" - \"1;Na tejto bunke nemoze byt zalozeny poziar!;\"\r\n */\r\n\r\nint main() {\r\n    string ip = \"frios2.fri.uniza.sk\";\r\n    short port = 13028;\r\n    port = 15874;\r\n    Aplikacia aplikacia(ip, port);\r\n    cout << endl;\r\n    system(\"pause\");\r\n    return 0;\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Client/main.cpp b/../Client/main.cpp
+--- a/../Client/main.cpp	(revision 2a1f0c8b9035b35076ae64433fd065f79e67593c)
++++ b/../Client/main.cpp	(date 1704317197242)
+@@ -31,11 +31,9 @@
+ 
+ int main() {
+     string ip = "frios2.fri.uniza.sk";
+-    short port = 13028;
+-    port = 15874;
++    short port = 13029;
+     Aplikacia aplikacia(ip, port);
+     cout << endl;
+     system("pause");
+     return 0;
+ }
+-
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"CMakePresetLoader\">{\r\n  &quot;useNewFormat&quot;: true\r\n}</component>\r\n  <component name=\"CMakeReloadState\">\r\n    <option name=\"reloaded\" value=\"true\" />\r\n  </component>\r\n  <component name=\"CMakeRunConfigurationManager\">\r\n    <generated>\r\n      <config projectName=\"Server\" targetName=\"Server\" />\r\n    </generated>\r\n  </component>\r\n  <component name=\"CMakeSettings\">\r\n    <configurations>\r\n      <configuration PROFILE_NAME=\"FRIOS\" ENABLED=\"true\" CONFIG_NAME=\"Debug\" />\r\n    </configurations>\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"5d54bcfc-6103-4340-b857-5cefc6ad7ef4\" name=\"Changes\" comment=\"Opravený bug: pri prázdnom súbore, crashol program.\">\r\n      <change beforePath=\"$PROJECT_DIR$/../Client/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/../Client/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/../Client/Logika/Serializator.h\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/../Client/Logika/Serializator.h\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/../Client/cmake-build-windows/.ninja_deps\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/../Client/cmake-build-windows/.ninja_deps\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/../Client/cmake-build-windows/.ninja_log\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/../Client/cmake-build-windows/.ninja_log\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Aplikacia.cpp.obj\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Aplikacia.cpp.obj\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Logika/Serializator.cpp.obj\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Logika/Serializator.cpp.obj\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Logika/Simulacia.cpp.obj\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Logika/Simulacia.cpp.obj\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/PosSockets/my_socket.cpp.obj\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/PosSockets/my_socket.cpp.obj\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Utilities/ServerKomunikator.cpp.obj\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Utilities/ServerKomunikator.cpp.obj\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/main.cpp.obj\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/main.cpp.obj\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/vc140.pdb\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/vc140.pdb\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/../Client/cmake-build-windows/Client.exe\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/../Client/cmake-build-windows/Client.exe\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/../Client/cmake-build-windows/Client.ilk\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/../Client/cmake-build-windows/Client.ilk\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/../Client/cmake-build-windows/Client.pdb\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/../Client/cmake-build-windows/Client.pdb\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/../Client/cmake-build-windows/Testing/Temporary/LastTest.log\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/../Client/cmake-build-windows/Testing/Temporary/LastTest.log\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/../Client/main.cpp\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/../Client/main.cpp\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Logika/simulacia.c\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Logika/simulacia.c\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/main.c\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/main.c\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"ClangdSettings\">\r\n    <option name=\"formatViaClangd\" value=\"false\" />\r\n  </component>\r\n  <component name=\"ExecutionTargetManager\" SELECTED_TARGET=\"CMakeBuildProfile:FRIOS\" />\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$/..\" />\r\n  </component>\r\n  <component name=\"ProjectApplicationVersion\">\r\n    <option name=\"ide\" value=\"CLion\" />\r\n    <option name=\"majorVersion\" value=\"2023\" />\r\n    <option name=\"minorVersion\" value=\"2.2\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 4\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2aKdVsaRV2r0gLmO07XgU4fqG7D\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"RunOnceActivity.cidr.known.project.marker\": \"true\",\r\n    \"WebServerToolWindowFactoryState\": \"true\",\r\n    \"cf.first.check.clang-format\": \"false\",\r\n    \"cidr.known.project.marker\": \"true\",\r\n    \"git-widget-placeholder\": \"Marek\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"settings.editor.selected.configurable\": \"org.jetbrains.plugins.github.ui.GithubSettingsConfigurable\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"Server\" type=\"CMakeRunConfiguration\" factoryName=\"Application\" REDIRECT_INPUT=\"false\" ELEVATE=\"false\" USE_EXTERNAL_CONSOLE=\"false\" EMULATE_TERMINAL=\"false\" PASS_PARENT_ENVS_2=\"true\" PROJECT_NAME=\"Server\" TARGET_NAME=\"Server\" CONFIG_NAME=\"FRIOS\" RUN_TARGET_PROJECT_NAME=\"Server\" RUN_TARGET_NAME=\"Server\">\r\n      <method v=\"2\">\r\n        <option name=\"com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"5d54bcfc-6103-4340-b857-5cefc6ad7ef4\" name=\"Changes\" comment=\"\" />\r\n      <created>1704071230383</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1704071230383</updated>\r\n      <workItem from=\"1704071231488\" duration=\"1989000\" />\r\n      <workItem from=\"1704145819927\" duration=\"6992000\" />\r\n      <workItem from=\"1704162250261\" duration=\"1411000\" />\r\n      <workItem from=\"1704201892671\" duration=\"5295000\" />\r\n      <workItem from=\"1704291853967\" duration=\"2000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"Spravena praca so subormi. Potrebuje este pracu.\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1704145863566</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1704145863566</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"Opravený bug: pri prázdnom súbore, crashol program.\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1704163625906</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1704163625906</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"3\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"VCPKGProject\">\r\n    <isAutomaticEditVcpkgJson value=\"false\" />\r\n    <isAutomaticCheckingOnLaunch value=\"false\" />\r\n    <isAutomaticFoundErrors value=\"true\" />\r\n    <isAutomaticFoundErrors value=\"true\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"Spravena praca so subormi. Potrebuje este pracu.\" />\r\n    <MESSAGE value=\"Opravený bug: pri prázdnom súbore, crashol program.\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Opravený bug: pri prázdnom súbore, crashol program.\" />\r\n  </component>\r\n  <component name=\"XDebuggerManager\">\r\n    <watches-manager>\r\n      <configuration name=\"CMakeRunConfiguration\">\r\n        <watch expression=\"sim-&gt;kolkoKratFukalVietor\" />\r\n      </configuration>\r\n    </watches-manager>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 2a1f0c8b9035b35076ae64433fd065f79e67593c)
++++ b/.idea/workspace.xml	(date 1704317197243)
+@@ -21,15 +21,18 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="5d54bcfc-6103-4340-b857-5cefc6ad7ef4" name="Changes" comment="Opravený bug: pri prázdnom súbore, crashol program.">
++      <change afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/../Client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/../Client/Logika/Serializator.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/Logika/Serializator.h" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/../Client/Aplikacia.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/Aplikacia.cpp" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/.ninja_deps" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/.ninja_log" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Aplikacia.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Aplikacia.cpp.obj" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Logika/PravdepodobnostiPolicok.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Logika/PravdepodobnostiPolicok.cpp.obj" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Logika/Serializator.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Logika/Serializator.cpp.obj" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Logika/Simulacia.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Logika/Simulacia.cpp.obj" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/PosSockets/my_socket.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/PosSockets/my_socket.cpp.obj" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Utilities/ServerKomunikator.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Utilities/ServerKomunikator.cpp.obj" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Utilities/ZistovacOdpovedi.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Utilities/ZistovacOdpovedi.cpp.obj" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/main.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/main.cpp.obj" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/vc140.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/vc140.pdb" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/Client.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/Client.exe" afterDir="false" />
+@@ -38,6 +41,7 @@
+       <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/Testing/Temporary/LastTest.log" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/../Client/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/main.cpp" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Logika/bunka.c" beforeDir="false" afterPath="$PROJECT_DIR$/Logika/bunka.c" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/Logika/simulacia.c" beforeDir="false" afterPath="$PROJECT_DIR$/Logika/simulacia.c" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
+     </list>
+@@ -71,6 +75,7 @@
+     "RunOnceActivity.OpenProjectViewOnStart": "true",
+     "RunOnceActivity.ShowReadmeOnStart": "true",
+     "RunOnceActivity.cidr.known.project.marker": "true",
++    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+     "WebServerToolWindowFactoryState": "true",
+     "cf.first.check.clang-format": "false",
+     "cidr.known.project.marker": "true",
+@@ -84,6 +89,11 @@
+   }
+ }]]></component>
+   <component name="RunManager">
++    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
++      <method v="2">
++        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
++      </method>
++    </configuration>
+     <configuration name="Server" type="CMakeRunConfiguration" fac

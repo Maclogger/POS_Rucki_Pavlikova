@@ -128,6 +128,7 @@ void simulacia_serializuj_sa(SIMULACIA *sim, CHAR_BUFFER* odpoved) {
     // Pridáme smer vetru ako char
     temp[0] = SMER_POPISY[sim->smerVetru];
     temp[1] = ';';
+    temp[2] = '\0';
     char_buffer_append(odpoved, temp, strlen(temp));
 
     // Pridáme počet riadkov a stĺpcov
@@ -160,6 +161,7 @@ void simulacia_serializuj_sa_pre_save(SIMULACIA *sim, CHAR_BUFFER* odpoved) {
     // Pridáme smer vetru ako char
     temp[0] = SMER_POPISY[sim->smerVetru];
     temp[1] = ';';
+    temp[2] = '\0';
     char_buffer_append(odpoved, temp, strlen(temp));
 
     sprintf(temp, "%d;", sim->kolkoKratFukalVietor);
@@ -232,7 +234,6 @@ _Bool vykonaj_krok(SIMULACIA* sim) {
 
     POLE* kopia = (POLE*)malloc(sizeof(POLE));
     pole_copy(kopia, sim->pole);
-
 
     // požiar a zhorene:
     for (int r = 0; r < kopia->pocetRiadkov; r++) {

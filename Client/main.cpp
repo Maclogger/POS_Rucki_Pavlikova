@@ -31,11 +31,9 @@ odpovede:
 
 int main() {
     string ip = "frios2.fri.uniza.sk";
-    short port = 13028;
-    port = 15874;
+    short port = 13029;
     Aplikacia aplikacia(ip, port);
     cout << endl;
     system("pause");
     return 0;
 }
-

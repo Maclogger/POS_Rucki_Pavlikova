@@ -12,12 +12,8 @@ Aplikacia::Aplikacia(const string& ip, short port) {
 }
 
 Aplikacia::~Aplikacia() {
-    if (this->serverKomunikator) {
-        delete this->serverKomunikator; // Uvoľnenie ServerKomunikatora
-    }
-    if (this->simulacia) {
-        delete this->simulacia; // Uvoľnenie Simulacie, ak je ne-null
-    }
+    delete this->serverKomunikator; // Uvoľnenie ServerKomunikatora
+    delete this->simulacia; // Uvoľnenie Simulacie, ak je ne-null
 }
 
 void Aplikacia::hlavneMenu() {

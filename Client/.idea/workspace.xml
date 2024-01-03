@@ -20,12 +20,44 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1b26aded-469c-481a-b7c6-4543b8de9c14" name="Changes" comment="Spravena praca so subormi. Potrebuje este pracu">
-      <change beforePath="$PROJECT_DIR$/../Server/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/.idea/deployment.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/.idea/other.xml" beforeDir="false" />
+    <list default="true" id="1b26aded-469c-481a-b7c6-4543b8de9c14" name="Changes" comment="Zaciatok prace na vláknach pri spravocani simulacie">
+      <change afterPath="$PROJECT_DIR$/../Server/.idea/other.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Merge_at_3__1__2024_22_26_[Changes]/.ninja_deps" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Merge_at_3__1__2024_22_26_[Changes]/Aplikacia.cpp.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Merge_at_3__1__2024_22_26_[Changes]/Client.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Merge_at_3__1__2024_22_26_[Changes]/Client.ilk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Merge_at_3__1__2024_22_26_[Changes]/Client.pdb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Merge_at_3__1__2024_22_26_[Changes]/PravdepodobnostiPolicok.cpp.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Merge_at_3__1__2024_22_26_[Changes]/Serializator.cpp.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Merge_at_3__1__2024_22_26_[Changes]/ServerKomunikator.cpp.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Merge_at_3__1__2024_22_26_[Changes]/Simulacia.cpp.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Merge_at_3__1__2024_22_26_[Changes]/ZistovacOdpovedi.cpp.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Merge_at_3__1__2024_22_26_[Changes]/main.cpp.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Merge_at_3__1__2024_22_26_[Changes]/my_socket.cpp.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Merge_at_3__1__2024_22_26_[Changes]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Merge_at_3__1__2024_22_26_[Changes]/vc140.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Aplikacia.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Aplikacia.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/.ninja_deps" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Aplikacia.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Aplikacia.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Logika/PravdepodobnostiPolicok.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Logika/PravdepodobnostiPolicok.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Logika/Serializator.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Logika/Serializator.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Logika/Simulacia.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Logika/Simulacia.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/PosSockets/my_socket.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/PosSockets/my_socket.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Utilities/ServerKomunikator.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Utilities/ServerKomunikator.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Utilities/ZistovacOdpovedi.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Utilities/ZistovacOdpovedi.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/main.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/main.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/vc140.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/vc140.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/Client.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/Client.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/Client.ilk" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/Client.ilk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/Client.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/Client.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeFiles/clion-FRIOS-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeFiles/clion-FRIOS-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/Logika/bunka.c" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Logika/bunka.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/Logika/simulacia.c" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Logika/simulacia.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/main.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +80,9 @@
   &quot;associatedIndex&quot;: 3
 }</component>
   <component name="ProjectId" id="2aKaoknBdLKRbRoMOSuUA9hEO8w" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -60,7 +95,7 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;true&quot;,
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Marek&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -88,7 +123,17 @@
       <workItem from="1704145492964" duration="6444000" />
       <workItem from="1704162281685" duration="1380000" />
       <workItem from="1704201883456" duration="6416000" />
+      <workItem from="1704299319606" duration="4964000" />
     </task>
+    <task id="LOCAL-00001" summary="Zaciatok prace na vláknach pri spravocani simulacie">
+      <option name="closed" value="true" />
+      <created>1704299350806</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1704299350806</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -113,7 +158,24 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Funguje pridanie požiaru, provizorne spraveny posun kroku simulacie" />
-    <option name="LAST_COMMIT_MESSAGE" value="Funguje pridanie požiaru, provizorne spraveny posun kroku simulacie" />
+    <MESSAGE value="Zaciatok prace na vláknach pri spravocani simulacie" />
+    <option name="LAST_COMMIT_MESSAGE" value="Zaciatok prace na vláknach pri spravocani simulacie" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Logika/Serializator.cpp</url>
+          <line>28</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Logika/Serializator.cpp</url>
+          <line>72</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

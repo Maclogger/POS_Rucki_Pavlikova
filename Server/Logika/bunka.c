@@ -16,6 +16,8 @@ typedef enum {
 
 static const char TYPY_BUNKY_ZNAKY[TYPY_BUNKY_COUNT] = {'U', 'L', 'S', 'V', 'P', 'Z'};
 
+
+
 TYPBUNKY typ_bunky_get_typ_podla_charu(char znak) {
     switch (znak) {
         case 'U':

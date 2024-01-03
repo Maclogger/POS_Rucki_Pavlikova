@@ -96,6 +96,17 @@ void skus_ziskat_spravu(SHARED_DATA* data) {
                 active_socket_write_data(data->my_socket, &buf);
                 break;
             }
+            case 3: {
+                char* token = strtok(NULL, ";");
+                int n = atoi(token);
+                for (int i = 0; i < n; i++) {
+                    vykonaj_krok(data->simulacia);
+                }
+                char_buffer_clear(&buf);
+                simulacia_serializuj_sa(data->simulacia, &buf);
+                char_buffer_append(&buf, "\0", 1);
+                active_socket_write_data(data->my_socket, &buf);
+            }
             case 4: {
                 // ziskajUlozeneMapy
                 SPRAVCA spravca;
@@ -187,7 +198,7 @@ void* process_client_data(void* thread_data) {
 int main() {
     srand(time(NULL));
 
-    short port = 13028;
+    short port = 13029;
 
     ACTIVE_SOCKET my_socket;
     SHARED_DATA data;
