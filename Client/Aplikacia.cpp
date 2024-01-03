@@ -73,7 +73,6 @@ void Aplikacia::spustiSimulaciu() {
     while(true) {
         cout << endl << endl;
         this->simulacia->vypisSa();
-
         vector<string> moznosti;
         moznosti.emplace_back("Vykonat krok simulacie");
         moznosti.emplace_back("Pridat ohen");
