@@ -1,4 +1,4 @@
-# Install script for directory: C:/Principy_operacnych_systemov/POS_SEMKA/Client
+# Install script for directory: C:/Users/rucki/Desktop/FRI/5. semester/POS/Semestralka/Projekt/Client
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Principy_operacnych_systemov/POS_SEMKA/Client/cmake-build-windows/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/rucki/Desktop/FRI/5. semester/POS/Semestralka/Projekt/Client/cmake-build-windows/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

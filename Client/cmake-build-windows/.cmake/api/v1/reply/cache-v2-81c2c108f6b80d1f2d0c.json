@@ -15,7 +15,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.33.31629/bin/Hostx64/x64/lib.exe"
+			"value" : "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.35.32215/bin/Hostx64/x64/lib.exe"
 		},
 		{
 			"name" : "CMAKE_BUILD_TYPE",
@@ -39,7 +39,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "c:/Principy_operacnych_systemov/POS_SEMKA/Client/cmake-build-windows"
+			"value" : "c:/Users/rucki/Desktop/FRI/5. semester/POS/Semestralka/Projekt/Client/cmake-build-windows"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -139,7 +139,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.33.31629/bin/Hostx64/x64/cl.exe"
+			"value" : "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.35.32215/bin/Hostx64/x64/cl.exe"
 		},
 		{
 			"name" : "CMAKE_CXX_FLAGS",
@@ -367,7 +367,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Principy_operacnych_systemov/POS_SEMKA/Client/cmake-build-windows/CMakeFiles/pkgRedirects"
+			"value" : "C:/Users/rucki/Desktop/FRI/5. semester/POS/Semestralka/Projekt/Client/cmake-build-windows/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -427,7 +427,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Principy_operacnych_systemov/POS_SEMKA/Client"
+			"value" : "C:/Users/rucki/Desktop/FRI/5. semester/POS/Semestralka/Projekt/Client"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -455,7 +455,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.33.31629/bin/Hostx64/x64/link.exe"
+			"value" : "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.35.32215/bin/Hostx64/x64/link.exe"
 		},
 		{
 			"name" : "CMAKE_MAKE_PROGRAM",
@@ -563,7 +563,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/Program Files (x86)/Windows Kits/10/bin/10.0.19041.0/x64/mt.exe"
+			"value" : "C:/Program Files (x86)/Windows Kits/10/bin/10.0.22000.0/x64/mt.exe"
 		},
 		{
 			"name" : "CMAKE_NUMBER_OF_MAKEFILES",
@@ -651,7 +651,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/Program Files (x86)/Windows Kits/10/bin/10.0.19041.0/x64/rc.exe"
+			"value" : "C:/Program Files (x86)/Windows Kits/10/bin/10.0.22000.0/x64/rc.exe"
 		},
 		{
 			"name" : "CMAKE_RC_COMPILER_WORKS",
@@ -975,7 +975,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Principy_operacnych_systemov/POS_SEMKA/Client/cmake-build-windows"
+			"value" : "C:/Users/rucki/Desktop/FRI/5. semester/POS/Semestralka/Projekt/Client/cmake-build-windows"
 		},
 		{
 			"name" : "Client_IS_TOP_LEVEL",
@@ -999,7 +999,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Principy_operacnych_systemov/POS_SEMKA/Client"
+			"value" : "C:/Users/rucki/Desktop/FRI/5. semester/POS/Semestralka/Projekt/Client"
 		}
 	],
 	"kind" : "cache",

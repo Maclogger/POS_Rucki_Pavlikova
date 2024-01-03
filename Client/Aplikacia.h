@@ -25,7 +25,7 @@ public:
     ~Aplikacia();
 private:
     void hlavneMenu();
-    void pokracovatVUlozenejMape();
+    void pokracovatVUlozenejMape(const string& nazovSavu);
     void spustiSimulaciu();
 
     void vytvorSimulaciuPodlaClientaNaServeri();
@@ -33,6 +33,10 @@ private:
     void vykonajKrok();
 
     void vykonajNKrokov(int n);
+
+    string getNazovSavu();
+
+    void zmazatSave(const string &nazovSavu);
 };
 
 

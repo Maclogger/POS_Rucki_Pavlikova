@@ -17,46 +17,80 @@ Aplikacia::~Aplikacia() {
 }
 
 void Aplikacia::hlavneMenu() {
-    cout << "\n\n      Simulacia POZIAR\n";
-    cout << "          Vytvoril:\n";
-    cout << "Agata Pavlikova & Marek Rucki\n\n";
+    while (true) {
+        cout << "\n\n      Simulacia POZIAR\n";
+        cout << "          Vytvoril:\n";
+        cout << "Agata Pavlikova & Marek Rucki\n\n";
 
-    vector<string> moznosti;
-    moznosti.emplace_back("Vytvor novu simulaciu");
-    moznosti.emplace_back("Vybrat simulaciu zo savov");
-    moznosti.emplace_back("Ukoncenie");
-    int odpoved = ZistovacOdpovedi::vypisMenu("Vyber jednu moznost:", moznosti);
+        vector<string> moznosti;
+        moznosti.emplace_back("Vytvor novu simulaciu");
+        moznosti.emplace_back("Vybrat simulaciu zo savov");
+        moznosti.emplace_back("Vymazat simulaciu zo savov");
+        moznosti.emplace_back("Ukoncenie");
+        int odpoved = ZistovacOdpovedi::vypisMenu("Vyber jednu moznost:", moznosti);
 
-    if(odpoved == 0) {
-        moznosti.clear();
-        int r = ZistovacOdpovedi::vypytajCislo("Zadajte pocet riadkov mapy: ", 3, 100);
-        int s = ZistovacOdpovedi::vypytajCislo("Zadajte pocet stlpcov mapy: ", 3, 100);
-        this->simulacia = new Simulacia(r, s); // vytvorenie simulácie je priamo v konštruktore Simulácie
-        this->vytvorSimulaciuPodlaClientaNaServeri();
-    } else if (odpoved == 1) {
-        pokracovatVUlozenejMape();
-    } else if (odpoved == 2) {
-        cout << endl << "Prebieha ukoncenie. Dovidenia :)" << endl;
-        return;
+        if(odpoved == 0) {
+            moznosti.clear();
+            int r = ZistovacOdpovedi::vypytajCislo("Zadajte pocet riadkov mapy: ", 3, 100);
+            int s = ZistovacOdpovedi::vypytajCislo("Zadajte pocet stlpcov mapy: ", 3, 100);
+            delete this->simulacia;
+            this->simulacia = new Simulacia(r, s); // vytvorenie simulácie je priamo v konštruktore Simulácie
+            this->vytvorSimulaciuPodlaClientaNaServeri();
+        } else if (odpoved == 1) {
+            string nazovSavu = this->getNazovSavu();
+            if (!nazovSavu.empty()) {
+                this->pokracovatVUlozenejMape(nazovSavu);
+            }
+        } else if (odpoved == 2) {
+            string nazovSavu = this->getNazovSavu();
+            if (!nazovSavu.empty()) {
+                this->zmazatSave(nazovSavu);
+            }
+        } else {
+            cout << endl << "Prebieha ukoncenie. Dovidenia :)" << endl;
+            return;
+        }
+
     }
 }
 
-void Aplikacia::pokracovatVUlozenejMape() {
-
-
+string Aplikacia::getNazovSavu() {
     string odpovedZoServera = this->serverKomunikator->posliSpravu("ziskajUlozeneMapy;");
     vector<string> moznosti = Serializator::deserializujZoznamSavov(odpovedZoServera);
 
     if (moznosti.empty()) {
         cout << "Bohuzial, na serveri nie su ulozene ziadne ulozene simulacie. :(" << endl;
+        return "";
+    }
+
+    moznosti.emplace_back("Naspat");
+
+
+    int indexOpdovede = ZistovacOdpovedi::vypisMenu("Ktory save chcete?", moznosti);
+
+    if (indexOpdovede == moznosti.size() - 1) return "";
+    return moznosti[indexOpdovede];
+}
+
+void Aplikacia::zmazatSave(const string &nazovSavu) {
+
+    string sprava = "odstranUlozenuMapu;" + nazovSavu + ";";
+    string odpovedZoServera = this->serverKomunikator->posliSpravu(sprava);
+
+    if (Serializator::jeSpravaOk(odpovedZoServera)) {
+        cout << "Save bol zmazany zo serveru. :D" << endl;
         return;
     }
-    int indexOpdovede = ZistovacOdpovedi::vypisMenu("Ktory nacitany save chcete?", moznosti);
 
+    cout << "Save nebol zmazany zo serveru. :(" << endl;
+}
 
-    string sprava = "nacitajUlozenuMapu;" + moznosti[indexOpdovede] + ";";
-    odpovedZoServera = this->serverKomunikator->posliSpravu(sprava);
+void Aplikacia::pokracovatVUlozenejMape(const string& nazovSavu) {
 
+    string sprava = "nacitajUlozenuMapu;" + nazovSavu + ";";
+    string odpovedZoServera = this->serverKomunikator->posliSpravu(sprava);
+
+    delete this->simulacia;
     this->simulacia = new Simulacia(odpovedZoServera);
 
     this->spustiSimulaciu();
@@ -137,6 +171,10 @@ void Aplikacia::vykonajNKrokov(int n) {
     string odpovedZoServera = this->serverKomunikator->posliSpravu("vykonajNKrokov;" + to_string(n) + ";");
     Serializator::deserializujOdpovedSimulacie(this->simulacia, odpovedZoServera);
 }
+
+
+
+
 
 
 

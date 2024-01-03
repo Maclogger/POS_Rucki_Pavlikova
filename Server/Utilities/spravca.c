@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include "../PosSockets/char_buffer.h"
 
 #define RIADOK_DLZKA 50000
@@ -8,6 +9,7 @@
 
 typedef struct {
     FILE* file;
+    FILE* file2;
     char filename[256];
 } SPRAVCA;
 
@@ -111,6 +113,32 @@ void get_save_zo_suboru(SPRAVCA* spravca, const char* nazov_savu, CHAR_BUFFER* s
 
     fclose(spravca->file);
 }
+
+_Bool spravca_zmaz_save(SPRAVCA *spravca, char *nazovSavu) {
+
+    spravca->file = fopen(spravca->filename, "r");
+    spravca->file2 = fopen("../temp.txt", "w");
+
+    if (!spravca->file || !spravca->file2) {
+        return 0;
+    }
+
+    char riadok[RIADOK_DLZKA];
+    while (fgets(riadok, sizeof(riadok), spravca->file) != NULL) {
+        if (strncmp(riadok, nazovSavu, strlen(nazovSavu)) != 0 || riadok[strlen(nazovSavu)] != ';') {
+            fputs(riadok, spravca->file2);
+        }
+    }
+
+    fclose(spravca->file);
+    fclose(spravca->file2);
+
+    remove("../saves.txt");
+    rename("../temp.txt", "../saves.txt");
+
+    return 1;
+}
+
 
 
 

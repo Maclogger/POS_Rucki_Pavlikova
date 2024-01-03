@@ -20,6 +20,7 @@ using  namespace std;
     4: "ziskajUlozeneMapy;" - "ziskajUlozeneMapy;"
     5: "ulozMapu;nazovUlozenejMapy;" - "ulozMapu;extremneInteligenteNazvanaUlozenaMapa;"
     6: "nacitajUlozenuMapu;nazovUlozenejMapy;" - "nacitajUlozenuMapu;extremneInteligenteNazvanaUlozenaMapa;"
+    7: "odstranUlozenuMapu;nazovUlozenejMapy;" - "odstranUlozenuMapu;extremneInteligenteNazvanaUlozenaMapa;"
 
 odpovede:
     OK status = 0

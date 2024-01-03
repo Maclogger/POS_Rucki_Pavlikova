@@ -44,6 +44,8 @@ int getCisloPrikazu(CHAR_BUFFER *buf) {
             return 5;
         } else if (strcmp(token, "nacitajUlozenuMapu") == 0) {
             return 6;
+        } else if (strcmp(token, "odstranUlozenuMapu") == 0) {
+            return 7;
         }
     }
     return -1;
@@ -165,6 +167,20 @@ void skus_ziskat_spravu(SHARED_DATA* data) {
                 active_socket_write_data(data->my_socket, &buf);
 
                 spravca_destroy(&spravca);
+                break;
+            }
+            case 7: {
+                SPRAVCA spravca;
+                spravca_init(&spravca, nazovSuboruSavov);
+                _Bool boloUspesne = spravca_zmaz_save(&spravca, strtok(NULL, ";"));
+                spravca_destroy(&spravca);
+                char_buffer_clear(&buf);
+                if (boloUspesne) {
+                    char_buffer_append(&buf, "0;\0", 3);
+                } else {
+                    char_buffer_append(&buf, "1;\0", 3);
+                }
+                active_socket_write_data(data->my_socket, &buf);
                 break;
             }
             default: {
