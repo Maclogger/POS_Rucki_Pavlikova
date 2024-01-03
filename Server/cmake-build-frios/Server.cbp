@@ -8,38 +8,38 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/tmp/tmp.1VlpqybPYc/cmake-build-frios"/>
+				<Option working_dir="/tmp/tmp.KPY0jxrcz3/cmake-build-frios"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.1VlpqybPYc/cmake-build-frios/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.1VlpqybPYc/cmake-build-frios/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.1VlpqybPYc/cmake-build-frios/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.1VlpqybPYc/cmake-build-frios/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.KPY0jxrcz3/cmake-build-frios/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.KPY0jxrcz3/cmake-build-frios/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.KPY0jxrcz3/cmake-build-frios/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.KPY0jxrcz3/cmake-build-frios/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/tmp/tmp.1VlpqybPYc/cmake-build-frios"/>
+				<Option working_dir="/tmp/tmp.KPY0jxrcz3/cmake-build-frios"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.1VlpqybPYc/cmake-build-frios/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.1VlpqybPYc/cmake-build-frios/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.1VlpqybPYc/cmake-build-frios/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.1VlpqybPYc/cmake-build-frios/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.KPY0jxrcz3/cmake-build-frios/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.KPY0jxrcz3/cmake-build-frios/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.KPY0jxrcz3/cmake-build-frios/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.KPY0jxrcz3/cmake-build-frios/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/tmp/tmp.1VlpqybPYc/cmake-build-frios"/>
+				<Option working_dir="/tmp/tmp.KPY0jxrcz3/cmake-build-frios"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.1VlpqybPYc/cmake-build-frios/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.1VlpqybPYc/cmake-build-frios/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.1VlpqybPYc/cmake-build-frios/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.1VlpqybPYc/cmake-build-frios/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.KPY0jxrcz3/cmake-build-frios/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.KPY0jxrcz3/cmake-build-frios/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.KPY0jxrcz3/cmake-build-frios/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.KPY0jxrcz3/cmake-build-frios/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Server">
-				<Option output="/tmp/tmp.1VlpqybPYc/cmake-build-frios/Server" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/tmp/tmp.1VlpqybPYc/cmake-build-frios"/>
+				<Option output="/tmp/tmp.KPY0jxrcz3/cmake-build-frios/Server" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/tmp/tmp.KPY0jxrcz3/cmake-build-frios"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -50,15 +50,15 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.1VlpqybPYc/cmake-build-frios/Makefile&quot;  VERBOSE=1 Server"/>
-					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.1VlpqybPYc/cmake-build-frios/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.1VlpqybPYc/cmake-build-frios/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.1VlpqybPYc/cmake-build-frios/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.KPY0jxrcz3/cmake-build-frios/Makefile&quot;  VERBOSE=1 Server"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.KPY0jxrcz3/cmake-build-frios/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.KPY0jxrcz3/cmake-build-frios/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.KPY0jxrcz3/cmake-build-frios/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Server/fast">
-				<Option output="/tmp/tmp.1VlpqybPYc/cmake-build-frios/Server" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/tmp/tmp.1VlpqybPYc/cmake-build-frios"/>
+				<Option output="/tmp/tmp.KPY0jxrcz3/cmake-build-frios/Server" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/tmp/tmp.KPY0jxrcz3/cmake-build-frios"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -69,35 +69,35 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.1VlpqybPYc/cmake-build-frios/Makefile&quot;  VERBOSE=1 Server/fast"/>
-					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.1VlpqybPYc/cmake-build-frios/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.1VlpqybPYc/cmake-build-frios/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.1VlpqybPYc/cmake-build-frios/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.KPY0jxrcz3/cmake-build-frios/Makefile&quot;  VERBOSE=1 Server/fast"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.KPY0jxrcz3/cmake-build-frios/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.KPY0jxrcz3/cmake-build-frios/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/tmp/tmp.KPY0jxrcz3/cmake-build-frios/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/tmp/tmp.1VlpqybPYc/PosSockets/active_socket.c">
+		<Unit filename="/tmp/tmp.KPY0jxrcz3/PosSockets/active_socket.c">
 			<Option target="Server"/>
 		</Unit>
-		<Unit filename="/tmp/tmp.1VlpqybPYc/PosSockets/active_socket.h">
+		<Unit filename="/tmp/tmp.KPY0jxrcz3/PosSockets/active_socket.h">
 			<Option target="Server"/>
 		</Unit>
-		<Unit filename="/tmp/tmp.1VlpqybPYc/PosSockets/char_buffer.c">
+		<Unit filename="/tmp/tmp.KPY0jxrcz3/PosSockets/char_buffer.c">
 			<Option target="Server"/>
 		</Unit>
-		<Unit filename="/tmp/tmp.1VlpqybPYc/PosSockets/char_buffer.h">
+		<Unit filename="/tmp/tmp.KPY0jxrcz3/PosSockets/char_buffer.h">
 			<Option target="Server"/>
 		</Unit>
-		<Unit filename="/tmp/tmp.1VlpqybPYc/PosSockets/passive_socket.c">
+		<Unit filename="/tmp/tmp.KPY0jxrcz3/PosSockets/passive_socket.c">
 			<Option target="Server"/>
 		</Unit>
-		<Unit filename="/tmp/tmp.1VlpqybPYc/PosSockets/passive_socket.h">
+		<Unit filename="/tmp/tmp.KPY0jxrcz3/PosSockets/passive_socket.h">
 			<Option target="Server"/>
 		</Unit>
-		<Unit filename="/tmp/tmp.1VlpqybPYc/main.c">
+		<Unit filename="/tmp/tmp.KPY0jxrcz3/main.c">
 			<Option target="Server"/>
 		</Unit>
-		<Unit filename="/tmp/tmp.1VlpqybPYc/CMakeLists.txt">
+		<Unit filename="/tmp/tmp.KPY0jxrcz3/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/rucki/Desktop/FRI/5. semester/POS/Semestralka/Projekt/Client/cmake-build-windows",
-		"source" : "C:/Users/rucki/Desktop/FRI/5. semester/POS/Semestralka/Projekt/Client"
+		"build" : "C:/Principy_operacnych_systemov/POS_SEMKA/Client/cmake-build-windows",
+		"source" : "C:/Principy_operacnych_systemov/POS_SEMKA/Client"
 	},
 	"version" : 
 	{

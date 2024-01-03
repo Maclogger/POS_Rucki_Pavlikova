@@ -1,22 +1,22 @@
 Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
-Change Dir: /tmp/tmp.1VlpqybPYc/cmake-build-frios/CMakeFiles/CMakeTmp
+Change Dir: /tmp/tmp.KPY0jxrcz3/cmake-build-frios/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/gmake cmTC_5201b/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_5201b.dir/build.make CMakeFiles/cmTC_5201b.dir/build
-gmake[1]: Entering directory '/tmp/tmp.1VlpqybPYc/cmake-build-frios/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_5201b.dir/src.c.o
-/usr/bin/cc   -DCMAKE_HAVE_LIBC_PTHREAD -std=gnu11 -o CMakeFiles/cmTC_5201b.dir/src.c.o -c /tmp/tmp.1VlpqybPYc/cmake-build-frios/CMakeFiles/CMakeTmp/src.c
-Linking C executable cmTC_5201b
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5201b.dir/link.txt --verbose=1
-/usr/bin/cc  -DCMAKE_HAVE_LIBC_PTHREAD CMakeFiles/cmTC_5201b.dir/src.c.o -o cmTC_5201b 
-/usr/bin/ld: CMakeFiles/cmTC_5201b.dir/src.c.o: in function `main':
+Run Build Command(s):/usr/bin/gmake cmTC_b4651/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_b4651.dir/build.make CMakeFiles/cmTC_b4651.dir/build
+gmake[1]: Entering directory '/tmp/tmp.KPY0jxrcz3/cmake-build-frios/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_b4651.dir/src.c.o
+/usr/bin/cc   -DCMAKE_HAVE_LIBC_PTHREAD -std=gnu11 -o CMakeFiles/cmTC_b4651.dir/src.c.o -c /tmp/tmp.KPY0jxrcz3/cmake-build-frios/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_b4651
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b4651.dir/link.txt --verbose=1
+/usr/bin/cc  -DCMAKE_HAVE_LIBC_PTHREAD CMakeFiles/cmTC_b4651.dir/src.c.o -o cmTC_b4651 
+/usr/bin/ld: CMakeFiles/cmTC_b4651.dir/src.c.o: in function `main':
 src.c:(.text+0x2f): undefined reference to `pthread_create'
 /usr/bin/ld: src.c:(.text+0x3b): undefined reference to `pthread_detach'
 /usr/bin/ld: src.c:(.text+0x47): undefined reference to `pthread_cancel'
 /usr/bin/ld: src.c:(.text+0x58): undefined reference to `pthread_join'
 collect2: error: ld returned 1 exit status
-gmake[1]: *** [CMakeFiles/cmTC_5201b.dir/build.make:106: cmTC_5201b] Error 1
-gmake[1]: Leaving directory '/tmp/tmp.1VlpqybPYc/cmake-build-frios/CMakeFiles/CMakeTmp'
-gmake: *** [Makefile:140: cmTC_5201b/fast] Error 2
+gmake[1]: *** [CMakeFiles/cmTC_b4651.dir/build.make:106: cmTC_b4651] Error 1
+gmake[1]: Leaving directory '/tmp/tmp.KPY0jxrcz3/cmake-build-frios/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:140: cmTC_b4651/fast] Error 2
 
 
 Source file was:
@@ -41,20 +41,20 @@ int main(void)
 }
 
 Determining if the function pthread_create exists in the pthreads failed with the following output:
-Change Dir: /tmp/tmp.1VlpqybPYc/cmake-build-frios/CMakeFiles/CMakeTmp
+Change Dir: /tmp/tmp.KPY0jxrcz3/cmake-build-frios/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/gmake cmTC_79f14/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_79f14.dir/build.make CMakeFiles/cmTC_79f14.dir/build
-gmake[1]: Entering directory '/tmp/tmp.1VlpqybPYc/cmake-build-frios/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_79f14.dir/CheckFunctionExists.c.o
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create -std=gnu11 -o CMakeFiles/cmTC_79f14.dir/CheckFunctionExists.c.o -c /usr/share/cmake-3.18/Modules/CheckFunctionExists.c
-Linking C executable cmTC_79f14
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_79f14.dir/link.txt --verbose=1
-/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create CMakeFiles/cmTC_79f14.dir/CheckFunctionExists.c.o -o cmTC_79f14  -lpthreads 
+Run Build Command(s):/usr/bin/gmake cmTC_329ff/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_329ff.dir/build.make CMakeFiles/cmTC_329ff.dir/build
+gmake[1]: Entering directory '/tmp/tmp.KPY0jxrcz3/cmake-build-frios/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_329ff.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create -std=gnu11 -o CMakeFiles/cmTC_329ff.dir/CheckFunctionExists.c.o -c /usr/share/cmake-3.18/Modules/CheckFunctionExists.c
+Linking C executable cmTC_329ff
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_329ff.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create CMakeFiles/cmTC_329ff.dir/CheckFunctionExists.c.o -o cmTC_329ff  -lpthreads 
 /usr/bin/ld: cannot find -lpthreads
 collect2: error: ld returned 1 exit status
-gmake[1]: *** [CMakeFiles/cmTC_79f14.dir/build.make:106: cmTC_79f14] Error 1
-gmake[1]: Leaving directory '/tmp/tmp.1VlpqybPYc/cmake-build-frios/CMakeFiles/CMakeTmp'
-gmake: *** [Makefile:140: cmTC_79f14/fast] Error 2
+gmake[1]: *** [CMakeFiles/cmTC_329ff.dir/build.make:106: cmTC_329ff] Error 1
+gmake[1]: Leaving directory '/tmp/tmp.KPY0jxrcz3/cmake-build-frios/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:140: cmTC_329ff/fast] Error 2
 
 
 

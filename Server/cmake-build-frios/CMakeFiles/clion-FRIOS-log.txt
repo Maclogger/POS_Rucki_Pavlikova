@@ -1,4 +1,4 @@
-/usr/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" -S /tmp/tmp.1VlpqybPYc -B /tmp/tmp.1VlpqybPYc/cmake-build-frios
+/usr/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" -S /tmp/tmp.KPY0jxrcz3 -B /tmp/tmp.KPY0jxrcz3/cmake-build-frios
 -- The C compiler identification is GNU 10.2.1
 -- Detecting C compiler ABI info
 -- Detecting C compiler ABI info - done
@@ -16,4 +16,4 @@
 -- Found Threads: TRUE  
 -- Configuring done
 -- Generating done
--- Build files have been written to: /tmp/tmp.1VlpqybPYc/cmake-build-frios
+-- Build files have been written to: /tmp/tmp.KPY0jxrcz3/cmake-build-frios
