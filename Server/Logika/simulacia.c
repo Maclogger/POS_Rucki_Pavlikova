@@ -23,7 +23,7 @@ void simulacia_init(SIMULACIA* sim, int pocetRiadkov, int pocetStlpcov) {
 }
 
 void simulacia_init_podla_spravy_vytvorenia(SIMULACIA* sim) {
-
+    //"pocetRiadkov;pocetStlpcov;S;S;V;L;L;U;...;S;V;" - "vytvorMapu;3;3;S;S;V;L;L;U;U;S;V;"
     char* token = strtok(NULL, ";");
     int pocetRiadkov = atoi(token);
 

@@ -32,6 +32,7 @@ odpovede:
 int main() {
     string ip = "frios2.fri.uniza.sk";
     short port = 13028;
+    port = 15874;
     Aplikacia aplikacia(ip, port);
     cout << endl;
     system("pause");

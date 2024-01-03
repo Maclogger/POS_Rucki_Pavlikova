@@ -30,3 +30,12 @@
 5	796	7258664594966358	CMakeFiles/Client.dir/main.cpp.obj	e7f647b6aa3b161e
 1	805	7258664595061823	CMakeFiles/Client.dir/Aplikacia.cpp.obj	827e5c50b0ca90c1
 805	954	7258664596242697	Client.exe	e5d988060c437973
+26	858	7259110294296162	CMakeFiles/Client.dir/Logika/Serializator.cpp.obj	e5333c767de0b4c6
+23	972	7259110295418873	CMakeFiles/Client.dir/Utilities/ServerKomunikator.cpp.obj	75895fca67f74fec
+1	973	7259110295444040	CMakeFiles/Client.dir/main.cpp.obj	e7f647b6aa3b161e
+8	980	7259110295524691	CMakeFiles/Client.dir/PosSockets/my_socket.cpp.obj	1359d53cd7242d8d
+18	1013	7259110295849111	CMakeFiles/Client.dir/Aplikacia.cpp.obj	827e5c50b0ca90c1
+13	1022	7259110295944720	CMakeFiles/Client.dir/Logika/Simulacia.cpp.obj	1ab0c4ff8604c05
+1023	1250	7259110297833105	Client.exe	e5d988060c437973
+1	1094	7259123842080480	CMakeFiles/Client.dir/main.cpp.obj	e7f647b6aa3b161e
+1094	1231	7259123843197562	Client.exe	e5d988060c437973

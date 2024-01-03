@@ -23,7 +23,6 @@ public:
     static string serializujSimualicu(Simulacia* sim);
     static void deserializujOdpovedSimulacie(Simulacia* sim, const string& odpoved);
     static vector<string> deserializujZoznamSavov(const string& odpoved);
-
     static bool jeSpravaOk(const string& basicString);
 };
 

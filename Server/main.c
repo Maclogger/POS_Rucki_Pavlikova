@@ -26,9 +26,8 @@ void thread_data_destroy(SHARED_DATA* data) {
     data->my_socket = NULL;
 }
 
-
 int getCisloPrikazu(CHAR_BUFFER *buf) {
-
+    //"pocetRiadkov;pocetStlpcov;S;S;V;L;L;U;...;S;V;" - "vytvorMapu;3;3;S;S;V;L;L;U;U;S;V;"
     char* token = strtok(buf->data, ";");
     if (token != NULL) {
         if (strcmp(token, "vytvorMapu") == 0) {
@@ -190,7 +189,7 @@ int main() {
 
     short port = 13028;
 
-    struct active_socket my_socket;
+    ACTIVE_SOCKET my_socket;
     SHARED_DATA data;
 
     pthread_t th_receive;

@@ -20,13 +20,16 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d54bcfc-6103-4340-b857-5cefc6ad7ef4" name="Changes" comment="Spravena praca so subormi. Potrebuje este pracu.">
-      <change afterPath="$PROJECT_DIR$/saves.txt" afterDir="false" />
+    <list default="true" id="5d54bcfc-6103-4340-b857-5cefc6ad7ef4" name="Changes" comment="Opravený bug: pri prázdnom súbore, crashol program.">
       <change beforePath="$PROJECT_DIR$/../Client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/Logika/Simulacia.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/Logika/Simulacia.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/Logika/Simulacia.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/Logika/Simulacia.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/Logika/Serializator.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/Logika/Serializator.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Aplikacia.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Aplikacia.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Logika/Serializator.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Logika/Serializator.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Logika/Simulacia.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Logika/Simulacia.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/PosSockets/my_socket.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/PosSockets/my_socket.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Utilities/ServerKomunikator.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Utilities/ServerKomunikator.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/main.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/main.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/vc140.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/vc140.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/Client.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/Client.exe" afterDir="false" />
@@ -35,10 +38,7 @@
       <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/Testing/Temporary/LastTest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Client/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logika/bunka.c" beforeDir="false" afterPath="$PROJECT_DIR$/Logika/bunka.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Logika/simulacia.c" beforeDir="false" afterPath="$PROJECT_DIR$/Logika/simulacia.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utilities/saves.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utilities/spravca.c" beforeDir="false" afterPath="$PROJECT_DIR$/Utilities/spravca.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -100,7 +100,9 @@
       <updated>1704071230383</updated>
       <workItem from="1704071231488" duration="1989000" />
       <workItem from="1704145819927" duration="6992000" />
-      <workItem from="1704162250261" duration="891000" />
+      <workItem from="1704162250261" duration="1411000" />
+      <workItem from="1704201892671" duration="5295000" />
+      <workItem from="1704291853967" duration="2000" />
     </task>
     <task id="LOCAL-00001" summary="Spravena praca so subormi. Potrebuje este pracu.">
       <option name="closed" value="true" />
@@ -110,7 +112,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704145863566</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Opravený bug: pri prázdnom súbore, crashol program.">
+      <option name="closed" value="true" />
+      <created>1704163625906</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1704163625906</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -124,18 +134,10 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Spravena praca so subormi. Potrebuje este pracu." />
-    <option name="LAST_COMMIT_MESSAGE" value="Spravena praca so subormi. Potrebuje este pracu." />
+    <MESSAGE value="Opravený bug: pri prázdnom súbore, crashol program." />
+    <option name="LAST_COMMIT_MESSAGE" value="Opravený bug: pri prázdnom súbore, crashol program." />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/main.c</url>
-          <line>190</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="CMakeRunConfiguration">
         <watch expression="sim-&gt;kolkoKratFukalVietor" />
