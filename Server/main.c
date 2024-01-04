@@ -46,6 +46,10 @@ int getCisloPrikazu(CHAR_BUFFER *buf) {
             return 6;
         } else if (strcmp(token, "odstranUlozenuMapu") == 0) {
             return 7;
+        } else if (strcmp(token, "vytvorMapuPodlaLokalnehoSuboru") == 0) {
+            return 8;
+        } else if (strcmp(token, "ziskajAktualnuSimulaciuDoLokalnehoSuboru") == 0) {
+            return 9;
         }
     }
     return -1;
@@ -108,6 +112,7 @@ void skus_ziskat_spravu(SHARED_DATA* data) {
                 simulacia_serializuj_sa(data->simulacia, &buf);
                 char_buffer_append(&buf, "\0", 1);
                 active_socket_write_data(data->my_socket, &buf);
+                break;
             }
             case 4: {
                 // ziskajUlozeneMapy
@@ -158,7 +163,9 @@ void skus_ziskat_spravu(SHARED_DATA* data) {
 
                 get_save_zo_suboru(&spravca, strtok(NULL, ";"), &stringZoSuboru);
 
-                simulacia_init_podla_savu(data->simulacia, &stringZoSuboru);
+                // ignoracia nazvu savu:
+                strtok(stringZoSuboru.data, ";");
+                simulacia_init_podla_celkoveho_stringu(data->simulacia, &stringZoSuboru);
 
                 char_buffer_clear(&buf);
                 simulacia_serializuj_sa(data->simulacia, &buf);
@@ -170,6 +177,7 @@ void skus_ziskat_spravu(SHARED_DATA* data) {
                 break;
             }
             case 7: {
+                // odstranUlozenuMapu
                 SPRAVCA spravca;
                 spravca_init(&spravca, nazovSuboruSavov);
                 _Bool boloUspesne = spravca_zmaz_save(&spravca, strtok(NULL, ";"));
@@ -180,6 +188,25 @@ void skus_ziskat_spravu(SHARED_DATA* data) {
                 } else {
                     char_buffer_append(&buf, "1;\0", 3);
                 }
+                active_socket_write_data(data->my_socket, &buf);
+                break;
+            }
+            case 8: {
+                // vytvorMapuPodlaLokalnehoSuboru
+                simulacia_init_podla_celkoveho_stringu(data->simulacia, &buf);
+                char_buffer_clear(&buf);
+                simulacia_serializuj_sa(data->simulacia, &buf);
+                printf("Odosialene data: %s\n", buf.data);
+                char_buffer_append(&buf, "\0", 1);
+                active_socket_write_data(data->my_socket, &buf);
+                break;
+            }
+            case 9: {
+                // ziskajAktualnuSimulaciuDoLokalnehoSuboru
+                char_buffer_clear(&buf);
+                char_buffer_append(&buf, "0;", 2);
+                simulacia_serializuj_sa_pre_save(data->simulacia, &buf);
+                char_buffer_append(&buf, "\0", 1);
                 active_socket_write_data(data->my_socket, &buf);
                 break;
             }

@@ -10,6 +10,7 @@
 #include "Logika/Simulacia.h"
 #include "Utilities/ServerKomunikator.h"
 #include "Logika/Serializator.h"
+#include "Utilities/SpravcaSuborov.h"
 
 
 #include <iostream>
@@ -28,7 +29,7 @@ private:
     void pokracovatVUlozenejMape(const string& nazovSavu);
     void spustiSimulaciu();
 
-    void vytvorSimulaciuPodlaClientaNaServeri();
+    void vytvorNovuSimulaciuNaServeriPodlaFrontEndu();
 
     void vykonajKrok();
 

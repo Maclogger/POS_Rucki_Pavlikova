@@ -88,7 +88,29 @@ Simulacia::~Simulacia() {
 }
 
 void Simulacia::vypisSa() {
+    WORD zelena = FOREGROUND_GREEN | FOREGROUND_INTENSITY;
+    WORD ruzova = FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY;
+    WORD modra = FOREGROUND_BLUE | FOREGROUND_INTENSITY;
+    WORD cervena = FOREGROUND_RED | FOREGROUND_INTENSITY;
+    WORD zlta = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY;
+    WORD tmavoSeda = FOREGROUND_INTENSITY;
+
+    WORD svetloModra = FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY;
+    WORD tmavoModra = FOREGROUND_BLUE;
+    WORD svetloZelena = FOREGROUND_GREEN | FOREGROUND_INTENSITY;
+    WORD tmavoZelena = FOREGROUND_GREEN;
+    WORD tmavoCervena = FOREGROUND_RED;
+    WORD svetloZlta = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY;
+    WORD tmavoZlta = FOREGROUND_RED | FOREGROUND_GREEN;
+    WORD tmavoRuzova = FOREGROUND_RED | FOREGROUND_BLUE;
+    WORD svetloFialova = FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY;
+    WORD tmavoFialova = FOREGROUND_BLUE | FOREGROUND_INTENSITY;
+    WORD biela = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY;
+    WORD tmavoSiva = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
+    WORD cierne = 0;
+
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
     cout << "   ";
     for (int i = 0; i < this->pocetStlpcov; i++) {
 
@@ -104,25 +126,25 @@ void Simulacia::vypisSa() {
     cout << endl << "  ";
 
 
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY);
+    SetConsoleTextAttribute(hConsole, tmavoSeda);
 
     cout << " ";
     for (int i = 0; i < this->pocetStlpcov; i++) {
         cout << "+-----";
     }
     cout << "+";
-    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE); // Reset na predvolenú farbu
+    SetConsoleTextAttribute(hConsole, biela); // Reset na predvolenú farbu
     cout << "    -------------------------------\n";
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY);
+    SetConsoleTextAttribute(hConsole, tmavoSeda);
 
     for (int r = 0; r < this->pocetRiadkov; r++) {
         if (r <= 9) {
             cout << " ";
         }
 
-        SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE); // Reset na predvolenú farbu
+        SetConsoleTextAttribute(hConsole, biela); // Reset na predvolenú farbu
         cout << r << " ";
-        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY);
+        SetConsoleTextAttribute(hConsole, tmavoSeda);
         for (int s = 0; s < this->pocetStlpcov; s++) {
             char znak = this->pole[r][s];
 
@@ -130,17 +152,17 @@ void Simulacia::vypisSa() {
 
             // Nastavenie farby podľa hodnoty znaku
             switch (znak) {
-                case 'U': SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY); break; // Slabo zelená
-                case 'L': SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN | FOREGROUND_INTENSITY); break; // Tmavo zelená
-                case 'S': SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE); break; // Bledo žltá
-                case 'V': SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_INTENSITY); break; // Tmavo modrá
-                case 'P': SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY); break; // Červená
-                case 'Z': SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY); break; // Biela
-                default:  SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE); break; // Predvolená farba
+                case 'U': SetConsoleTextAttribute(hConsole, zlta); break;
+                case 'L': SetConsoleTextAttribute(hConsole, zelena); break;
+                case 'S': SetConsoleTextAttribute(hConsole, biela); break;
+                case 'V': SetConsoleTextAttribute(hConsole, modra); break;
+                case 'P': SetConsoleTextAttribute(hConsole, cervena); break;
+                case 'Z': SetConsoleTextAttribute(hConsole, tmavoSeda); break;
+                default:  SetConsoleTextAttribute(hConsole, biela); break;
             }
 
             cout << znak << "  ";
-            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY);
+            SetConsoleTextAttribute(hConsole, tmavoSeda);
         }
         cout << "|";
 
@@ -149,87 +171,86 @@ void Simulacia::vypisSa() {
         char right = '>';
         char left = '<';
 
-        SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE); // Reset na predvolenú farbu
+        SetConsoleTextAttribute(hConsole, biela); // Reset na predvolenú farbu
 
         switch(r) {
             case 0: {
-                SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+                SetConsoleTextAttribute(hConsole, zlta);
                 cout << "       U - luka     ";
-                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+                SetConsoleTextAttribute(hConsole, modra);
                 cout << "V - voda \n";
 
-                SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+                SetConsoleTextAttribute(hConsole, biela);
                 break;
             }
             case 1: {
-                SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+                SetConsoleTextAttribute(hConsole, biela);
                 cout << "       S - skala    ";
-                SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+                SetConsoleTextAttribute(hConsole, tmavoSeda);
                 cout << "Z - zhorena\n";
-                SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+                SetConsoleTextAttribute(hConsole, biela);
                 break;
             }
 
 
             case 2: {
-                SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY);
+                SetConsoleTextAttribute(hConsole, cervena);
                 cout << "       P - poziar   ";
-                SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+                SetConsoleTextAttribute(hConsole, zelena);
                 cout << "L - les  \n";
-
-                SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+                SetConsoleTextAttribute(hConsole, biela);
                 break;
             }
 
             case 3: {
                 if (this->smerVetru == 'S') {
                     cout << "       SMER VETRU:  ";
-                    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY);
+                    SetConsoleTextAttribute(hConsole, cervena);
                     cout << up << " ";
-                    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-                    cout << down << " " << left << " " << right << "X" << endl;
+                    SetConsoleTextAttribute(hConsole, biela);
+                    cout << down << " " << left << " " << right << " X" << endl;
                 }
                 if (this->smerVetru == 'J') {
                     cout << "       SMER VETRU:  ";
                     cout << up << " ";
-                    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY);
+                    SetConsoleTextAttribute(hConsole, cervena);
                     cout << down << " ";
-                    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-                    cout << left << " " << right << "X" << endl;
+                    SetConsoleTextAttribute(hConsole, biela);
+                    cout << left << " " << right << " X" << endl;
                 }
 
                 if (this->smerVetru == 'Z') {
                     cout << "       SMER VETRU:  ";
                     cout << up << " " << down << " ";
-                    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY);
+                    SetConsoleTextAttribute(hConsole, cervena);
                     cout << left << " ";
-                    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-                    cout << right << "X" << endl;
+                    SetConsoleTextAttribute(hConsole, biela);
+                    cout << right << " X" << endl;
                 }
 
                 if (this->smerVetru == 'V') {
                     cout << "       SMER VETRU:  ";
                     cout << up << " " << down << " " << left << " ";
-                    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY);
+                    SetConsoleTextAttribute(hConsole, cervena);
                     cout << right;
-                    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-                    cout << "X" << endl;
+                    SetConsoleTextAttribute(hConsole, biela);
+                    cout << " X" << endl;
                 }
 
                 if (this->smerVetru == 'B') {
                     cout << "       SMER VETRU:  ";
                     cout << up << " " << down << " " << left << " " << right << " ";
-                    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY);
+                    SetConsoleTextAttribute(hConsole, cervena);
                     cout << "X" << endl;
-                    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+                    SetConsoleTextAttribute(hConsole, biela);
                 }
                 break;
             }
             case 4: {
                 cout << "       Krok simulacie: ";
-                SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+                SetConsoleTextAttribute(hConsole, modra);
                 cout << to_string(this->cisloKroku) << endl;
-                SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+                SetConsoleTextAttribute(hConsole, biela);
                 break;
             }
             default: {
@@ -237,7 +258,7 @@ void Simulacia::vypisSa() {
             }
 
         }
-        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY);
+        SetConsoleTextAttribute(hConsole, tmavoSeda);
         cout << "   ";
 
         for (int i = 0; i < this->pocetStlpcov; i++) {
@@ -248,7 +269,7 @@ void Simulacia::vypisSa() {
     }
 
     // Reset farby na konci funkcie
-    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+    SetConsoleTextAttribute(hConsole, biela);
 }
 
 void Simulacia::nastavPravdepodobnosti(int lukaPrav, int lesPrav, int skalaPrav, int vodaPrav) {

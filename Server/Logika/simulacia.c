@@ -45,11 +45,8 @@ void simulacia_init_podla_spravy_vytvorenia(SIMULACIA* sim) {
     }
 }
 
-void simulacia_init_podla_savu(SIMULACIA* sim, CHAR_BUFFER* char_buffer) {
-    // "nazovSavu;cisloKroku;smerVetru;kolkoKratFukalVietor;pocetRiadkov;pocetStlpcov;S;kolkoHorelPoziar;S;kolkoHorelPoziar;V;kolkoHorelPoziar;L;kolkoHorelPoziar;L;kolkoHorelPoziar;U;kolkoHorelPoziar;...;S;kolkoHorelPoziar;V;kolkoHorelPoziar;"
-
-    // ignoracia nazvu:
-    strtok(char_buffer->data, ";");
+void simulacia_init_podla_celkoveho_stringu(SIMULACIA* sim, CHAR_BUFFER* char_buffer) {
+    // "cisloKroku;smerVetru;kolkoKratFukalVietor;pocetRiadkov;pocetStlpcov;S;kolkoHorelPoziar;S;kolkoHorelPoziar;V;kolkoHorelPoziar;L;kolkoHorelPoziar;L;kolkoHorelPoziar;U;kolkoHorelPoziar;...;S;kolkoHorelPoziar;V;kolkoHorelPoziar;"
 
     // cislo Kroku:
     char* token = strtok(NULL, ";");

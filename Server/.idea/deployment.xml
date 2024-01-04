@@ -2,13 +2,12 @@
 <project version="4">
   <component name="PublishConfigData" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
-      <paths name="Frios (dc93d8b8-ce61-42e0-9a9c-a3b4d7be0d20)">
+      <paths name="frios (f01bc23d-aff3-419e-828d-5c73ec441c2d)">
         <serverdata>
           <mappings>
-            <mapping deploy="/tmp/tmp.KPY0jxrcz3" local="$PROJECT_DIR$" />
+            <mapping deploy="/tmp/tmp.4Rmo0rylSo" local="$PROJECT_DIR$" />
           </mappings>
           <excludedPaths>
-            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-frios" />
             <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-frios" />
           </excludedPaths>
         </serverdata>

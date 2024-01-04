@@ -19,6 +19,8 @@ public:
     static string vypitajString(const string& otazka);
 
     static bool ziskajBoolean(const string& otazka);
+
+    static int vypisMenuSBackom(const string &otazka, const vector<string>& moznosti);
 };
 
 

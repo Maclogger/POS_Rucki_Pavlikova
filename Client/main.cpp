@@ -21,6 +21,8 @@ using  namespace std;
     5: "ulozMapu;nazovUlozenejMapy;" - "ulozMapu;extremneInteligenteNazvanaUlozenaMapa;"
     6: "nacitajUlozenuMapu;nazovUlozenejMapy;" - "nacitajUlozenuMapu;extremneInteligenteNazvanaUlozenaMapa;"
     7: "odstranUlozenuMapu;nazovUlozenejMapy;" - "odstranUlozenuMapu;extremneInteligenteNazvanaUlozenaMapa;"
+    8: "vytvorMapuPodlaLokalnehoSuboru;cisloKroku;smerVetru;kolkoKratFukalVietor;pocetRiadkov;pocetStlpcov;S;kolkoHorelPoziar;S;kolkoHorelPoziar;V;kolkoHorelPoziar;L;kolkoHorelPoziar;L;kolkoHorelPoziar;U;kolkoHorelPoziar;...;S;kolkoHorelPoziar;V;kolkoHorelPoziar;"
+    9: "ziskajAktualnuSimulaciuDoLokalnehoSuboru;"
 
 odpovede:
     OK status = 0

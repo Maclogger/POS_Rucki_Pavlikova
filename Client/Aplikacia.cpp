@@ -24,8 +24,9 @@ void Aplikacia::hlavneMenu() {
 
         vector<string> moznosti;
         moznosti.emplace_back("Vytvor novu simulaciu");
-        moznosti.emplace_back("Vybrat simulaciu zo savov");
-        moznosti.emplace_back("Vymazat simulaciu zo savov");
+        moznosti.emplace_back("Vybrat simulaciu zo savov ulozenych na serveri");
+        moznosti.emplace_back("Vymazat simulaciu zo savov ulozenych na serveri");
+        moznosti.emplace_back("Nacitat mapu z lokalneho suboru");
         moznosti.emplace_back("Ukoncenie");
         int odpoved = ZistovacOdpovedi::vypisMenu("Vyber jednu moznost:", moznosti);
 
@@ -35,7 +36,7 @@ void Aplikacia::hlavneMenu() {
             int s = ZistovacOdpovedi::vypytajCislo("Zadajte pocet stlpcov mapy: ", 3, 100);
             delete this->simulacia;
             this->simulacia = new Simulacia(r, s); // vytvorenie simulácie je priamo v konštruktore Simulácie
-            this->vytvorSimulaciuPodlaClientaNaServeri();
+            this->vytvorNovuSimulaciuNaServeriPodlaFrontEndu();
         } else if (odpoved == 1) {
             string nazovSavu = this->getNazovSavu();
             if (!nazovSavu.empty()) {
@@ -46,11 +47,21 @@ void Aplikacia::hlavneMenu() {
             if (!nazovSavu.empty()) {
                 this->zmazatSave(nazovSavu);
             }
+        } else if (odpoved == 3) {
+            // nacitanie mapy z lokálneho súboru
+            string spravaPreServer = "vytvorMapuPodlaLokalnehoSuboru;" + SpravcaSuborov::nacitajMapuZoSuboru("../lokalny.txt");
+            string odpovedZoServera = this->serverKomunikator->posliSpravu(spravaPreServer);
+            if (Serializator::jeSpravaOk(odpovedZoServera)) {
+                cout << "Simulacia bola uspesne nacitana z lokalneho suboru." << endl;
+                this->simulacia = new Simulacia(odpovedZoServera);
+                this->spustiSimulaciu();
+            } else {
+                cout << "Simulacia nebola nacitana z lokalneho suboru. Pravdepodobne zly format vstupu." << endl;
+            }
         } else {
             cout << endl << "Prebieha ukoncenie. Dovidenia :)" << endl;
             return;
         }
-
     }
 }
 
@@ -63,13 +74,9 @@ string Aplikacia::getNazovSavu() {
         return "";
     }
 
-    moznosti.emplace_back("Naspat");
+    int indexOpdovede = ZistovacOdpovedi::vypisMenuSBackom("Ktory save chcete?", moznosti);
 
-
-    int indexOpdovede = ZistovacOdpovedi::vypisMenu("Ktory save chcete?", moznosti);
-
-    if (indexOpdovede == moznosti.size() - 1) return "";
-    return moznosti[indexOpdovede];
+    return (indexOpdovede == -1) ? "" : moznosti[indexOpdovede];
 }
 
 void Aplikacia::zmazatSave(const string &nazovSavu) {
@@ -96,7 +103,7 @@ void Aplikacia::pokracovatVUlozenejMape(const string& nazovSavu) {
     this->spustiSimulaciu();
 }
 
-void Aplikacia::vytvorSimulaciuPodlaClientaNaServeri() {
+void Aplikacia::vytvorNovuSimulaciuNaServeriPodlaFrontEndu() {
     //"vytvorMapu;pocetRiadkov;pocetStlpcov;S;S;V;L;L;U;...;S;V;"
     string odpovedZoServera = this->serverKomunikator->posliSpravu("vytvorMapu;" + Serializator::serializujSimualicu(this->simulacia));
     Serializator::deserializujOdpovedSimulacie(this->simulacia, odpovedZoServera);
@@ -111,6 +118,7 @@ void Aplikacia::spustiSimulaciu() {
         moznosti.emplace_back("Vykonat krok simulacie");
         moznosti.emplace_back("Pridat ohen");
         moznosti.emplace_back("Ulozit simulaciu na server");
+        moznosti.emplace_back("Ulozit simulaciu do lokalneho subora");
         moznosti.emplace_back("Vykonat n krokov simulacie");
         moznosti.emplace_back("Ukoncit simulaciu");
 
@@ -141,6 +149,15 @@ void Aplikacia::spustiSimulaciu() {
                 cout << "Chyba, simulacia nebola ulozena." << endl;
             }
         } else if (odpoved == 3) {
+            string odpovedZoServera = this->serverKomunikator->posliSpravu("ziskajAktualnuSimulaciuDoLokalnehoSuboru;");
+            if (Serializator::jeSpravaOk(odpovedZoServera)) {
+                if (SpravcaSuborov::ulozSimulaciuDoLokalnehoSuboru("../lokalny.txt", odpovedZoServera)) {
+                    cout << "Simulacia bola uspesne ulozena do lokalneho suboru. :D" << endl;
+                    continue;
+                }
+            }
+            cout << "Simulacia nebola ulozena. Niekde sa vyskytla chyba. :(" << endl;
+        } else if (odpoved == 4) {
             // vykonaj n krokov
             bool chceAnimaciu = ZistovacOdpovedi::ziskajBoolean("Chcete vypisat animaciu? ");
 
