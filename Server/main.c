@@ -59,7 +59,6 @@ int getCisloPrikazu(CHAR_BUFFER *buf) {
 void skus_ziskat_spravu(SHARED_DATA* data) {
     CHAR_BUFFER buf;
     char_buffer_init(&buf);
-    //char* nazovSuboruSavov = "C:/Users/rucki/Desktop/FRI/5. semester/POS/Semestralka/Projekt/Server/Utilities/saves.txt";
     char* nazovSuboruSavov = "../saves.txt";
 
     if (active_socket_try_get_read_data(data->my_socket, &buf)) {

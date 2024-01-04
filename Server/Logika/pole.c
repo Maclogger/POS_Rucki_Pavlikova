@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include "bunka.c"
+#include <pthread.h>
 
 
 
@@ -9,9 +10,31 @@ typedef struct pole {
     BUNKA** bunky;
 } POLE;
 
+
+
+
+typedef struct shared_data_copy {
+    BUNKA** destBunky;
+    BUNKA** srcBunky;
+    int r;
+    int pocetStlpcov;
+} SHARED_DATA_COPY;
+
+void shared_data_init(SHARED_DATA_COPY* data, BUNKA** dest, BUNKA** src, int r, int pocetStlpcov) {
+    data->destBunky = dest;
+    data->srcBunky = src;
+    data->r = r;
+    data->pocetStlpcov = pocetStlpcov;
+}
+
+void shared_data_destroy(SHARED_DATA_COPY* data) {
+    free(data);
+}
+
 void pole_init(POLE* pole, int pocetRiadkov, int pocetStlpcov) {
     pole->pocetRiadkov = pocetRiadkov;
     pole->pocetStlpcov = pocetStlpcov;
+
     // Alokácia riadkov
     pole->bunky = (BUNKA**) calloc(pocetRiadkov, sizeof(BUNKA*));
     for (int r = 0; r < pocetRiadkov; r++) {
@@ -23,20 +46,37 @@ void pole_init(POLE* pole, int pocetRiadkov, int pocetStlpcov) {
     }
 }
 
+void* skopiruj_riadok(void* arg) {
+    SHARED_DATA_COPY* data = (SHARED_DATA_COPY*) arg;
 
-void pole_copy(POLE* dest, const POLE* src) {
+    for (int s = 0; s < data->pocetStlpcov; s++) {
+        bunka_copy_init(&data->destBunky[data->r][s], &data->srcBunky[data->r][s]);
+    }
+    shared_data_destroy(data);
+    return NULL;
+}
+
+
+
+void pole_copy_init(POLE* dest, POLE* src) {
+    // použité vlákna:
+
     dest->pocetRiadkov = src->pocetRiadkov;
     dest->pocetStlpcov = src->pocetStlpcov;
 
-    // Alokace paměti pro řádky
     dest->bunky = (BUNKA**) calloc(dest->pocetRiadkov, sizeof(BUNKA*));
+
+    pthread_t vlakna[dest->pocetRiadkov];
+
     for (int r = 0; r < dest->pocetRiadkov; r++) {
-        // Alokace paměti pro sloupce v každém řádku
         dest->bunky[r] = (BUNKA*) calloc(dest->pocetStlpcov, sizeof(BUNKA));
-        for (int s = 0; s < dest->pocetStlpcov; s++) {
-            // Zde předpokládáme, že funkce bunka_copy kopíruje obsah jedné buňky do druhé
-            bunka_copy(&dest->bunky[r][s], &src->bunky[r][s]);
-        }
+        SHARED_DATA_COPY* data = (SHARED_DATA_COPY*) malloc(sizeof(SHARED_DATA_COPY));
+        shared_data_init(data, dest->bunky, src->bunky, r, dest->pocetStlpcov);
+        pthread_create(&vlakna[r], NULL, skopiruj_riadok, data);
+    }
+
+    for (int r = 0; r < dest->pocetRiadkov; r++) {
+        pthread_join(vlakna[r], NULL);
     }
 }
 

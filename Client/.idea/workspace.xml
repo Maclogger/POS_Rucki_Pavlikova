@@ -20,67 +20,20 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1b26aded-469c-481a-b7c6-4543b8de9c14" name="Changes" comment="Vykonanie N Krokov na Serveri Merge">
-      <change afterPath="$PROJECT_DIR$/Utilities/SpravcaSuborov.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utilities/SpravcaSuborov.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lokalny.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/temp.txt" afterDir="false" />
+    <list default="true" id="1b26aded-469c-481a-b7c6-4543b8de9c14" name="Changes" comment="Zmena farbičiek. A funkčné lokálne súbory.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Aplikacia.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Aplikacia.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Aplikacia.h" beforeDir="false" afterPath="$PROJECT_DIR$/Aplikacia.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logika/Simulacia.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Logika/Simulacia.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utilities/ZistovacOdpovedi.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Utilities/ZistovacOdpovedi.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utilities/ZistovacOdpovedi.h" beforeDir="false" afterPath="$PROJECT_DIR$/Utilities/ZistovacOdpovedi.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-windows/.cmake/api/v1/reply/cmakeFiles-v1-dc735e955ba4ed2754ed.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-windows/.cmake/api/v1/reply/codemodel-v2-2767a302338be0df22b8.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-windows/.cmake/api/v1/reply/index-2024-01-03T21-46-35-0321.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-windows/.cmake/api/v1/reply/target-Client-Debug-e0fc3577b84a51126648.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-windows/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-windows/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Aplikacia.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Aplikacia.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Logika/Serializator.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Logika/Serializator.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Logika/Simulacia.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Logika/Simulacia.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Utilities/ZistovacOdpovedi.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Utilities/ZistovacOdpovedi.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/main.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/main.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/vc140.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/vc140.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/clion-Windows-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/clion-Windows-log.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-windows/Client.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/Client.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-windows/Client.ilk" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/Client.ilk" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-windows/Client.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/Client.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-windows/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/Testing/Temporary/LastTest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-windows/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/build.ninja" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/.idea/deployment.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/Logika/bunka.c" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Logika/bunka.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/Logika/pole.c" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Logika/pole.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/Logika/simulacia.c" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Logika/simulacia.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeCache.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeFiles/3.18.4/CMakeCCompiler.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeFiles/3.18.4/CMakeSystem.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeFiles/3.18.4/CompilerIdC/CMakeCCompilerId.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeFiles/CMakeError.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeFiles/CMakeOutput.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeFiles/Makefile.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeFiles/Makefile2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeFiles/Server.dir/C.includecache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeFiles/Server.dir/DependInfo.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeFiles/Server.dir/build.make" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeFiles/Server.dir/cmake_clean.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeFiles/Server.dir/depend.internal" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeFiles/Server.dir/depend.make" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeFiles/Server.dir/flags.make" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeFiles/Server.dir/link.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeFiles/Server.dir/progress.make" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeFiles/TargetDirectories.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeFiles/clion-FRIOS-log.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeFiles/clion-environment.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeFiles/cmake.check_cache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeFiles/progress.marks" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/Makefile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/Server.cbp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/Testing/Temporary/LastTest.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/cmake_install.cmake" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/main.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -159,7 +112,7 @@
       <workItem from="1704162281685" duration="1380000" />
       <workItem from="1704201883456" duration="6416000" />
       <workItem from="1704299319606" duration="4964000" />
-      <workItem from="1704383429598" duration="13372000" />
+      <workItem from="1704383429598" duration="15118000" />
     </task>
     <task id="LOCAL-00001" summary="Zaciatok prace na vláknach pri spravocani simulacie">
       <option name="closed" value="true" />
@@ -177,7 +130,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704317570061</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Zmena farbičiek. A funkčné lokálne súbory.">
+      <option name="closed" value="true" />
+      <created>1704403918111</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1704403918111</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -204,7 +165,8 @@
     <MESSAGE value="Funguje pridanie požiaru, provizorne spraveny posun kroku simulacie" />
     <MESSAGE value="Zaciatok prace na vláknach pri spravocani simulacie" />
     <MESSAGE value="Vykonanie N Krokov na Serveri Merge" />
-    <option name="LAST_COMMIT_MESSAGE" value="Vykonanie N Krokov na Serveri Merge" />
+    <MESSAGE value="Zmena farbičiek. A funkčné lokálne súbory." />
+    <option name="LAST_COMMIT_MESSAGE" value="Zmena farbičiek. A funkčné lokálne súbory." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

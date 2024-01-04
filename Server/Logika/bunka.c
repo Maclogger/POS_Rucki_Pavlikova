@@ -51,7 +51,7 @@ void bunka_init(BUNKA* bunka, TYPBUNKY typ, int r, int s) {
     bunka->kolkoKrokovHorela = 0;
 }
 
-void bunka_copy(BUNKA* dest, BUNKA* src) {
+void bunka_copy_init(BUNKA* dest, BUNKA* src) {
     dest->typ = src->typ;
     dest->r = src->r;
     dest->s = src->s;
