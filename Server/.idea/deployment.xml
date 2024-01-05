@@ -5,7 +5,7 @@
       <paths name="frios (f01bc23d-aff3-419e-828d-5c73ec441c2d)">
         <serverdata>
           <mappings>
-            <mapping deploy="/tmp/tmp.4Rmo0rylSo" local="$PROJECT_DIR$" />
+            <mapping deploy="/tmp/tmp.YdCNnUrixh" local="$PROJECT_DIR$" />
           </mappings>
           <excludedPaths>
             <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-frios" />

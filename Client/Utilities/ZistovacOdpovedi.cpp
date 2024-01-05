@@ -50,6 +50,7 @@ char ZistovacOdpovedi::getZnakPolickaOdUzivatela() {
     moznosti.emplace_back("Les");
     moznosti.emplace_back("Skala");
     moznosti.emplace_back("Voda");
+    moznosti.emplace_back("Poziar");
 
     int odpoved = vypisMenu("Zvolte typ policka: ", moznosti);
 
@@ -57,8 +58,9 @@ char ZistovacOdpovedi::getZnakPolickaOdUzivatela() {
         case 0: return 'U';
         case 1: return 'L';
         case 2: return 'S';
+        case 3: return 'V';
     }
-    return 'V';
+    return 'P';
 }
 
 string ZistovacOdpovedi::vypitajString(const string &otazka) {

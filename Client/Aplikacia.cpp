@@ -32,8 +32,8 @@ void Aplikacia::hlavneMenu() {
 
         if(odpoved == 0) {
             moznosti.clear();
-            int r = ZistovacOdpovedi::vypytajCislo("Zadajte pocet riadkov mapy: ", 3, 100);
-            int s = ZistovacOdpovedi::vypytajCislo("Zadajte pocet stlpcov mapy: ", 3, 100);
+            int r = ZistovacOdpovedi::vypytajCislo("Zadajte pocet riadkov mapy: ", 5, 100);
+            int s = ZistovacOdpovedi::vypytajCislo("Zadajte pocet stlpcov mapy: ", 5, 100);
             delete this->simulacia;
             this->simulacia = new Simulacia(r, s); // vytvorenie simulácie je priamo v konštruktore Simulácie
             this->vytvorNovuSimulaciuNaServeriPodlaFrontEndu();
@@ -59,7 +59,7 @@ void Aplikacia::hlavneMenu() {
                 cout << "Simulacia nebola nacitana z lokalneho suboru. Pravdepodobne zly format vstupu." << endl;
             }
         } else {
-            cout << endl << "Prebieha ukoncenie. Dovidenia :)" << endl;
+            cout << endl << "Prebieha convenience. Dovidenia :)" << endl;
             return;
         }
     }
@@ -161,14 +161,14 @@ void Aplikacia::spustiSimulaciu() {
             // vykonaj n krokov
             bool chceAnimaciu = ZistovacOdpovedi::ziskajBoolean("Chcete vypisat animaciu? ");
 
-            int hornaHranica = chceAnimaciu ? 20 : 200;
+            int hornaHranica = chceAnimaciu ? 20 : 300;
             int n = ZistovacOdpovedi::vypytajCislo("Zadajte pocet krokov simulacie: ", 1, hornaHranica);
 
             if (chceAnimaciu) {
                 for (int i = 0; i < n; i++) {
                     this->vykonajKrok();
                     this->simulacia->vypisSa();
-                    Sleep(2000);
+                    Sleep(1500);
                 }
             } else {
                 this->vykonajNKrokov(n);

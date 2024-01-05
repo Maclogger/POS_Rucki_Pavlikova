@@ -25,6 +25,7 @@ void simulacia_init(SIMULACIA* sim, int pocetRiadkov, int pocetStlpcov) {
 
 void simulacia_init_podla_spravy_vytvorenia(SIMULACIA* sim) {
     //"pocetRiadkov;pocetStlpcov;S;S;V;L;L;U;...;S;V;" - "vytvorMapu;3;3;S;S;V;L;L;U;U;S;V;"
+
     char* token = strtok(NULL, ";");
     int pocetRiadkov = atoi(token);
 
@@ -33,12 +34,12 @@ void simulacia_init_podla_spravy_vytvorenia(SIMULACIA* sim) {
 
     simulacia_init(sim, pocetRiadkov, pocetStlpcov);
 
-    // Načítame prvky mapy
+    // Načítanie prvkov mapy
     for (int r = 0; r < pocetRiadkov; r++) {
         for (int s = 0; s < pocetStlpcov; s++) {
             token = strtok(NULL, ";");
             if (token != NULL) {
-                char prvok = token[0]; // Predpokladáme, že každý prvok je jeden znak
+                char prvok = token[0];
                 bunka_init_with_char(&sim->pole->bunky[r][s], prvok, r, s);
                 sim->pole->bunky[r][s].kolkoKrokovHorela = 0;
             }
@@ -111,8 +112,6 @@ void simulacia_serializuj_sa(SIMULACIA *sim, CHAR_BUFFER* odpoved) {
     // vracia: "0;cisloKroku;smerVetru;pocetRiadkov;pocetStlpcov;S;S;V;L;L;U;...;S;V;"
     // smer vetru ako char iba.
 
-    //char_buffer_clear(odpoved);
-
     char temp[50]; // Dočasný buffer na formátovanie reťazcov
 
     // Pridáme čislo statusu OK
@@ -147,15 +146,11 @@ void simulacia_serializuj_sa_pre_save(SIMULACIA *sim, CHAR_BUFFER* odpoved) {
     // vracia: "cisloKroku;smerVetru;kolkoKratFukalVietor;pocetRiadkov;pocetStlpcov;S;kolkoHorelPoziar;S;kolkoHorelPoziar;V;kolkoHorelPoziar;L;kolkoHorelPoziar;L;kolkoHorelPoziar;U;kolkoHorelPoziar;...;S;kolkoHorelPoziar;V;kolkoHorelPoziar;"
     // smer vetru ako char iba.
 
-    //char_buffer_clear(odpoved);
-
     char temp[50]; // Dočasný buffer na formátovanie reťazcov
 
-    // Pridáme číslo kroku
     sprintf(temp, "%d;", sim->cisloKroku);
     char_buffer_append(odpoved, temp, strlen(temp));
 
-    // Pridáme smer vetru ako char
     temp[0] = SMER_POPISY[sim->smerVetru];
     temp[1] = ';';
     temp[2] = '\0';
@@ -164,11 +159,9 @@ void simulacia_serializuj_sa_pre_save(SIMULACIA *sim, CHAR_BUFFER* odpoved) {
     sprintf(temp, "%d;", sim->kolkoKratFukalVietor);
     char_buffer_append(odpoved, temp, strlen(temp));
 
-    // Pridáme počet riadkov a stĺpcov
     sprintf(temp, "%d;%d;", sim->pole->pocetRiadkov, sim->pole->pocetStlpcov);
     char_buffer_append(odpoved, temp, strlen(temp));
 
-    // Pridáme znaky pre jednotlivé bunky
     for (int r = 0; r < sim->pole->pocetRiadkov; r++) {
         for (int s = 0; s < sim->pole->pocetStlpcov; s++) {
             int typBunky = sim->pole->bunky[r][s].typ;
@@ -275,8 +268,16 @@ void* consume(void* arg) {
     }
 }
 
-_Bool vykonaj_krok(SHARED_DATA* data) {
-    SIMULACIA* sim = data->simulacia;
+_Bool vykonaj_krok(void* arg, _Bool ajSerializovat) {
+    SHARED_DATA* data;
+    SIMULACIA* sim;
+    if (ajSerializovat) {
+        data = (SHARED_DATA*)arg;
+        sim = data->simulacia;
+    } else {
+        sim = (SIMULACIA*)arg;
+    }
+
     sim->cisloKroku++;
 
     POLE* kopia = (POLE*)malloc(sizeof(POLE));
@@ -346,12 +347,14 @@ _Bool vykonaj_krok(SHARED_DATA* data) {
             }
             aktualizujSa(stred);
 
-            pthread_mutex_lock(&data->mutex);
-            while (!buffer_ll_try_add(&data->buffer, TYPY_BUNKY_ZNAKY[stred->typ])) {
-                pthread_cond_wait(&data->is_empty, &data->mutex);
+            if (ajSerializovat) {
+                pthread_mutex_lock(&data->mutex);
+                while (!buffer_ll_try_add(&data->buffer, TYPY_BUNKY_ZNAKY[stred->typ])) {
+                    pthread_cond_wait(&data->is_empty, &data->mutex);
+                }
+                pthread_mutex_unlock(&data->mutex);
+                pthread_cond_signal(&data->is_full);
             }
-            pthread_mutex_unlock(&data->mutex);
-            pthread_cond_signal(&data->is_full);
         }
     }
 
@@ -396,7 +399,7 @@ void simulacia_vykonaj_krok_a_serializuj_sa(SIMULACIA* sim, CHAR_BUFFER* buf) {
     pthread_t consument;
     pthread_create(&consument, NULL, consume, &data);
 
-    vykonaj_krok(&data);
+    vykonaj_krok(&data, 1);
 
     pthread_join(consument, NULL);
     shared_data_destroy(&data);

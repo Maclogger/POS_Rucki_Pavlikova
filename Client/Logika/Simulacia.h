@@ -27,7 +27,7 @@ public:
     Simulacia(const string& serializovanyString);
     ~Simulacia();
     void vypisSa();
-    void nastavPravdepodobnosti(int lukaPrav, int lesPrav, int skalaPrav, int vodaPrav);
+    void nastavPravdepodobnosti(int lukaPrav, int lesPrav, int skalaPrav, int vodaPrav, int i);
     void vygenerujSaNahodne();
     void nastavPolicko(int r, int s, char znak);
     void vygenerujMapuPodlaPravdepodobnostiOdUzivatela();

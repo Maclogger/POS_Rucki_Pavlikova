@@ -12,9 +12,10 @@ private:
     int lesPrav;
     int skalaPrav;
     int vodaPrav;
+    int ohenPrav;
 public:
     PravdepodobnostiPolicok(int lukaPrav, int lesPrav, int skalaPrav, int vodaPrav);
-    void nastavPravdepodobnosti(int lukaPrav, int lesPrav, int skalaPrav, int vodaPrav);
+    void nastavPravdepodobnosti(int lukaPrav, int lesPrav, int skalaPrav, int vodaPrav, int ohenPrav);
 
     int getLukaPrav() const;
 

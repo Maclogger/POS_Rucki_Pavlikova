@@ -26,7 +26,9 @@ public:
     ~Aplikacia();
 private:
     void hlavneMenu();
+
     void pokracovatVUlozenejMape(const string& nazovSavu);
+
     void spustiSimulaciu();
 
     void vytvorNovuSimulaciuNaServeriPodlaFrontEndu();

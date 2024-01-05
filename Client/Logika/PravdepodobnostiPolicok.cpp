@@ -5,25 +5,27 @@
 #include "PravdepodobnostiPolicok.h"
 
 PravdepodobnostiPolicok::PravdepodobnostiPolicok(int lukaPrav, int lesPrav, int skalaPrav, int vodaPrav) {
-    nastavPravdepodobnosti(lukaPrav, lesPrav, skalaPrav, vodaPrav);
+    nastavPravdepodobnosti(lukaPrav, lesPrav, skalaPrav, vodaPrav, 0);
 }
 
 PravdepodobnostiPolicok::~PravdepodobnostiPolicok() {
 }
 
-void PravdepodobnostiPolicok::nastavPravdepodobnosti(int lukaPrav, int lesPrav, int skalaPrav, int vodaPrav) {
-    if (lukaPrav + lesPrav + skalaPrav + vodaPrav != 100) {
+void PravdepodobnostiPolicok::nastavPravdepodobnosti(int lukaPrav, int lesPrav, int skalaPrav, int vodaPrav, int ohenPrav) {
+    if (lukaPrav + lesPrav + skalaPrav + vodaPrav + ohenPrav != 100) {
         cout << "CHYBA!!! Sucet pravdepodobnosti nie je 100 percent!" << endl;
         cout << "Pravdepodobnosti sa nastavia na 25 percent." << endl;
         this->lukaPrav = 25;
         this->lesPrav = 25;
         this->skalaPrav = 25;
         this->vodaPrav = 25;
+        this->ohenPrav = 0;
     } else {
         this->lukaPrav = lukaPrav;
         this->lesPrav = lesPrav;
         this->skalaPrav = skalaPrav;
         this->vodaPrav = vodaPrav;
+        this->ohenPrav = ohenPrav;
     }
 }
 

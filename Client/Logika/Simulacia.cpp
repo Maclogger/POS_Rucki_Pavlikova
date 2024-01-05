@@ -191,8 +191,6 @@ void Simulacia::vypisSa() {
                 SetConsoleTextAttribute(hConsole, biela);
                 break;
             }
-
-
             case 2: {
                 SetConsoleTextAttribute(hConsole, cervena);
                 cout << "       P - poziar   ";
@@ -248,7 +246,7 @@ void Simulacia::vypisSa() {
             }
             case 4: {
                 cout << "       Krok simulacie: ";
-                SetConsoleTextAttribute(hConsole, modra);
+                SetConsoleTextAttribute(hConsole, ruzova);
                 cout << to_string(this->cisloKroku) << endl;
                 SetConsoleTextAttribute(hConsole, biela);
                 break;
@@ -272,8 +270,8 @@ void Simulacia::vypisSa() {
     SetConsoleTextAttribute(hConsole, biela);
 }
 
-void Simulacia::nastavPravdepodobnosti(int lukaPrav, int lesPrav, int skalaPrav, int vodaPrav) {
-    this->pravdepodobnostiPolicok.nastavPravdepodobnosti(lukaPrav, lesPrav, skalaPrav, vodaPrav);
+void Simulacia::nastavPravdepodobnosti(int lukaPrav, int lesPrav, int skalaPrav, int vodaPrav, int ohenPrav) {
+    this->pravdepodobnostiPolicok.nastavPravdepodobnosti(lukaPrav, lesPrav, skalaPrav, vodaPrav, ohenPrav);
 }
 
 void Simulacia::vygenerujSaNahodne() {
@@ -290,8 +288,10 @@ void Simulacia::vygenerujSaNahodne() {
                 typ = 'U';
             } else if (nahodneCislo < this->pravdepodobnostiPolicok.getLesPrav() + this->pravdepodobnostiPolicok.getLukaPrav() + this->pravdepodobnostiPolicok.getSkalaPrav()) {
                 typ = 'S';
-            } else {
+            } else if (nahodneCislo < this->pravdepodobnostiPolicok.getLesPrav() + this->pravdepodobnostiPolicok.getLukaPrav() + this->pravdepodobnostiPolicok.getSkalaPrav() + this->pravdepodobnostiPolicok.getVodaPrav()){
                 typ = 'V';
+            } else {
+                typ = 'P';
             }
             this->pole[r][s] = typ;
         }
@@ -309,17 +309,19 @@ void Simulacia::nastavPolicko(int r, int s, char znak) {
 
 void Simulacia::vygenerujMapuPodlaPravdepodobnostiOdUzivatela() {
     cout << "Zadajte pravdepodobnosti pre typy policok." << endl;
-    int lukaPrav = ZistovacOdpovedi::vypytajCislo("Zadajte pravdepodobnost luky 1/4: ", 0, 100);
-    int lesPrav = ZistovacOdpovedi::vypytajCislo("Zadajte pravdepodobnost les 2/4 :", 0, 100 - lukaPrav);
-    int skalaPrav = ZistovacOdpovedi::vypytajCislo("Zadajte pravdepodobnost luky 3/4 :", 0, 100 - lukaPrav - lesPrav);
-    int vodaPrav = 100 - lukaPrav - lesPrav - skalaPrav;
-    this->nastavPravdepodobnosti(lukaPrav, lesPrav, skalaPrav, vodaPrav);
+    int lukaPrav = ZistovacOdpovedi::vypytajCislo("Zadajte pravdepodobnost luky 1/5: ", 0, 100);
+    int lesPrav = ZistovacOdpovedi::vypytajCislo("Zadajte pravdepodobnost les 2/5 :", 0, 100 - lukaPrav);
+    int skalaPrav = ZistovacOdpovedi::vypytajCislo("Zadajte pravdepodobnost skaly 3/5 :", 0, 100 - lukaPrav - lesPrav);
+    int vodaPrav = ZistovacOdpovedi::vypytajCislo("Zadajte pravdepodobnost vody 4/5 :", 0, 100 - lukaPrav - lesPrav - skalaPrav);
+    int ohenPrav = 100 - lukaPrav - lesPrav - skalaPrav - vodaPrav;
+    this->nastavPravdepodobnosti(lukaPrav, lesPrav, skalaPrav, vodaPrav, ohenPrav);
     this->vygenerujSaNahodne();
     cout << "Vase zvolene pravdepodobnosti su: " << endl;
     cout << "Luka - " << to_string(lukaPrav) << "%" << endl;
     cout << "Les - " << to_string(lesPrav) << "%" << endl;
     cout << "Skala - " << to_string(skalaPrav) << "%" << endl;
     cout << "Voda - " << to_string(vodaPrav) << "%" << endl;
+    cout << "Požiar - " << to_string(ohenPrav) << "%" << endl;
 }
 
 

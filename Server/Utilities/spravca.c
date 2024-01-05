@@ -117,7 +117,7 @@ void get_save_zo_suboru(SPRAVCA* spravca, const char* nazov_savu, CHAR_BUFFER* s
 _Bool spravca_zmaz_save(SPRAVCA *spravca, char *nazovSavu) {
 
     spravca->file = fopen(spravca->filename, "r");
-    spravca->file2 = fopen("../temp.txt", "w");
+    spravca->file2 = fopen("temp.txt", "w");
 
     if (!spravca->file || !spravca->file2) {
         return 0;
@@ -133,8 +133,8 @@ _Bool spravca_zmaz_save(SPRAVCA *spravca, char *nazovSavu) {
     fclose(spravca->file);
     fclose(spravca->file2);
 
-    remove("../saves.txt");
-    rename("../temp.txt", "../saves.txt");
+    remove("saves.txt");
+    rename("temp.txt", "saves.txt");
 
     return 1;
 }

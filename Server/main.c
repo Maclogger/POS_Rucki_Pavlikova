@@ -59,7 +59,7 @@ int getCisloPrikazu(CHAR_BUFFER *buf) {
 void skus_ziskat_spravu(THREAD_DATA* data) {
     CHAR_BUFFER buf;
     char_buffer_init(&buf);
-    char* nazovSuboruSavov = "../saves.txt";
+    char* nazovSuboruSavov = "saves.txt";
 
     if (active_socket_try_get_read_data(data->my_socket, &buf)) {
         printf("Prijate data od clienta: '%s'\n", buf.data);
@@ -106,7 +106,7 @@ void skus_ziskat_spravu(THREAD_DATA* data) {
                 char* token = strtok(NULL, ";");
                 int n = atoi(token);
                 for (int i = 0; i < n; i++) {
-                    vykonaj_krok(data->simulacia);
+                    vykonaj_krok(data->simulacia, 0);
                 }
                 char_buffer_clear(&buf);
                 simulacia_serializuj_sa(data->simulacia, &buf);
