@@ -12,16 +12,16 @@ typedef struct thread_data {
     ACTIVE_SOCKET* my_socket;
     _Bool jeKoniecKomunikacie;
     SIMULACIA* simulacia;
-} SHARED_DATA;
+} THREAD_DATA;
 
-void thread_data_init(SHARED_DATA* data, ACTIVE_SOCKET* sock, short port, SIMULACIA* simulacia) {
+void thread_data_init(THREAD_DATA* data, ACTIVE_SOCKET* sock, short port, SIMULACIA* simulacia) {
     data->my_socket = sock;
     data->port = port;
     data->jeKoniecKomunikacie = false;
     data->simulacia = simulacia;
 }
 
-void thread_data_destroy(SHARED_DATA* data) {
+void thread_data_destroy(THREAD_DATA* data) {
     data->port = 0;
     data->my_socket = NULL;
 }
@@ -56,7 +56,7 @@ int getCisloPrikazu(CHAR_BUFFER *buf) {
 }
 
 
-void skus_ziskat_spravu(SHARED_DATA* data) {
+void skus_ziskat_spravu(THREAD_DATA* data) {
     CHAR_BUFFER buf;
     char_buffer_init(&buf);
     char* nazovSuboruSavov = "../saves.txt";
@@ -94,9 +94,10 @@ void skus_ziskat_spravu(SHARED_DATA* data) {
             }
             case 2: {
                 // vykonanie kroku simulacie
-                vykonaj_krok(data->simulacia);
                 char_buffer_clear(&buf);
-                simulacia_serializuj_sa(data->simulacia, &buf);
+                simulacia_vykonaj_krok_a_serializuj_sa(data->simulacia, &buf);
+                /*vykonaj_krok(data->simulacia);
+                simulacia_serializuj_sa(data->simulacia, &buf);*/
                 char_buffer_append(&buf, "\0", 1);
                 active_socket_write_data(data->my_socket, &buf);
                 break;
@@ -222,7 +223,7 @@ void skus_ziskat_spravu(SHARED_DATA* data) {
 
 
 void* process_client_data(void* thread_data) {
-    SHARED_DATA* data = (SHARED_DATA*)thread_data;
+    THREAD_DATA* data = (THREAD_DATA*)thread_data;
 
     PASSIVE_SOCKET sock_passive;
     passive_socket_init(&sock_passive);
@@ -243,7 +244,7 @@ int main() {
     short port = 13029;
 
     ACTIVE_SOCKET my_socket;
-    SHARED_DATA data;
+    THREAD_DATA data;
 
     pthread_t th_receive;
     SIMULACIA simulacia;

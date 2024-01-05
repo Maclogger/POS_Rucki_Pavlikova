@@ -13,21 +13,21 @@ typedef struct pole {
 
 
 
-typedef struct shared_data_copy {
+typedef struct vlakno_data_copy {
     BUNKA** destBunky;
     BUNKA** srcBunky;
     int r;
     int pocetStlpcov;
-} SHARED_DATA_COPY;
+} VLAKNO_DATA_COPY;
 
-void shared_data_init(SHARED_DATA_COPY* data, BUNKA** dest, BUNKA** src, int r, int pocetStlpcov) {
+void vlakno_data_init(VLAKNO_DATA_COPY* data, BUNKA** dest, BUNKA** src, int r, int pocetStlpcov) {
     data->destBunky = dest;
     data->srcBunky = src;
     data->r = r;
     data->pocetStlpcov = pocetStlpcov;
 }
 
-void shared_data_destroy(SHARED_DATA_COPY* data) {
+void vlakno_data_destroy(VLAKNO_DATA_COPY* data) {
     free(data);
 }
 
@@ -47,12 +47,12 @@ void pole_init(POLE* pole, int pocetRiadkov, int pocetStlpcov) {
 }
 
 void* skopiruj_riadok(void* arg) {
-    SHARED_DATA_COPY* data = (SHARED_DATA_COPY*) arg;
+    VLAKNO_DATA_COPY* data = (VLAKNO_DATA_COPY*) arg;
 
     for (int s = 0; s < data->pocetStlpcov; s++) {
         bunka_copy_init(&data->destBunky[data->r][s], &data->srcBunky[data->r][s]);
     }
-    shared_data_destroy(data);
+    vlakno_data_destroy(data);
     return NULL;
 }
 
@@ -70,8 +70,8 @@ void pole_copy_init(POLE* dest, POLE* src) {
 
     for (int r = 0; r < dest->pocetRiadkov; r++) {
         dest->bunky[r] = (BUNKA*) calloc(dest->pocetStlpcov, sizeof(BUNKA));
-        SHARED_DATA_COPY* data = (SHARED_DATA_COPY*) malloc(sizeof(SHARED_DATA_COPY));
-        shared_data_init(data, dest->bunky, src->bunky, r, dest->pocetStlpcov);
+        VLAKNO_DATA_COPY* data = (VLAKNO_DATA_COPY*) malloc(sizeof(VLAKNO_DATA_COPY));
+        vlakno_data_init(data, dest->bunky, src->bunky, r, dest->pocetStlpcov);
         pthread_create(&vlakna[r], NULL, skopiruj_riadok, data);
     }
 

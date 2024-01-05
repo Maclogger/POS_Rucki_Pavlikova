@@ -20,18 +20,11 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d54bcfc-6103-4340-b857-5cefc6ad7ef4" name="Changes" comment="Spravené mazanie savov zo serveru">
+    <list default="true" id="5d54bcfc-6103-4340-b857-5cefc6ad7ef4" name="Changes" comment="Použitie mutexov.">
+      <change afterPath="$PROJECT_DIR$/Utilities/char_buffer_ll.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/.ninja_deps" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Logika/Simulacia.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Logika/Simulacia.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/vc140.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/vc140.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/Client.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/Client.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/Client.ilk" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/Client.ilk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/Client.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/Client.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/Testing/Temporary/LastTest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logika/bunka.c" beforeDir="false" afterPath="$PROJECT_DIR$/Logika/bunka.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Logika/pole.c" beforeDir="false" afterPath="$PROJECT_DIR$/Logika/pole.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Logika/simulacia.c" beforeDir="false" afterPath="$PROJECT_DIR$/Logika/simulacia.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
@@ -74,6 +67,7 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/rucki/Desktop/FRI/5. semester/POS/Semestralka/Projekt/Server/Utilities",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -83,13 +77,13 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\rucki\Desktop\FRI\5. semester\POS\Semestralka\Projekt\Server\Utilities" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Server" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Server" TARGET_NAME="Server" CONFIG_NAME="FRIOS" RUN_TARGET_PROJECT_NAME="Server" RUN_TARGET_NAME="Server">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -108,7 +102,8 @@
       <workItem from="1704162250261" duration="1411000" />
       <workItem from="1704201892671" duration="5295000" />
       <workItem from="1704291853967" duration="2000" />
-      <workItem from="1704385108237" duration="16814000" />
+      <workItem from="1704385108237" duration="17010000" />
+      <workItem from="1704458736593" duration="6254000" />
     </task>
     <task id="LOCAL-00001" summary="Spravena praca so subormi. Potrebuje este pracu.">
       <option name="closed" value="true" />
@@ -134,7 +129,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704321335223</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Použitie mutexov.">
+      <option name="closed" value="true" />
+      <created>1704410228630</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1704410228630</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -150,7 +153,8 @@
     <MESSAGE value="Spravena praca so subormi. Potrebuje este pracu." />
     <MESSAGE value="Opravený bug: pri prázdnom súbore, crashol program." />
     <MESSAGE value="Spravené mazanie savov zo serveru" />
-    <option name="LAST_COMMIT_MESSAGE" value="Spravené mazanie savov zo serveru" />
+    <MESSAGE value="Použitie mutexov." />
+    <option name="LAST_COMMIT_MESSAGE" value="Použitie mutexov." />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

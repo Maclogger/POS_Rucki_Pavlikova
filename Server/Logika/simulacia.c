@@ -1,6 +1,7 @@
 #include "vietor.c"
 #include "../PosSockets/char_buffer.h"
 #include "../Utilities/generator_nahody.c"
+#include "../Utilities/char_buffer_ll.c"
 
 #define KOLKO_VYDRZI_OHEN 5
 #define PRAVDEPODOBNOST_VETRU 25.0
@@ -143,7 +144,6 @@ void simulacia_serializuj_sa(SIMULACIA *sim, CHAR_BUFFER* odpoved) {
 }
 
 void simulacia_serializuj_sa_pre_save(SIMULACIA *sim, CHAR_BUFFER* odpoved) {
-
     // vracia: "cisloKroku;smerVetru;kolkoKratFukalVietor;pocetRiadkov;pocetStlpcov;S;kolkoHorelPoziar;S;kolkoHorelPoziar;V;kolkoHorelPoziar;L;kolkoHorelPoziar;L;kolkoHorelPoziar;U;kolkoHorelPoziar;...;S;kolkoHorelPoziar;V;kolkoHorelPoziar;"
     // smer vetru ako char iba.
 
@@ -226,159 +226,133 @@ BUNKA* getBunkuOkolia(POLE* pole, BUNKA* stred, int poradoveCislo) {
     return NULL;
 }
 
+typedef struct shared_data {
+    CHAR_BUFFER_LL buffer;
+    SIMULACIA* simulacia;
+    CHAR_BUFFER* buffer_odpoved;
 
-
-
-
-
-
-typedef struct shared_data_krok {
-    int pocetRiadkov;
-    int pocetStlpcov;
-    POLE* pole;
-    POLE* kopia;
-    SMER smerVetru;
     pthread_mutex_t mutex;
-} SHARED_DATA_KROK;
+    pthread_cond_t is_full;
+    pthread_cond_t is_empty;
+} SHARED_DATA;
 
-void shared_data_krok_init(SHARED_DATA_KROK* data, POLE* pole, POLE* kopia, SMER smerVetru) {
-    data->pole = pole;
-    data->kopia = kopia;
-    data->pocetStlpcov = pole->pocetStlpcov;
-    data->pocetRiadkov = pole->pocetRiadkov;
-    data->smerVetru = smerVetru;
+void shared_data_init(SHARED_DATA* data, SIMULACIA* simulacia, CHAR_BUFFER* buffer_odpoved) {
+    buffer_ll_init(&data->buffer, 10); // 10 : capacity buffra_ll
+    data->simulacia = simulacia;
+    data->buffer_odpoved = buffer_odpoved;
+
+    pthread_mutex_init(&data->mutex, NULL);
+    pthread_cond_init(&data->is_full, NULL);
+    pthread_cond_init(&data->is_empty, NULL);
 }
 
-typedef struct vlakno_data {
-    SHARED_DATA_KROK* data;
-    int r;
-} VLAKNO_DATA;
+void shared_data_destroy(SHARED_DATA* data) {
+    buffer_ll_destroy(&data->buffer);
 
-
-void vlakno_data_init(VLAKNO_DATA* vlaknoData, int r, SHARED_DATA_KROK* data) {
-    vlaknoData->r = r;
-    vlaknoData->data = data;
+    pthread_mutex_destroy(&data->mutex);
+    pthread_cond_destroy(&data->is_full);
+    pthread_cond_destroy(&data->is_empty);
 }
 
-void vlakno_data_destroy(VLAKNO_DATA* vlaknoData) {
-    free(vlaknoData);
-}
+void* consume(void* arg) {
+    SHARED_DATA* data = (SHARED_DATA*)arg;
 
+    for (int i = 0; i < data->simulacia->pole->pocetRiadkov * data->simulacia->pole->pocetStlpcov; i++) {
 
+        char pismenko;
 
-
-
-void* vykonaj_krok_riadok(void* arg) {
-    VLAKNO_DATA* vlaknoData = (VLAKNO_DATA*) arg;
-
-    for (int s = 0; s < vlaknoData->data->kopia->pocetStlpcov; s++) {
-        pthread_mutex_lock(&vlaknoData->data->mutex);
-        BUNKA* stredKopia = &vlaknoData->data->kopia->bunky[vlaknoData->r][s];
-        BUNKA* stred = &vlaknoData->data->pole->bunky[vlaknoData->r][s];
-        pthread_mutex_unlock(&vlaknoData->data->mutex);
-        if (stredKopia->typ == POZIAR) {
-            for (int i = 0; i < 4; i++) {
-                pthread_mutex_lock(&vlaknoData->data->mutex);
-                BUNKA* bunkaOkoliaKopia = getBunkuOkolia(vlaknoData->data->kopia, stredKopia, i);
-                BUNKA* bunkaOkolia = getBunkuOkolia(vlaknoData->data->pole, stred, i);
-                pthread_mutex_unlock(&vlaknoData->data->mutex);
-                if (bunkaOkoliaKopia != NULL) {
-                    // je v rámci mapy:
-                    if (bunkaOkoliaKopia->typ == LES || bunkaOkoliaKopia->typ == LUKA) {
-                        if (vlaknoData->data->smerVetru == BEZVETRIE) {
-                            if (getRandomDouble(0.0, 100.0) < 20.0) {
-                                pthread_mutex_lock(&vlaknoData->data->mutex);
-                                bunkaOkolia->typ = POZIAR;
-                                pthread_mutex_unlock(&vlaknoData->data->mutex);
-                            }
-                        } else {
-                            // ak veje vietor:
-                            if ((i == 0 && vlaknoData->data->smerVetru == SEVER) ||
-                                (i == 1 && vlaknoData->data->smerVetru == JUH) ||
-                                (i == 2 && vlaknoData->data->smerVetru == VYCHOD) ||
-                                (i == 3 && vlaknoData->data->smerVetru == ZAPAD)) {
-                                if (getRandomDouble(0.0, 100.0) < 90.0) {
-                                    pthread_mutex_lock(&vlaknoData->data->mutex);
-                                    bunkaOkolia->typ = POZIAR;
-                                    pthread_mutex_unlock(&vlaknoData->data->mutex);
-                                }
-                            } else {
-                                if (getRandomDouble(0.0, 100.0) < 2.0) {
-                                    pthread_mutex_lock(&vlaknoData->data->mutex);
-                                    bunkaOkolia->typ = POZIAR;
-                                    pthread_mutex_unlock(&vlaknoData->data->mutex);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            if ((stred->kolkoKrokovHorela >= KOLKO_VYDRZI_OHEN) && (getRandomDouble(0,100.0) < 30.0)) {
-                pthread_mutex_lock(&vlaknoData->data->mutex);
-                stred->typ = ZHORENA;
-                stred->kolkoKrokovHorela = 0;
-                pthread_mutex_unlock(&vlaknoData->data->mutex);
-            }
+        pthread_mutex_lock(&data->mutex);
+        while (!buffer_ll_try_remove_first(&data->buffer, &pismenko)) {
+            pthread_cond_wait(&data->is_full, &data->mutex);
         }
-        else if (stredKopia->typ == ZHORENA) {
-            for (int i = 0; i < 4; i++) {
-                pthread_mutex_lock(&vlaknoData->data->mutex);
-                BUNKA* okolnaKopia = getBunkuOkolia(vlaknoData->data->kopia, stredKopia, i);
-                pthread_mutex_unlock(&vlaknoData->data->mutex);
-                if (okolnaKopia != NULL && okolnaKopia->typ == VODA) {
-                    if (getRandomDouble(0.0, 100.0) < 10.0) {
-                        pthread_mutex_lock(&vlaknoData->data->mutex);
-                        stred->typ = LUKA;
-                        pthread_mutex_unlock(&vlaknoData->data->mutex);
-                    }
-                    break;
-                }
-            }
-        }
-        else if (stred->typ == LUKA) {
-            for (int i = 0; i < 4; i++) {
-                pthread_mutex_lock(&vlaknoData->data->mutex);
-                BUNKA* okolnaKopia = getBunkuOkolia(vlaknoData->data->kopia, stredKopia, i);
-                pthread_mutex_unlock(&vlaknoData->data->mutex);
-                if (okolnaKopia != NULL && okolnaKopia->typ == LES) {
-                    if (getRandomDouble(0.0, 100.0) < 2.0) {
-                        pthread_mutex_lock(&vlaknoData->data->mutex);
-                        stred->typ = LES;
-                        pthread_mutex_unlock(&vlaknoData->data->mutex);
-                    }
-                    break;
-                }
-            }
-        }
-        pthread_mutex_lock(&vlaknoData->data->mutex);
-        aktualizujSa(stred);
-        pthread_mutex_unlock(&vlaknoData->data->mutex);
+        pthread_mutex_unlock(&data->mutex);
+        pthread_cond_signal(&data->is_empty);
+
+        char temp[50];
+        sprintf(temp, "%c;", pismenko);
+
+        char_buffer_append(data->buffer_odpoved, temp, strlen(temp));
     }
-    vlakno_data_destroy(vlaknoData);
 }
 
-
-
-_Bool vykonaj_krok(SIMULACIA* sim) {
+_Bool vykonaj_krok(SHARED_DATA* data) {
+    SIMULACIA* sim = data->simulacia;
     sim->cisloKroku++;
 
     POLE* kopia = (POLE*)malloc(sizeof(POLE));
     pole_copy_init(kopia, sim->pole);
 
+    // požiar a zhorene:
+    for (int r = 0; r < kopia->pocetRiadkov; r++) {
+        for (int s = 0; s < kopia->pocetStlpcov; s++) {
+            BUNKA* stredKopia = &kopia->bunky[r][s];
+            BUNKA* stred = &sim->pole->bunky[r][s];
+            if (stredKopia->typ == POZIAR) {
+                for (int i = 0; i < 4; i++) {
+                    BUNKA* bunkaOkoliaKopia = getBunkuOkolia(kopia, stredKopia, i);
+                    BUNKA* bunkaOkolia = getBunkuOkolia(sim->pole, stred, i);
+                    if (bunkaOkoliaKopia != NULL) {
+                        // je v rámci mapy:
+                        if (bunkaOkoliaKopia->typ == LES || bunkaOkoliaKopia->typ == LUKA) {
+                            if (sim->smerVetru == BEZVETRIE) {
+                                if (getRandomDouble(0.0, 100.0) < 20.0) {
+                                    bunkaOkolia->typ = POZIAR;
+                                }
+                            } else {
+                                // ak veje vietor:
+                                if ((i == 0 && sim->smerVetru == SEVER) ||
+                                    (i == 1 && sim->smerVetru == JUH) ||
+                                    (i == 2 && sim->smerVetru == VYCHOD) ||
+                                    (i == 3 && sim->smerVetru == ZAPAD)) {
 
-    pthread_t vlakna[sim->pole->pocetRiadkov];
+                                    if (getRandomDouble(0.0, 100.0) < 90.0) {
+                                        bunkaOkolia->typ = POZIAR;
+                                    }
+                                } else {
+                                    if (getRandomDouble(0.0, 100.0) < 2.0) {
+                                        bunkaOkolia->typ = POZIAR;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if ((stred->kolkoKrokovHorela >= KOLKO_VYDRZI_OHEN) && (getRandomDouble(0,100.0) < 30.0)) {
+                    stred->typ = ZHORENA;
+                    stred->kolkoKrokovHorela = 0;
+                }
+            }
+            else if (stredKopia->typ == ZHORENA) {
+                for (int i = 0; i < 4; i++) {
+                    BUNKA* okolnaKopia = getBunkuOkolia(kopia, stredKopia, i);
+                    if (okolnaKopia != NULL && okolnaKopia->typ == VODA) {
+                        if (getRandomDouble(0.0, 100.0) < 10.0) {
+                            stred->typ = LUKA;
+                        }
+                        break;
+                    }
+                }
+            }
+            else if (stred->typ == LUKA) {
+                for (int i = 0; i < 4; i++) {
+                    BUNKA* okolnaKopia = getBunkuOkolia(kopia, stredKopia, i);
+                    if (okolnaKopia != NULL && okolnaKopia->typ == LES) {
+                        if (getRandomDouble(0.0, 100.0) < 2.0) {
+                            stred->typ = LES;
+                        }
+                        break;
+                    }
+                }
+            }
+            aktualizujSa(stred);
 
-    SHARED_DATA_KROK data;
-    shared_data_krok_init(&data, sim->pole, kopia, sim->smerVetru);
-
-    for (int r = 0; r < sim->pole->pocetRiadkov; r++) {
-        VLAKNO_DATA* vlaknoData = (VLAKNO_DATA*) malloc(sizeof(VLAKNO_DATA));
-        vlakno_data_init(vlaknoData, r, &data);
-        pthread_create(&vlakna[r], NULL, vykonaj_krok_riadok, vlaknoData);
-    }
-
-    for (int r = 0; r < sim->pole->pocetRiadkov; r++) {
-        pthread_join(vlakna[r], NULL);
+            pthread_mutex_lock(&data->mutex);
+            while (!buffer_ll_try_add(&data->buffer, TYPY_BUNKY_ZNAKY[stred->typ])) {
+                pthread_cond_wait(&data->is_empty, &data->mutex);
+            }
+            pthread_mutex_unlock(&data->mutex);
+            pthread_cond_signal(&data->is_full);
+        }
     }
 
     // smer vetru:
@@ -407,4 +381,31 @@ _Bool vykonaj_krok(SIMULACIA* sim) {
     pole_destroy(kopia);
     free(kopia);
     return 1;
+}
+
+void simulacia_vykonaj_krok_a_serializuj_sa(SIMULACIA* sim, CHAR_BUFFER* buf) {
+
+    // vracia: "0;cisloKroku;smerVetru;pocetRiadkov;pocetStlpcov;S;S;V;L;L;U;...;S;V;"
+
+    CHAR_BUFFER bufTemp;
+    char_buffer_init(&bufTemp);
+
+    SHARED_DATA data;
+    shared_data_init(&data, sim, &bufTemp);
+
+    pthread_t consument;
+    pthread_create(&consument, NULL, consume, &data);
+
+    vykonaj_krok(&data);
+
+    pthread_join(consument, NULL);
+    shared_data_destroy(&data);
+
+    char temp[200];
+    sprintf(temp, "0;%d;%c;%d;%d;", sim->cisloKroku, SMER_POPISY[sim->smerVetru], sim->pole->pocetRiadkov, sim->pole->pocetStlpcov);
+    char_buffer_append(buf, temp, strlen(temp));
+
+    char_buffer_append(buf, bufTemp.data, bufTemp.size);
+
+    char_buffer_destroy(&bufTemp);
 }
