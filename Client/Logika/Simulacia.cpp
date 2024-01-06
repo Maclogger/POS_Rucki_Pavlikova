@@ -3,8 +3,8 @@
 //
 
 #include "Simulacia.h"
-#include "winsock2.h"
 #include "Serializator.h"
+
 
 Simulacia::Simulacia(int pocetRiadkov, int pocetStlpcov) {
     this->pocetRiadkov  = pocetRiadkov;
@@ -88,26 +88,6 @@ Simulacia::~Simulacia() {
 }
 
 void Simulacia::vypisSa() {
-    WORD zelena = FOREGROUND_GREEN | FOREGROUND_INTENSITY;
-    WORD ruzova = FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY;
-    WORD modra = FOREGROUND_BLUE | FOREGROUND_INTENSITY;
-    WORD cervena = FOREGROUND_RED | FOREGROUND_INTENSITY;
-    WORD zlta = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY;
-    WORD tmavoSeda = FOREGROUND_INTENSITY;
-
-    WORD svetloModra = FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY;
-    WORD tmavoModra = FOREGROUND_BLUE;
-    WORD svetloZelena = FOREGROUND_GREEN | FOREGROUND_INTENSITY;
-    WORD tmavoZelena = FOREGROUND_GREEN;
-    WORD tmavoCervena = FOREGROUND_RED;
-    WORD svetloZlta = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY;
-    WORD tmavoZlta = FOREGROUND_RED | FOREGROUND_GREEN;
-    WORD tmavoRuzova = FOREGROUND_RED | FOREGROUND_BLUE;
-    WORD svetloFialova = FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY;
-    WORD tmavoFialova = FOREGROUND_BLUE | FOREGROUND_INTENSITY;
-    WORD biela = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY;
-    WORD tmavoSiva = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
-    WORD cierne = 0;
 
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -306,7 +286,6 @@ void Simulacia::nastavPolicko(int r, int s, char znak) {
     this->pole[r][s] = znak;
 }
 
-
 void Simulacia::vygenerujMapuPodlaPravdepodobnostiOdUzivatela() {
     cout << "Zadajte pravdepodobnosti pre typy policok." << endl;
     int lukaPrav = ZistovacOdpovedi::vypytajCislo("Zadajte pravdepodobnost luky 1/5: ", 0, 100);
@@ -321,9 +300,8 @@ void Simulacia::vygenerujMapuPodlaPravdepodobnostiOdUzivatela() {
     cout << "Les - " << to_string(lesPrav) << "%" << endl;
     cout << "Skala - " << to_string(skalaPrav) << "%" << endl;
     cout << "Voda - " << to_string(vodaPrav) << "%" << endl;
-    cout << "Požiar - " << to_string(ohenPrav) << "%" << endl;
+    cout << "Poziar - " << to_string(ohenPrav) << "%" << endl;
 }
-
 
 int Simulacia::getPocetRiadkov() const {
     return this->pocetRiadkov;

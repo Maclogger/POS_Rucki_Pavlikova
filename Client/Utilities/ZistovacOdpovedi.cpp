@@ -4,15 +4,16 @@
 
 #include "ZistovacOdpovedi.h"
 
-
 int ZistovacOdpovedi::vypisMenu(const string& otazka, vector<string>& moznosti) {
+
     cout << otazka << endl;
     for (int i = 0; i < moznosti.size(); i++) {
-        cout << "[" << i << "] - " << moznosti[i] << endl;
+        cout << "[" << i << "]: ";
+        cout << moznosti[i] << endl;
     }
 
     while(true) {
-        cout << "Zadajte moznost:";
+        cout << endl << "Zadajte moznost:";
         int odpoved;
         cin >> odpoved;
 
@@ -82,7 +83,7 @@ bool ZistovacOdpovedi::ziskajBoolean(const string& otazka) {
 int ZistovacOdpovedi::vypisMenuSBackom(const string &otazka, const vector<string>& moznosti) {
     // vráti index vybranej otázky. Ak vyberie späť tak vráti -1;
     vector<string> moznostiNove;
-    moznostiNove.emplace_back("<- Naspat <-");
+    moznostiNove.emplace_back("<- NASPAT <-");
     for (const string &item: moznosti) {
         moznostiNove.emplace_back(item);
     }

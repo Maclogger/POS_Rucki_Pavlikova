@@ -13,6 +13,7 @@ add_executable(Client main.cpp Utilities/ZistovacOdpovedi.cpp
         Logika/Serializator.h
         Utilities/SpravcaSuborov.cpp
         Utilities/SpravcaSuborov.h
+        Utilities/Farby.h
 )
 
 # Linkujte s Winsock knižnicou

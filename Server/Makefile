@@ -5,7 +5,7 @@ CC=gcc
 CFLAGS=-pthread
 
 # Zdrojové súbory
-SOURCES=main.c PosSockets/passive_socket.c PosSockets/active_socket.c PosSockets/char_buffer.c
+SOURCES=main.c PosSockets/passive_socket.c PosSockets/active_socket.c PosSockets/cha
 
 # Cieľový spustiteľný súbor
 TARGET=main
@@ -15,9 +15,8 @@ all: $(TARGET)
 
 # Pravidlo na vytvorenie cieľa
 $(TARGET):
-	$(CC) -o $(TARGET) $(SOURCES) $(CFLAGS)
+        $(CC) -o $(TARGET) $(SOURCES) $(CFLAGS)
 
 # Pravidlo clean na vyčistenie projektu
 clean:
-	rm -f $(TARGET)
-
+        rm -f $(TARGET)

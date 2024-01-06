@@ -2,8 +2,6 @@
 #include "char_buffer.h"
 #include <stdbool.h>
 #include <stdio.h>
-#include <sys/socket.h>
-#include <arpa/inet.h>
 #include <unistd.h>
 #include <string.h>
 #include <strings.h>

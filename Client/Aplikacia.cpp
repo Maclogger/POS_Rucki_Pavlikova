@@ -18,10 +18,7 @@ Aplikacia::~Aplikacia() {
 
 void Aplikacia::hlavneMenu() {
     while (true) {
-        cout << "\n\n      Simulacia POZIAR\n";
-        cout << "          Vytvoril:\n";
-        cout << "Agata Pavlikova & Marek Rucki\n\n";
-
+        vypisNadpis();
         vector<string> moznosti;
         moznosti.emplace_back("Vytvor novu simulaciu");
         moznosti.emplace_back("Vybrat simulaciu zo savov ulozenych na serveri");
@@ -59,10 +56,26 @@ void Aplikacia::hlavneMenu() {
                 cout << "Simulacia nebola nacitana z lokalneho suboru. Pravdepodobne zly format vstupu." << endl;
             }
         } else {
-            cout << endl << "Prebieha convenience. Dovidenia :)" << endl;
+            cout << endl << "Prebieha ukoncenie. Dovidenia :)" << endl;
             return;
         }
     }
+}
+
+void Aplikacia::vypisNadpis() const {
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    cout << "\n\n      Simulacia ";
+    SetConsoleTextAttribute(hConsole, cervena);
+    cout << "POZIAR\n";
+    SetConsoleTextAttribute(hConsole, biela);
+    cout << "          Vytvoril:\n";
+    SetConsoleTextAttribute(hConsole, ruzova);
+    cout << "Agata Pavlikova ";
+    SetConsoleTextAttribute(hConsole, biela);
+    cout << "& ";
+    SetConsoleTextAttribute(hConsole, modra);
+    cout << "Marek Rucki\n\n";
+    SetConsoleTextAttribute(hConsole, biela);
 }
 
 string Aplikacia::getNazovSavu() {

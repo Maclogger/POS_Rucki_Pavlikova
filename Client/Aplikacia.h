@@ -5,13 +5,11 @@
 #ifndef CLIENT_APLIKACIA_H
 #define CLIENT_APLIKACIA_H
 
-
 #include "Utilities/ZistovacOdpovedi.h"
 #include "Logika/Simulacia.h"
 #include "Utilities/ServerKomunikator.h"
 #include "Logika/Serializator.h"
 #include "Utilities/SpravcaSuborov.h"
-
 
 #include <iostream>
 #include <vector>
@@ -40,6 +38,8 @@ private:
     string getNazovSavu();
 
     void zmazatSave(const string &nazovSavu);
+
+    void vypisNadpis() const;
 };
 
 

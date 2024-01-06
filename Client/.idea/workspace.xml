@@ -21,51 +21,54 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1b26aded-469c-481a-b7c6-4543b8de9c14" name="Changes" comment="Zmena farbičiek. A funkčné lokálne súbory.">
+      <change afterPath="$PROJECT_DIR$/Utilities/Farby.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Aplikacia.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Aplikacia.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Aplikacia.h" beforeDir="false" afterPath="$PROJECT_DIR$/Aplikacia.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logika/PravdepodobnostiPolicok.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Logika/PravdepodobnostiPolicok.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Logika/PravdepodobnostiPolicok.h" beforeDir="false" afterPath="$PROJECT_DIR$/Logika/PravdepodobnostiPolicok.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logika/Serializator.h" beforeDir="false" afterPath="$PROJECT_DIR$/Logika/Serializator.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Logika/Simulacia.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Logika/Simulacia.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Logika/Simulacia.h" beforeDir="false" afterPath="$PROJECT_DIR$/Logika/Simulacia.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PosSockets/my_socket.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PosSockets/my_socket.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utilities/ServerKomunikator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Utilities/ServerKomunikator.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utilities/ServerKomunikator.h" beforeDir="false" afterPath="$PROJECT_DIR$/Utilities/ServerKomunikator.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Utilities/ZistovacOdpovedi.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Utilities/ZistovacOdpovedi.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utilities/ZistovacOdpovedi.h" beforeDir="false" afterPath="$PROJECT_DIR$/Utilities/ZistovacOdpovedi.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/.cmake/api/v1/reply/cmakeFiles-v1-45563e63fd740b7f6d36.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/.cmake/api/v1/reply/codemodel-v2-45d6e026b78df8216110.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/.cmake/api/v1/reply/index-2024-01-04T16-15-28-0422.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/.cmake/api/v1/reply/target-Client-Debug-ec5a4afbe5a0de129c65.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-windows/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-windows/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/3.26.4/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/3.26.4/CMakeDetermineCompilerABI_CXX.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/3.26.4/CompilerIdCXX/CMakeCXXCompilerId.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/3.26.4/CompilerIdCXX/CMakeCXXCompilerId.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/3.26.4/CompilerIdCXX/CMakeCXXCompilerId.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/3.26.4/CompilerIdCXX/CMakeCXXCompilerId.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/CMakeConfigureLog.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/CMakeConfigureLog.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Aplikacia.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Aplikacia.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Logika/PravdepodobnostiPolicok.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Logika/PravdepodobnostiPolicok.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Logika/Serializator.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Logika/Serializator.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Logika/Simulacia.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Logika/Simulacia.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/PosSockets/my_socket.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/PosSockets/my_socket.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Utilities/ServerKomunikator.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Utilities/ServerKomunikator.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Utilities/SpravcaSuborov.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Utilities/SpravcaSuborov.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Utilities/ZistovacOdpovedi.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/Utilities/ZistovacOdpovedi.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/main.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/main.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/vc140.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/Client.dir/vc140.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/ShowIncludes/main.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/ShowIncludes/main.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/clion-Windows-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/CMakeFiles/clion-Windows-log.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-windows/Client.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/Client.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-windows/Client.ilk" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/Client.ilk" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-windows/Client.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/Client.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/Makefile" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-windows/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-windows/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-windows/build.ninja" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lokalny.txt" beforeDir="false" afterPath="$PROJECT_DIR$/lokalny.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/.idea/deployment.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Checkout_at_3__1__2024_15_53_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Checkout_at_3__1__2024_15_53__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Checkout_at_3__1__2024_17_26_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Checkout_at_3__1__2024_17_26_[Changes]1/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Checkout_at_3__1__2024_17_26__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Checkout_at_3__1__2024_17_26__Changes_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Merge_at_3__1__2024_22_26_[Changes]/.ninja_deps" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Merge_at_3__1__2024_22_26_[Changes]/Aplikacia.cpp.obj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Merge_at_3__1__2024_22_26_[Changes]/Client.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Merge_at_3__1__2024_22_26_[Changes]/Client.ilk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Merge_at_3__1__2024_22_26_[Changes]/Client.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Merge_at_3__1__2024_22_26_[Changes]/PravdepodobnostiPolicok.cpp.obj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Merge_at_3__1__2024_22_26_[Changes]/Serializator.cpp.obj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Merge_at_3__1__2024_22_26_[Changes]/ServerKomunikator.cpp.obj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Merge_at_3__1__2024_22_26_[Changes]/Simulacia.cpp.obj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Merge_at_3__1__2024_22_26_[Changes]/ZistovacOdpovedi.cpp.obj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Merge_at_3__1__2024_22_26_[Changes]/main.cpp.obj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Merge_at_3__1__2024_22_26_[Changes]/my_socket.cpp.obj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Merge_at_3__1__2024_22_26_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/.idea/shelf/Uncommitted_changes_before_Merge_at_3__1__2024_22_26_[Changes]/vc140.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/Logika/simulacia.c" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Logika/simulacia.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/Utilities/spravca.c" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/Utilities/spravca.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/PosSockets/active_socket.c" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/PosSockets/active_socket.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeCache.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeFiles/3.18.4/CMakeCCompiler.cmake" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/cmake-build-frios/CMakeFiles/3.18.4/CMakeSystem.cmake" beforeDir="false" />
@@ -144,6 +147,11 @@
   }
 }</component>
   <component name="RunManager">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Client" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Client" TARGET_NAME="Client" CONFIG_NAME="Windows" RUN_TARGET_PROJECT_NAME="Client" RUN_TARGET_NAME="Client">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -166,7 +174,9 @@
       <workItem from="1704383429598" duration="15281000" />
       <workItem from="1704458726778" duration="1817000" />
       <workItem from="1704469951728" duration="2969000" />
-      <workItem from="1704489676380" duration="4573000" />
+      <workItem from="1704489676380" duration="10037000" />
+      <workItem from="1704551428019" duration="513000" />
+      <workItem from="1704552442598" duration="6221000" />
     </task>
     <task id="LOCAL-00001" summary="Zaciatok prace na vláknach pri spravocani simulacie">
       <option name="closed" value="true" />
@@ -226,9 +236,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Logika/Serializator.cpp</url>
-          <line>28</line>
-          <option name="timeStamp" value="1" />
+          <url>file://$PROJECT_DIR$/main.cpp</url>
+          <line>34</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

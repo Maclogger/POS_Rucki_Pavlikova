@@ -34,7 +34,7 @@
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 19,
+				"line" : 20,
 				"parent" : 0
 			}
 		]
@@ -124,7 +124,8 @@
 				6,
 				8,
 				10,
-				12
+				12,
+				13
 			]
 		}
 	],
@@ -202,6 +203,11 @@
 		{
 			"backtrace" : 1,
 			"path" : "Utilities/SpravcaSuborov.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Utilities/Farby.h",
 			"sourceGroupIndex" : 1
 		}
 	],

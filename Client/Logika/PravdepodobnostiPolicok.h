@@ -1,10 +1,13 @@
 //
 // Created by rucki on 26. 12. 2023.
 //
+
+#ifndef CLIENT_PRAVDEPODOBNOSTIPOLICOK_H
+#define CLIENT_PRAVDEPODOBNOSTIPOLICOK_H
+
 #include <iostream>
 #include <string>
 using namespace std;
-
 
 class PravdepodobnostiPolicok {
 private:
@@ -19,21 +22,13 @@ public:
 
     int getLukaPrav() const;
 
-    void setLukaPrav(int lukaPrav);
-
     int getLesPrav() const;
-
-    void setLesPrav(int lesPrav);
 
     int getSkalaPrav() const;
 
-    void setSkalaPrav(int skalaPrav);
-
     int getVodaPrav() const;
-
-    void setVodaPrav(int vodaPrav);
 
     ~PravdepodobnostiPolicok();
 };
 
-
+#endif //CLIENT_PRAVDEPODOBNOSTIPOLICOK_H

@@ -92,7 +92,6 @@ std::string MySocket::receiveData() {
     const int bufferSize = 1024;  // Veľkosť bufferu pre prijímané dáta
     char buffer[bufferSize];      // Buffer na ukladanie prijatých dát
     std::string receivedData;     // Reťazec na ukladanie výslednej správy
-
     while (true) {
         memset(buffer, 0, bufferSize); // Vynulovanie bufferu
 
@@ -100,11 +99,7 @@ std::string MySocket::receiveData() {
         int bytesReceived = recv(connectSocket, buffer, bufferSize, 0);
         if (bytesReceived == SOCKET_ERROR) {
             std::cerr << "Chyba pri prijimani dat: " << WSAGetLastError() << std::endl;
-            break;  // V prípade chyby ukončiť slučku
-        }
-        if (bytesReceived == 0) {
-            std::cout << "Spojenie bolo ukoncene" << std::endl;
-            break;  // Ukončenie, ak je spojenie zatvorené
+            break;
         }
 
         // Pridanie prijatých dát do výsledného reťazca
@@ -115,16 +110,12 @@ std::string MySocket::receiveData() {
             break;
         }
     }
-
     // Odstránenie ukončovacieho znaku z výsledného reťazca
     size_t terminatePos = receivedData.find(SOCKET_TERMINATE_CHAR);
     if (terminatePos != std::string::npos) {
         receivedData.erase(terminatePos);
     }
-
     return receivedData;
 }
-
-
 
 #undef SOCKET_TERMINATE_CHAR

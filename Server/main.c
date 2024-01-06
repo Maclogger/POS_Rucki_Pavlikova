@@ -55,7 +55,6 @@ int getCisloPrikazu(CHAR_BUFFER *buf) {
     return -1;
 }
 
-
 void skus_ziskat_spravu(THREAD_DATA* data) {
     CHAR_BUFFER buf;
     char_buffer_init(&buf);
@@ -220,7 +219,6 @@ void skus_ziskat_spravu(THREAD_DATA* data) {
     }
     char_buffer_destroy(&buf);
 }
-
 
 void* process_client_data(void* thread_data) {
     THREAD_DATA* data = (THREAD_DATA*)thread_data;
