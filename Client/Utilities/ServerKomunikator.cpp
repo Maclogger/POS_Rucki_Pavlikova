@@ -6,19 +6,22 @@
 
 ServerKomunikator::ServerKomunikator(const string& ip, short port) {
     cout << "Prebieha pokus o pripojenie..." << endl;
-    this->socket = MySocket::createConnection(ip, port);
-    if (this->socket != nullptr) {
-        cout << "Pripojenie na server prebehlo uspesne. :D" << endl;
-        this->pripojeny = true;
-    } else {
+    try {
+        this->socket = MySocket::createConnection(ip, port);
+    } catch (const std::runtime_error& e) {
         cout << "Pripojenie na server prebehlo neuspesne. :(" << endl;
         this->pripojeny = false;
+        return;
     }
+    cout << "Pripojenie na server prebehlo uspesne. :D" << endl;
+    this->pripojeny = true;
 }
 
 ServerKomunikator::~ServerKomunikator() {
-    this->socket->sendEndMessage();
-    delete this->socket;
+    if (this->jePripojeny()) {
+        this->socket->sendEndMessage();
+        delete this->socket;
+    }
     this->socket = nullptr;
 }
 
