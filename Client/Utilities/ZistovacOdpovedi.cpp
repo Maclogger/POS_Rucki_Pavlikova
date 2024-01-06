@@ -64,7 +64,7 @@ char ZistovacOdpovedi::getZnakPolickaOdUzivatela() {
     return 'P';
 }
 
-string ZistovacOdpovedi::vypitajString(const string &otazka) {
+string ZistovacOdpovedi::vypytajString(const string &otazka) {
     cout << otazka;
     string odpoved;
     cin >> odpoved;

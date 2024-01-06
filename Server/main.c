@@ -66,6 +66,7 @@ void skus_ziskat_spravu(THREAD_DATA* data) {
         if (active_socket_is_end_message(data->my_socket, &buf)) {
             active_socket_stop_reading(data->my_socket);
             data->jeKoniecKomunikacie = true;
+            char_buffer_destroy(&buf);
             return;
         }
 
@@ -74,6 +75,9 @@ void skus_ziskat_spravu(THREAD_DATA* data) {
         switch(cisloPrikazu) {
             case 0: {
                 // vytvorenie novej simulacie podla spravy
+                if (data->simulacia->initialized) {
+                    simulacia_destroy(data->simulacia);
+                }
                 simulacia_init_podla_spravy_vytvorenia(data->simulacia); // ono ten strtok si to prenasa sam ten string, netreba prenasat znova buffer
                 char_buffer_clear(&buf);
                 simulacia_serializuj_sa(data->simulacia, &buf);
@@ -164,6 +168,9 @@ void skus_ziskat_spravu(THREAD_DATA* data) {
 
                 // ignoracia nazvu savu:
                 strtok(stringZoSuboru.data, ";");
+                if (data->simulacia->initialized) {
+                    simulacia_destroy(data->simulacia);
+                }
                 simulacia_init_podla_celkoveho_stringu(data->simulacia, &stringZoSuboru);
 
                 char_buffer_clear(&buf);
@@ -172,6 +179,7 @@ void skus_ziskat_spravu(THREAD_DATA* data) {
                 char_buffer_append(&buf, "\0", 1);
                 active_socket_write_data(data->my_socket, &buf);
 
+                char_buffer_destroy(&stringZoSuboru);
                 spravca_destroy(&spravca);
                 break;
             }
@@ -192,6 +200,9 @@ void skus_ziskat_spravu(THREAD_DATA* data) {
             }
             case 8: {
                 // vytvorMapuPodlaLokalnehoSuboru
+                if (data->simulacia->initialized) {
+                    simulacia_destroy(data->simulacia);
+                }
                 simulacia_init_podla_celkoveho_stringu(data->simulacia, &buf);
                 char_buffer_clear(&buf);
                 simulacia_serializuj_sa(data->simulacia, &buf);
@@ -235,11 +246,10 @@ void* process_client_data(void* thread_data) {
     active_socket_start_reading(data->my_socket);
 }
 
-
 int main() {
     srand(time(NULL));
 
-    short port = 13029;
+    short port = 13028;
 
     ACTIVE_SOCKET my_socket;
     THREAD_DATA data;

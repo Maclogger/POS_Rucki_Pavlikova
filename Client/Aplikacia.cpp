@@ -50,6 +50,7 @@ void Aplikacia::hlavneMenu() {
             string odpovedZoServera = this->serverKomunikator->posliSpravu(spravaPreServer);
             if (Serializator::jeSpravaOk(odpovedZoServera)) {
                 cout << "Simulacia bola uspesne nacitana z lokalneho suboru." << endl;
+                delete this->simulacia;
                 this->simulacia = new Simulacia(odpovedZoServera);
                 this->spustiSimulaciu();
             } else {
@@ -153,7 +154,7 @@ void Aplikacia::spustiSimulaciu() {
             string odpovedZoServera = this->serverKomunikator->posliSpravu(prikaz);
             Serializator::deserializujOdpovedSimulacie(this->simulacia, odpovedZoServera);
         } else if (odpoved == 2) {
-            string nazovNaUlozenie = ZistovacOdpovedi::vypitajString("Zadajte nazov pre ulozenie: ");
+            string nazovNaUlozenie = ZistovacOdpovedi::vypytajString("Zadajte nazov pre ulozenie: ");
             string prikaz = "ulozMapu;" + nazovNaUlozenie + ";";
             string odpovedZoServera = this->serverKomunikator->posliSpravu(prikaz);
             if (Serializator::jeSpravaOk(odpovedZoServera)) {
@@ -201,7 +202,6 @@ void Aplikacia::vykonajNKrokov(int n) {
     string odpovedZoServera = this->serverKomunikator->posliSpravu("vykonajNKrokov;" + to_string(n) + ";");
     Serializator::deserializujOdpovedSimulacie(this->simulacia, odpovedZoServera);
 }
-
 
 
 

@@ -1,9 +1,11 @@
 //
 // Created by agata on 26. 12. 2023.
 //
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
 
 #include "Aplikacia.h"
-
 
 using  namespace std;
 
@@ -32,8 +34,11 @@ odpovede:
  */
 
 int main() {
+    #ifdef _DEBUG
+        _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    #endif
     string ip = "frios2.fri.uniza.sk";
-    short port = 13029;
+    short port = 13028;
     Aplikacia aplikacia(ip, port);
     cout << endl;
     system("pause");

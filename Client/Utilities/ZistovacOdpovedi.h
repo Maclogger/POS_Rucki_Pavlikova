@@ -9,7 +9,6 @@
 #include <iostream>
 #include <limits>
 
-
 using namespace  std;
 
 class ZistovacOdpovedi {
@@ -20,7 +19,7 @@ public:
 
     static char getZnakPolickaOdUzivatela();
 
-    static string vypitajString(const string& otazka);
+    static string vypytajString(const string& otazka);
 
     static bool ziskajBoolean(const string& otazka);
 
