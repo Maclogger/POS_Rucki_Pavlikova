@@ -20,42 +20,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="212681e1-8c89-4118-a850-f7651ac6a72d" name="Changes" comment="Opravené bugy týkajúce sa ukladania súborov a detaily vzhľadu.">
+    <list default="true" id="212681e1-8c89-4118-a850-f7651ac6a72d" name="Changes" comment="Opravené všetky memory leaky.">
       <change beforePath="$PROJECT_DIR$/../Client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/Aplikacia.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/Aplikacia.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/Utilities/ZistovacOdpovedi.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/Utilities/ZistovacOdpovedi.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/Utilities/ZistovacOdpovedi.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/Utilities/ZistovacOdpovedi.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/.cmake/api/v1/reply/cache-v2-81c2c108f6b80d1f2d0c.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/.cmake/api/v1/reply/cmakeFiles-v1-dc735e955ba4ed2754ed.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/.cmake/api/v1/reply/codemodel-v2-cae1705ee432fd1fdcd7.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/.cmake/api/v1/reply/index-2024-01-06T15-25-39-0941.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/.cmake/api/v1/reply/target-Client-Debug-e5af912debd24ac208e8.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/.ninja_deps" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Aplikacia.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Aplikacia.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Logika/PravdepodobnostiPolicok.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Logika/PravdepodobnostiPolicok.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Logika/Serializator.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Logika/Serializator.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Logika/Simulacia.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Logika/Simulacia.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/PosSockets/my_socket.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/PosSockets/my_socket.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Utilities/ServerKomunikator.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Utilities/ServerKomunikator.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Utilities/SpravcaSuborov.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Utilities/SpravcaSuborov.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Utilities/ZistovacOdpovedi.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/Utilities/ZistovacOdpovedi.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/main.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/main.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/vc140.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/Client.dir/vc140.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/clion-Windows-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/clion-Windows-log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/rules.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/CMakeFiles/rules.ninja" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/Client.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/Client.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/Client.ilk" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/Client.ilk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/Client.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/Client.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/Testing/Temporary/LastTest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/cmake-build-windows/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/cmake-build-windows/build.ninja" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/lokalny.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/lokalny.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lokalny.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../lokalny.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,7 +91,8 @@
       <workItem from="1704489640519" duration="7548000" />
       <workItem from="1704548388832" duration="38000" />
       <workItem from="1704550096210" duration="1830000" />
-      <workItem from="1704568151312" duration="3409000" />
+      <workItem from="1704568151312" duration="4638000" />
+      <workItem from="1704711930673" duration="1000" />
     </task>
     <task id="LOCAL-00001" summary="Opravené bugy týkajúce sa ukladania súborov a detaily vzhľadu.">
       <option name="closed" value="true" />
@@ -133,7 +102,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704495559266</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Opravené všetky memory leaky.">
+      <option name="closed" value="true" />
+      <created>1704574834026</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1704574834026</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -147,6 +124,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Opravené bugy týkajúce sa ukladania súborov a detaily vzhľadu." />
-    <option name="LAST_COMMIT_MESSAGE" value="Opravené bugy týkajúce sa ukladania súborov a detaily vzhľadu." />
+    <MESSAGE value="Opravené všetky memory leaky." />
+    <option name="LAST_COMMIT_MESSAGE" value="Opravené všetky memory leaky." />
   </component>
 </project>
